@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { parseKeywords } from "@/lib/sources";
+import { parseIntent } from "@/lib/sources";
 
 type Params = { params: Promise<{ id: string }> };
 
@@ -16,7 +16,7 @@ export async function PATCH(request: Request, { params }: Params) {
 
   const { id } = await params;
 
-  let body: { status?: unknown; include?: unknown; exclude?: unknown };
+  let body: { status?: unknown; intent?: unknown };
   try {
     body = (await request.json()) as typeof body;
   } catch {
@@ -28,11 +28,12 @@ export async function PATCH(request: Request, { params }: Params) {
   if (body.status === "active" || body.status === "paused") {
     update.status = body.status;
   }
-  if (typeof body.include === "string") {
-    update.include_keywords = parseKeywords(body.include);
-  }
-  if (typeof body.exclude === "string") {
-    update.exclude_keywords = parseKeywords(body.exclude);
+  if (typeof body.intent === "string") {
+    const parsed = parseIntent(body.intent);
+    if ("error" in parsed) {
+      return NextResponse.json({ ok: false, error: parsed.error }, { status: 400 });
+    }
+    update.intent = parsed.intent;
   }
 
   if (Object.keys(update).length === 0) {
