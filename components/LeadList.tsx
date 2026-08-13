@@ -122,17 +122,8 @@ export function LeadList({
                 {lead.content}
               </blockquote>
 
-              {lead.matched_keywords.length > 0 && (
-                <div className="mt-3 flex flex-wrap gap-1.5">
-                  {lead.matched_keywords.map((word) => (
-                    <span
-                      key={word}
-                      className="rounded-md bg-signal/12 px-2 py-0.5 text-[11px] text-signal-bright"
-                    >
-                      {word}
-                    </span>
-                  ))}
-                </div>
+              {lead.match_reason && (
+                <p className="mt-3 text-xs italic text-ash">{lead.match_reason}</p>
               )}
 
               <div className="mt-5 flex flex-wrap items-center gap-2">

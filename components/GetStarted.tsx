@@ -7,7 +7,7 @@ import { SectionHeading } from "./SectionHeading";
 const INCLUDED = [
   `Up to ${SOURCE_LIMIT} groups watched for you`,
   "Leads delivered to your inbox",
-  "Keyword rules for what counts as a lead",
+  "AI matching, in your own words — no keyword lists to maintain",
   `${offer.foundingPrice}/mo locked for as long as you stay`,
   "Cancel whenever you want",
 ];

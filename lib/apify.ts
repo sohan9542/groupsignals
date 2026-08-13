@@ -1,3 +1,5 @@
+import type { FacebookCookie } from "./facebook-cookies";
+
 const APIFY_BASE = "https://api.apify.com/v2";
 
 /**
@@ -6,6 +8,17 @@ const APIFY_BASE = "https://api.apify.com/v2";
  */
 const FACEBOOK_ACTOR =
   process.env.APIFY_FACEBOOK_GROUP_ACTOR ?? "apify~facebook-groups-scraper";
+
+/**
+ * Actor that authenticates with a user's own Facebook cookies to read closed
+ * groups. Only ever called for a source with requires_login = true — see
+ * startPrivateFacebookGroupScrape. Field names below (maxPosts, cookies, ...)
+ * come from the actor's public Input docs, not a verified live run the way
+ * FACEBOOK_ACTOR's were — normalisePost's aliases are the safety net if the
+ * actor's real output differs slightly.
+ */
+const PRIVATE_FACEBOOK_ACTOR =
+  process.env.APIFY_PRIVATE_FACEBOOK_GROUP_ACTOR ?? "whoareyouanas~facebook-group-scraper";
 
 // Field names verified against a real run of apify/facebook-groups-scraper.
 // The optional aliases are kept because the actor has renamed fields before and
@@ -43,23 +56,28 @@ function requireToken(): string {
   return token;
 }
 
+type WebhookOptions = {
+  sourceId: string;
+  userId: string;
+  webhookUrl: string;
+  webhookSecret: string;
+  /** Which pooled cookie this run used, if any — carried through so the
+   *  webhook can flag that specific cookie banned on a FAILED run instead of
+   *  guessing which one was responsible. */
+  cookieId?: string;
+};
+
 /**
  * Kicks off an async actor run and returns immediately. Apify calls our webhook
  * when the run finishes — scraping a group takes minutes, far longer than a
- * request should stay open.
+ * request should stay open. Shared by both the public and private-group
+ * scrapers; they differ only in which actor and input shape they send.
  */
-export async function startFacebookGroupScrape(options: {
-  groupUrl: string;
-  sourceId: string;
-  userId: string;
-  resultsLimit?: number;
-  /** Previous run time. Caps the scrape to new posts instead of re-walking the
-   *  group's whole history on every scan — the dedupe index would throw the
-   *  repeats away anyway, after we'd already paid Apify to fetch them. */
-  since?: string | null;
-  webhookUrl: string;
-  webhookSecret: string;
-}): Promise<{ runId: string }> {
+async function triggerActorRun(
+  actorId: string,
+  input: Record<string, unknown>,
+  webhook: WebhookOptions
+): Promise<{ runId: string }> {
   const token = requireToken();
 
   // Apify substitutes the run fields into this payload template when it fires.
@@ -67,33 +85,28 @@ export async function startFacebookGroupScrape(options: {
     runId: "{{resource.id}}",
     datasetId: "{{resource.defaultDatasetId}}",
     status: "{{resource.status}}",
-    sourceId: options.sourceId,
-    userId: options.userId,
-    secret: options.webhookSecret,
+    sourceId: webhook.sourceId,
+    userId: webhook.userId,
+    secret: webhook.webhookSecret,
+    ...(webhook.cookieId ? { cookieId: webhook.cookieId } : {}),
   });
 
   const webhooks = Buffer.from(
     JSON.stringify([
       {
         eventTypes: ["ACTOR.RUN.SUCCEEDED", "ACTOR.RUN.FAILED"],
-        requestUrl: options.webhookUrl,
+        requestUrl: webhook.webhookUrl,
         payloadTemplate,
       },
     ])
   ).toString("base64");
 
   const response = await fetch(
-    `${APIFY_BASE}/acts/${FACEBOOK_ACTOR}/runs?token=${token}&webhooks=${webhooks}`,
+    `${APIFY_BASE}/acts/${actorId}/runs?token=${token}&webhooks=${webhooks}`,
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        startUrls: [{ url: options.groupUrl }],
-        resultsLimit: options.resultsLimit ?? 50,
-        // Actor accepts a full ISO timestamp here; omitted entirely on a
-        // source's first scan so we get some history to start with.
-        ...(options.since ? { onlyPostsNewerThan: options.since } : {}),
-      }),
+      body: JSON.stringify(input),
     }
   );
 
@@ -107,6 +120,63 @@ export async function startFacebookGroupScrape(options: {
   if (!runId) throw new Error("Apify did not return a run id");
 
   return { runId };
+}
+
+export async function startFacebookGroupScrape(options: {
+  groupUrl: string;
+  sourceId: string;
+  userId: string;
+  resultsLimit?: number;
+  /** Previous run time. Caps the scrape to new posts instead of re-walking the
+   *  group's whole history on every scan — the dedupe index would throw the
+   *  repeats away anyway, after we'd already paid Apify to fetch them. */
+  since?: string | null;
+  webhookUrl: string;
+  webhookSecret: string;
+}): Promise<{ runId: string }> {
+  return triggerActorRun(
+    FACEBOOK_ACTOR,
+    {
+      startUrls: [{ url: options.groupUrl }],
+      resultsLimit: options.resultsLimit ?? 50,
+      // Actor accepts a full ISO timestamp here; omitted entirely on a
+      // source's first scan so we get some history to start with.
+      ...(options.since ? { onlyPostsNewerThan: options.since } : {}),
+    },
+    options
+  );
+}
+
+/**
+ * Same contract as startFacebookGroupScrape, but for a source with
+ * requires_login = true: routes through the actor that authenticates with the
+ * caller's own Facebook cookies so it can read a closed group. Never call
+ * this for a public source — it costs more and, if the cookies are ever
+ * stale, fails where the cookie-less scraper would have succeeded.
+ */
+export async function startPrivateFacebookGroupScrape(options: {
+  groupUrl: string;
+  sourceId: string;
+  userId: string;
+  resultsLimit?: number;
+  since?: string | null;
+  cookies: FacebookCookie[];
+  /** The pool cookie's id, so a FAILED run can flag it. See WebhookOptions. */
+  cookieId: string;
+  webhookUrl: string;
+  webhookSecret: string;
+}): Promise<{ runId: string }> {
+  return triggerActorRun(
+    PRIVATE_FACEBOOK_ACTOR,
+    {
+      startUrls: [{ url: options.groupUrl }],
+      maxPosts: options.resultsLimit ?? 50,
+      includeGroupInfo: true,
+      cookies: options.cookies,
+      ...(options.since ? { onlyPostsNewerThan: options.since } : {}),
+    },
+    options
+  );
 }
 
 export async function fetchDatasetItems(datasetId: string): Promise<ApifyPost[]> {
@@ -167,26 +237,4 @@ export function groupTitleFrom(posts: ApifyPost[]): string | null {
     if (title) return title;
   }
   return null;
-}
-
-/**
- * Include list decides what counts as a lead; exclude list vetoes it. An empty
- * include list means "everything from this group", which is what a user who
- * hasn't set keywords yet expects to see.
- */
-export function matchKeywords(
-  content: string,
-  include: string[],
-  exclude: string[]
-): { matches: boolean; matched: string[] } {
-  const haystack = content.toLowerCase();
-
-  if (exclude.some((word) => haystack.includes(word))) {
-    return { matches: false, matched: [] };
-  }
-
-  if (include.length === 0) return { matches: true, matched: [] };
-
-  const matched = include.filter((word) => haystack.includes(word));
-  return { matches: matched.length > 0, matched };
 }

@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { SOURCE_LIMIT, parseKeywords, parseSourceUrl } from "@/lib/sources";
+import { createServiceClient } from "@/lib/supabase/service";
+import { SOURCE_LIMIT, parseIntent, parseSourceUrl } from "@/lib/sources";
 
 export async function POST(request: Request) {
   const supabase = await createClient();
@@ -12,7 +13,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "Not signed in." }, { status: 401 });
   }
 
-  let body: { url?: unknown; include?: unknown; exclude?: unknown };
+  let body: { url?: unknown; intent?: unknown; requiresLogin?: unknown };
   try {
     body = (await request.json()) as typeof body;
   } catch {
@@ -23,9 +24,39 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "Paste a link first." }, { status: 400 });
   }
 
-  const parsed = parseSourceUrl(body.url);
-  if ("error" in parsed) {
-    return NextResponse.json({ ok: false, error: parsed.error }, { status: 400 });
+  const parsedUrl = parseSourceUrl(body.url);
+  if ("error" in parsedUrl) {
+    return NextResponse.json({ ok: false, error: parsedUrl.error }, { status: 400 });
+  }
+
+  const parsedIntent = parseIntent(typeof body.intent === "string" ? body.intent : "");
+  if ("error" in parsedIntent) {
+    return NextResponse.json({ ok: false, error: parsedIntent.error }, { status: 400 });
+  }
+
+  // Reddit has no login-gated mode, and a not-yet-implemented platform
+  // sending requiresLogin would silently create a source we can never scan.
+  const requiresLogin = body.requiresLogin === true && parsedUrl.platform === "facebook";
+
+  if (requiresLogin) {
+    // facebook_cookies has no RLS policy for the authenticated role at all —
+    // only the pool's existence matters here, not its contents, so a
+    // service-role read is the only way to even ask the question.
+    const service = createServiceClient();
+    const { count } = await service
+      .from("facebook_cookies")
+      .select("id", { count: "exact", head: true })
+      .eq("status", "active");
+
+    if (!count) {
+      return NextResponse.json(
+        {
+          ok: false,
+          error: "Private groups aren't available right now — no connected Facebook accounts in the pool.",
+        },
+        { status: 503 }
+      );
+    }
   }
 
   // Checked here rather than in the DB so the message can name the limit.
@@ -49,11 +80,11 @@ export async function POST(request: Request) {
     .from("watch_sources")
     .insert({
       user_id: user.id,
-      platform: parsed.platform,
-      url: parsed.url,
-      name: parsed.name,
-      include_keywords: parseKeywords(typeof body.include === "string" ? body.include : ""),
-      exclude_keywords: parseKeywords(typeof body.exclude === "string" ? body.exclude : ""),
+      platform: parsedUrl.platform,
+      url: parsedUrl.url,
+      name: parsedUrl.name,
+      requires_login: requiresLogin,
+      intent: parsedIntent.intent,
     })
     .select()
     .single();
