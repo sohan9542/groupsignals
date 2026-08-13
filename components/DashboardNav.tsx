@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import { CreditCard, Inbox, LogOut, Mail, Radio } from "lucide-react";
+import { CreditCard, Inbox, LogOut, Mail, Radio, Settings } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 
 type NavItem = { label: string; href: string; icon: LucideIcon };
@@ -14,14 +14,17 @@ const ITEMS: NavItem[] = [
   { label: "Billing", href: "/dashboard/billing", icon: CreditCard },
 ];
 
-export function DashboardNav({ email }: { email: string }) {
+const ADMIN_ITEM: NavItem = { label: "Settings", href: "/dashboard/settings", icon: Settings };
+
+export function DashboardNav({ email, isAdmin }: { email: string; isAdmin: boolean }) {
   const pathname = usePathname();
+  const items = isAdmin ? [...ITEMS, ADMIN_ITEM] : ITEMS;
 
   return (
     <div className="flex flex-col gap-4 border-b border-white/8 pb-4 lg:flex-row lg:items-center lg:justify-between lg:pb-0">
       <nav aria-label="Dashboard" className="-mx-1 overflow-x-auto">
         <ul className="flex items-center gap-1 px-1">
-          {ITEMS.map((item) => {
+          {items.map((item) => {
             // /dashboard would otherwise light up on every child route.
             const active =
               item.href === "/dashboard"

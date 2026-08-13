@@ -17,15 +17,15 @@ const FAQS = [
   },
   {
     q: "Do you need my Facebook login?",
-    a: "No, and we won't take it. We only read public groups, so there's nothing to connect.",
+    a: "No, and we won't ask for it. Public groups need no login at all. Private groups need one too — but it's ours, not yours; that part is handled entirely on our end.",
   },
   {
     q: "Can you watch private groups?",
-    a: "Not today. We read public groups only, and we'll flag it in your dashboard if a group you added turns out to be closed.",
+    a: "Yes — mark it private when you add it and we take care of getting access. Public groups still need nothing from you at all.",
   },
   {
     q: "What about Reddit?",
-    a: "You can add subreddits to your watchlist now and they'll start being checked as soon as we switch it on.",
+    a: "Paused for now while we focus on Facebook groups. We'll switch it back on and let existing watchers know.",
   },
   {
     q: "What does it cost?",

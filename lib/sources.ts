@@ -11,10 +11,10 @@ export type ParsedSource = {
 };
 
 /**
- * We only ever scrape PUBLIC Facebook groups, so a private-group URL is
- * rejected at the door rather than accepted and silently never scraped. There
- * is no way to tell public from private by URL alone, which is why the UI says
- * it plainly and the scraper reports back if a group turns out to be closed.
+ * There's no way to tell a public group from a private one by URL alone, so
+ * both are accepted here — SourceManager asks the user to flag private ones
+ * explicitly (requires_login on the row), since that decides which scraper
+ * runs and whether a connected Facebook account is required.
  */
 export function parseSourceUrl(raw: string): ParsedSource | { error: string } {
   const trimmed = raw.trim();
@@ -45,19 +45,10 @@ export function parseSourceUrl(raw: string): ParsedSource | { error: string } {
   }
 
   if (host === "reddit.com" || host === "old.reddit.com") {
-    const match = url.pathname.match(/^\/r\/([^/]+)/);
-    if (!match) {
-      return { error: "Use a subreddit link — reddit.com/r/subreddit." };
-    }
-    const slug = match[1];
-    return {
-      platform: "reddit",
-      url: `https://www.reddit.com/r/${slug}`,
-      name: `r/${slug}`,
-    };
+    return { error: "Reddit is paused for now — Facebook groups only." };
   }
 
-  return { error: "We watch Facebook groups and subreddits right now." };
+  return { error: "Paste a Facebook group link — facebook.com/groups/your-group." };
 }
 
 /** "saas-founders-agencies" or a numeric id → something readable. */
@@ -70,14 +61,23 @@ function prettify(slug: string): string {
     .replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
-/** Comma or newline separated free text → a clean keyword array. */
-export function parseKeywords(raw: string): string[] {
-  return Array.from(
-    new Set(
-      raw
-        .split(/[\n,]/)
-        .map((k) => k.trim().toLowerCase())
-        .filter(Boolean)
-    )
-  ).slice(0, 100);
+const MAX_INTENT_LENGTH = 500;
+
+/**
+ * Validates the plain-English "notify me when..." instruction that drives AI
+ * matching. Deliberately light-touch — the AI classifier is what actually
+ * judges quality, this just rejects the empty and the absurd.
+ */
+export function parseIntent(raw: string): { intent: string } | { error: string } {
+  const trimmed = raw.trim().replace(/\s+/g, " ");
+  if (!trimmed) {
+    return { error: 'Say what should trigger a notification, e.g. "someone needs a plumber."' };
+  }
+  if (trimmed.length < 10) {
+    return { error: "That's too short to classify against — add a bit more detail." };
+  }
+  if (trimmed.length > MAX_INTENT_LENGTH) {
+    return { error: `Keep it under ${MAX_INTENT_LENGTH} characters.` };
+  }
+  return { intent: trimmed };
 }

@@ -1,12 +1,10 @@
 import { timingSafeEqual } from "node:crypto";
 import { NextResponse } from "next/server";
 import { createServiceClient } from "@/lib/supabase/service";
-import {
-  fetchDatasetItems,
-  groupTitleFrom,
-  matchKeywords,
-  normalisePost,
-} from "@/lib/apify";
+import { fetchDatasetItems, groupTitleFrom, normalisePost } from "@/lib/apify";
+import { matchPostsToIntent } from "@/lib/match-intent";
+import { sendAdminCookieAlert, sendLeadAlert } from "@/lib/email";
+import type { ScrapedPost } from "@/lib/apify";
 import type { WatchSource } from "@/lib/types";
 
 type WebhookBody = {
@@ -16,6 +14,8 @@ type WebhookBody = {
   sourceId?: string;
   userId?: string;
   secret?: string;
+  /** Present only for a private-source run — see lib/apify.ts WebhookOptions. */
+  cookieId?: string;
 };
 
 function secretMatches(received: string, expected: string): boolean {
@@ -46,7 +46,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false }, { status: 401 });
   }
 
-  const { sourceId, userId, datasetId, status } = body;
+  const { sourceId, userId, datasetId, status, cookieId } = body;
   if (!sourceId || !userId) {
     return NextResponse.json({ ok: false }, { status: 400 });
   }
@@ -59,6 +59,26 @@ export async function POST(request: Request) {
       .update({ status: "error", last_error: `Scrape run ${status}` })
       .eq("id", sourceId)
       .eq("user_id", userId);
+
+    // A FAILED run that was using a pooled cookie is the signal we have for
+    // "this cookie stopped working" — there's no separate health-check, so a
+    // failure is treated as a ban until an admin says otherwise in Settings.
+    if (cookieId && status === "FAILED") {
+      const detail = `Run ${body.runId ?? "unknown"} failed while using this cookie.`;
+      const { data: cookie } = await supabase
+        .from("facebook_cookies")
+        .update({ status: "banned", last_error: detail })
+        .eq("id", cookieId)
+        .select("name")
+        .maybeSingle<{ name: string }>();
+
+      try {
+        await sendAdminCookieAlert({ cookieName: cookie?.name ?? cookieId, error: detail });
+      } catch (cause) {
+        console.error("Admin cookie alert email failed", cause);
+      }
+    }
+
     return NextResponse.json({ ok: true, imported: 0 });
   }
 
@@ -89,53 +109,102 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false }, { status: 502 });
   }
 
-  const rows = items
+  const posts = items
     .map(normalisePost)
-    .filter((post) => post !== null)
-    .map((post) => {
-      const { matches, matched } = matchKeywords(
-        post.content,
-        source.include_keywords,
-        source.exclude_keywords
+    .filter((post): post is ScrapedPost => post !== null);
+
+  // reasonById stays empty (→ no matches) if there's nothing to classify or
+  // no intent to classify against, rather than guessing.
+  const reasonById = new Map<string, string>();
+  if (posts.length > 0 && source.intent.trim()) {
+    try {
+      const results = await matchPostsToIntent(
+        source.intent,
+        posts.map((p) => ({ id: p.externalId, content: p.content }))
       );
-      return matches
-        ? {
-            user_id: userId,
-            source_id: sourceId,
-            platform: source.platform,
-            external_id: post.externalId,
-            post_url: post.url,
-            author_name: post.authorName,
-            author_url: post.authorUrl,
-            content: post.content,
-            matched_keywords: matched,
-            posted_at: post.postedAt,
-          }
-        : null;
-    })
-    .filter((row) => row !== null);
+      for (const result of results) {
+        if (result.matches) reasonById.set(result.id, result.reason);
+      }
+    } catch (cause) {
+      const detail = cause instanceof Error ? cause.message : "AI matching failed";
+      await supabase
+        .from("watch_sources")
+        .update({ status: "error", last_error: detail.slice(0, 500) })
+        .eq("id", sourceId);
+      return NextResponse.json({ ok: false }, { status: 502 });
+    }
+  }
+
+  const rows = posts
+    .filter((post) => reasonById.has(post.externalId))
+    .map((post) => ({
+      user_id: userId,
+      source_id: sourceId,
+      platform: source.platform,
+      external_id: post.externalId,
+      post_url: post.url,
+      author_name: post.authorName,
+      author_url: post.authorUrl,
+      content: post.content,
+      match_reason: reasonById.get(post.externalId) ?? null,
+      posted_at: post.postedAt,
+    }));
 
   let imported = 0;
   if (rows.length > 0) {
     // ignoreDuplicates leans on the (user_id, platform, external_id) unique
-    // index so re-scraping a group never re-alerts on posts already seen.
-    const { data, error } = await supabase
+    // index so re-scraping a group never re-alerts on posts already seen —
+    // and, since it also skips the row entirely, .select() below only ever
+    // returns posts that are genuinely new.
+    const { data: inserted, error: upsertError } = await supabase
       .from("leads")
       .upsert(rows, {
         onConflict: "user_id,platform,external_id",
         ignoreDuplicates: true,
       })
-      .select("id");
+      .select("id, content, post_url, author_name, match_reason");
 
-    if (error) {
+    if (upsertError) {
       await supabase
         .from("watch_sources")
-        .update({ status: "error", last_error: error.message.slice(0, 500) })
+        .update({ status: "error", last_error: upsertError.message.slice(0, 500) })
         .eq("id", sourceId);
       return NextResponse.json({ ok: false }, { status: 500 });
     }
 
-    imported = data?.length ?? 0;
+    imported = inserted?.length ?? 0;
+
+    if (imported > 0) {
+      const { data: destinations } = await supabase
+        .from("email_destinations")
+        .select("address")
+        .eq("user_id", userId)
+        .eq("status", "verified")
+        .eq("digest", "instant");
+
+      for (const lead of inserted ?? []) {
+        for (const destination of destinations ?? []) {
+          try {
+            await sendLeadAlert({
+              to: destination.address,
+              sourceName: source.name,
+              content: lead.content,
+              postUrl: lead.post_url,
+              authorName: lead.author_name,
+              reason: lead.match_reason ?? "Matches what you're watching for.",
+            });
+          } catch (cause) {
+            // One bad send shouldn't lose the lead or block the rest of the batch.
+            console.error("Lead alert email failed", cause);
+          }
+        }
+
+        await supabase
+          .from("leads")
+          .update({ notified_at: new Date().toISOString() })
+          .eq("id", lead.id);
+      }
+    }
   }
 
   // The scraper knows the group's real name; the row was created with a guess
