@@ -6,6 +6,25 @@ import type { WatchSource } from "./types";
 
 export type ScanOutcome = { ok: true; runId: string } | { ok: false; error: string; status: number };
 
+/** Start of today in UTC, as an ISO string. Not per-user timezone (nothing
+ *  stores one) — a single consistent day boundary across every source. */
+function startOfTodayUTC(): string {
+  const now = new Date();
+  return new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate())).toISOString();
+}
+
+/**
+ * Every scan — first or repeat — is scoped to today's posts only, per cost
+ * requirements: whichever is more recent, the source's last scan or the
+ * start of today, so a source never re-fetches this morning's posts again
+ * this afternoon, but also never reaches back past today even on its very
+ * first scan.
+ */
+function scanCutoff(lastRunAt: string | null): string {
+  const todayFloor = startOfTodayUTC();
+  return lastRunAt && lastRunAt > todayFloor ? lastRunAt : todayFloor;
+}
+
 /**
  * Starts a scrape for one source. Shared by the user-triggered "Scan now"
  * button and the QStash cron sweep — always through the service-role client,
@@ -65,13 +84,15 @@ export async function startScanForSource(
     privateAuth = { cookieId: cookie.id, cookies };
   }
 
+  const since = scanCutoff(source.last_run_at);
+
   try {
     const { runId } = privateAuth
       ? await startPrivateFacebookGroupScrape({
           groupUrl: source.url,
           sourceId: source.id,
           userId: source.user_id,
-          since: source.last_run_at,
+          since,
           cookies: privateAuth.cookies,
           cookieId: privateAuth.cookieId,
           webhookUrl,
@@ -81,7 +102,7 @@ export async function startScanForSource(
           groupUrl: source.url,
           sourceId: source.id,
           userId: source.user_id,
-          since: source.last_run_at,
+          since,
           webhookUrl,
           webhookSecret,
         });
