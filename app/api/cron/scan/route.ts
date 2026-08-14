@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 import { createServiceClient } from "@/lib/supabase/service";
 import { ensureScanSchedule } from "@/lib/qstash";
 import { resolveWebhookUrl, startScanForSource } from "@/lib/scan";
+import { isCronEnabled } from "@/lib/settings";
 import type { WatchSource } from "@/lib/types";
 
 export const runtime = "nodejs";
@@ -11,9 +12,11 @@ export const dynamic = "force-dynamic";
 
 // A source scanned more recently than this is assumed still in flight (or to
 // have just finished) — skips a redundant, billable Apify run if this
-// endpoint ever fires more often than every 5 minutes (a retry, an
-// overlapping schedule, a manual trigger landing mid-cycle).
-const MIN_RESCAN_INTERVAL_MS = 4 * 60 * 1000;
+// endpoint ever fires more often than the hourly schedule expects (a retry,
+// an overlapping trigger, a manual "Scan now" landing right before a tick).
+// Kept under the full hour so a genuinely missed tick still catches up next
+// time rather than being skipped twice in a row.
+const MIN_RESCAN_INTERVAL_MS = 55 * 60 * 1000;
 
 function secretMatches(received: string, expected: string): boolean {
   const a = Buffer.from(received);
@@ -41,9 +44,9 @@ function isAuthorized(request: Request, expected: string): boolean {
 }
 
 /**
- * Hit by an Upstash QStash schedule every 5 minutes (created automatically
- * when QSTASH_TOKEN is set — see lib/qstash.ts). Also accepts Vercel Cron
- * (GET + Bearer CRON_SECRET).
+ * Hit by an Upstash QStash schedule once an hour — 24 times a day, however
+ * many sources exist (created automatically when QSTASH_TOKEN is set — see
+ * lib/qstash.ts). Also accepts Vercel Cron (GET + Bearer CRON_SECRET).
  */
 async function runScan(request: Request) {
   const expected = process.env.CRON_SECRET;
@@ -63,6 +66,14 @@ async function runScan(request: Request) {
     await ensureScanSchedule();
   } catch (cause) {
     console.error("[qstash] failed to ensure scan schedule", cause);
+  }
+
+  // The schedule itself keeps firing hourly regardless -- this is the
+  // admin's kill switch (Settings → Scheduled scanning), checked per tick
+  // rather than by pausing QStash, so flipping it takes effect immediately
+  // with no external API call in the loop.
+  if (!(await isCronEnabled())) {
+    return NextResponse.json({ ok: true, scanned: 0, skipped: "Scheduled scanning is off." });
   }
 
   const webhook = resolveWebhookUrl(request.url);

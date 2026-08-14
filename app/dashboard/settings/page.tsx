@@ -3,7 +3,9 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { createServiceClient } from "@/lib/supabase/service";
 import { isAdmin } from "@/lib/admin";
+import { isCronEnabled } from "@/lib/settings";
 import { CookiePool } from "@/components/CookiePool";
+import { ScanScheduleToggle } from "@/components/ScanScheduleToggle";
 import type { FacebookCookiePoolEntry } from "@/lib/types";
 
 export const metadata: Metadata = { title: "Settings" };
@@ -16,29 +18,33 @@ export default async function SettingsPage() {
 
   // Not just hidden from nav — the page itself refuses non-admins even if
   // they have the URL, since this is the only place the shared cookie pool
-  // lives.
+  // and the global scan switch live.
   if (!isAdmin(user?.email)) redirect("/dashboard");
 
-  // facebook_cookies has no RLS policy for the authenticated role at all, so
-  // even the admin's own session can't read it without the service client.
+  // facebook_cookies and app_settings both have RLS with no policies for the
+  // authenticated role at all, so even the admin's own session can't read
+  // them without the service client.
   const service = createServiceClient();
-  const { data } = await service
-    .from("facebook_cookies")
-    .select("id, name, status, last_used_at, last_error, created_at")
-    .order("created_at", { ascending: false })
-    .returns<FacebookCookiePoolEntry[]>();
+  const [{ data: cookies }, cronEnabled] = await Promise.all([
+    service
+      .from("facebook_cookies")
+      .select("id, name, status, last_used_at, last_error, created_at")
+      .order("created_at", { ascending: false })
+      .returns<FacebookCookiePoolEntry[]>(),
+    isCronEnabled(),
+  ]);
 
   return (
-    <>
-      <div className="mb-8">
+    <div className="space-y-8">
+      <div>
         <h1 className="text-2xl font-semibold tracking-tight">Settings</h1>
         <p className="mt-1.5 text-sm text-ash">
-          Admin only. Manage the Facebook cookie pool used for every private-group scan, across
-          every user — nobody else sees this page.
+          Admin only — nobody else sees this page.
         </p>
       </div>
 
-      <CookiePool cookies={data ?? []} />
-    </>
+      <ScanScheduleToggle enabled={cronEnabled} />
+      <CookiePool cookies={cookies ?? []} />
+    </div>
   );
 }

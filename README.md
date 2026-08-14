@@ -27,7 +27,7 @@ ones without which things silently do nothing:
 | `APIFY_TOKEN` | Starting a scrape run. |
 | `APIFY_WEBHOOK_SECRET` | Our own random string, not something Apify issues. We embed it in the run's payload template and compare it back on the way in. |
 | `PUBLIC_WEBHOOK_BASE_URL` | Apify calls us back from its servers, so this must be publicly reachable. Falls back to `NEXT_PUBLIC_SITE_URL` / the Vercel production host — a scan only refuses if every candidate is localhost. |
-| `QSTASH_TOKEN` | Creates and keeps the 5-minute scan schedule. Without it, only the daily Vercel Cron backup in `vercel.json` fires. |
+| `QSTASH_TOKEN` | Creates and keeps the hourly scan schedule. Without it, only the daily Vercel Cron backup in `vercel.json` fires. |
 | `FACEBOOK_COOKIE_ENCRYPTION_KEY` | Encrypts every cookie in the admin pool at rest. Without it, adding or using a pooled cookie fails outright. |
 | `ANTHROPIC_API_KEY` | Classifying scraped posts against a source's intent. Without it a scan finishes but finds zero leads. |
 | `RESEND_API_KEY` / `EMAIL_FROM` | Sending lead alerts and admin cookie-ban alerts. `EMAIL_FROM` must be on a Resend-verified domain — the sandbox `onboarding@resend.dev` address only delivers to the Resend account's own email. |
@@ -43,21 +43,28 @@ app/
     leads/                leads
     email/                alert destinations
     billing/              subscription
-    settings/             admin-only: the Facebook cookie pool
+    settings/             admin-only: cookie pool + the scan on/off switch
   api/
     sources/              add, edit, delete, scan a watched group
     leads/[id]/           mark a lead saved / replied / dismissed
     email/                alert destinations
     facebook-cookies/     admin: manage the pooled cookies
+    settings/cron/        admin: read/flip app_settings.cron_enabled
+    cron/scan/             hit by QStash/Vercel Cron — sweeps every active source
     apify/webhook/        scrape results land here
     webhooks/paddle/      subscription state lands here
 lib/
   apify.ts               run the scraper (public actor or cookie-authenticated
                           private one), normalise its output
+  scan.ts                  shared "start a scan for this source" logic, used
+                          by both the manual button and the cron sweep
+  qstash.ts                self-registers the hourly QStash schedule
+  public-url.ts            resolves a public origin, filtering out localhost
   match-intent.ts        AI classifier — post content vs. a source's plain-
                           English intent
   email.ts                lead alerts + admin cookie-ban alerts, via Resend
   facebook-cookies.ts     validate/encrypt/decrypt pooled cookies
+  settings.ts              read/write the cron_enabled toggle
   admin.ts                the one hardcoded admin account
   sources.ts              URL parsing (Facebook only — Reddit paused) + intent validation
   supabase/                browser, server and service-role clients
@@ -90,21 +97,29 @@ new posts only (still capped at 5) rather than re-walking the group's history.
 
 ## Scheduled scans (Upstash QStash + Vercel Cron)
 
-`/api/cron/scan` sweeps every `active` source (skipping anything scanned in
-the last 4 minutes) and starts a scan for each, the same way the "Scan now"
-button does.
+`/api/cron/scan` sweeps every `active` source in one tick — however many
+exist — skipping anything scanned in the last 55 minutes, and starts a scan
+for each the same way the "Scan now" button does. Frequency is independent
+of watchlist size: whether there are 5 sources or 5,000, the schedule still
+fires once an hour, not once per source.
 
 Two things can hit that route:
 
-1. **QStash, every 5 minutes** — set `QSTASH_TOKEN` (Upstash console → QStash)
-   on Vercel. The first authorized cron request creates schedule
-   `groupsignals-watchlist-scan` pointed at the public site URL, with
-   `X-Cron-Secret` already attached. Redeploys update the destination if the
-   domain changes. No manual curl.
+1. **QStash, once an hour (24 times a day)** — set `QSTASH_TOKEN` (Upstash
+   console → QStash) on Vercel. The first authorized cron request creates
+   schedule `groupsignals-watchlist-scan` pointed at the public site URL,
+   with `X-Cron-Secret` already attached. Redeploys update the destination
+   if the domain changes. No manual curl.
 2. **Vercel Cron, once a day** (`vercel.json`, 08:00 UTC) — Hobby-safe backup
    so groups still get scanned if QStash isn't configured yet. Vercel sends
    `Authorization: Bearer $CRON_SECRET`; the route accepts that as well as
    `X-Cron-Secret`.
+
+Either way, the route checks `app_settings.cron_enabled` before scanning
+anything. Toggle it from Settings → Scheduled scanning (admin only) to pause
+every automatic scan across every user instantly — the schedule keeps firing
+on its hourly cadence regardless, each tick just becomes a no-op while it's
+off. Manual "Scan now" from the Watchlist still works either way.
 
 `PUBLIC_WEBHOOK_BASE_URL` / `NEXT_PUBLIC_SITE_URL` must be a public origin
 (your Vercel domain, not localhost). Apify's webhook is built from that,
