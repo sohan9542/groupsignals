@@ -2,12 +2,15 @@ import { Client } from "@upstash/qstash";
 import { resolvePublicOrigin } from "./public-url";
 
 export const SCAN_SCHEDULE_ID = "groupsignals-watchlist-scan";
-export const SCAN_CRON = "*/5 * * * *";
+// On the hour, 24 times a day — deliberately not more frequent. /api/cron/scan
+// sweeps every active source in one tick regardless of how many there are,
+// so the schedule's frequency is independent of the watchlist's size.
+export const SCAN_CRON = "0 * * * *";
 
 let ensured = false;
 
 /**
- * Creates or updates the 5-minute QStash schedule that POSTs /api/cron/scan.
+ * Creates or updates the hourly QStash schedule that POSTs /api/cron/scan.
  * Idempotent — same schedule id overwrites the previous destination/headers
  * so a redeploy with a new domain or rotated CRON_SECRET just works.
  */
