@@ -9,6 +9,30 @@ export const SCAN_CRON = "0 * * * *";
 
 let ensured = false;
 
+export type ScheduleStatus =
+  | { configured: false }
+  | { configured: true; exists: false }
+  | { configured: true; exists: true; isPaused: boolean };
+
+/**
+ * The ground truth for "is anything actually going to hit /api/cron/scan on
+ * its own" — checked live against QStash rather than inferred from env vars
+ * alone, so Settings can show what's really happening instead of just
+ * whether the app-level switch is flipped.
+ */
+export async function getScheduleStatus(): Promise<ScheduleStatus> {
+  const token = process.env.QSTASH_TOKEN?.trim();
+  if (!token) return { configured: false };
+
+  const client = new Client({ token });
+  try {
+    const schedule = await client.schedules.get(SCAN_SCHEDULE_ID);
+    return { configured: true, exists: true, isPaused: Boolean(schedule.isPaused) };
+  } catch {
+    return { configured: true, exists: false };
+  }
+}
+
 /**
  * Creates or updates the hourly QStash schedule that POSTs /api/cron/scan.
  * Idempotent — same schedule id overwrites the previous destination/headers
