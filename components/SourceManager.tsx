@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import {
   AlertCircle,
   CheckCircle2,
-  Clock,
   ExternalLink,
   Loader2,
   Lock,
@@ -13,7 +12,6 @@ import {
   Pencil,
   Play,
   Plus,
-  RefreshCw,
   Sparkles,
   Trash2,
 } from "lucide-react";
@@ -29,7 +27,6 @@ export function SourceManager({ sources }: { sources: WatchSource[] }) {
   const [editing, setEditing] = useState<WatchSource | null>(null);
   const [busyId, setBusyId] = useState<string | null>(null);
   const [error, setError] = useState("");
-  const [notice, setNotice] = useState("");
   const [, startTransition] = useTransition();
 
   const atLimit = sources.length >= SOURCE_LIMIT;
@@ -66,37 +63,27 @@ export function SourceManager({ sources }: { sources: WatchSource[] }) {
     return { ok: false, error: result.error ?? "Couldn't save that." };
   }
 
-  async function mutate(id: string, action: "toggle" | "delete" | "scan", source?: WatchSource) {
+  async function mutate(id: string, action: "toggle" | "delete", source?: WatchSource) {
     setBusyId(id);
     setError("");
-    setNotice("");
 
     try {
-      let response: Response;
-
-      if (action === "delete") {
-        response = await fetch(`/api/sources/${id}`, { method: "DELETE" });
-      } else if (action === "toggle") {
-        response = await fetch(`/api/sources/${id}`, {
-          method: "PATCH",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            status: source?.status === "active" ? "paused" : "active",
-          }),
-        });
-      } else {
-        response = await fetch(`/api/sources/${id}/scan`, { method: "POST" });
-      }
+      const response =
+        action === "delete"
+          ? await fetch(`/api/sources/${id}`, { method: "DELETE" })
+          : await fetch(`/api/sources/${id}`, {
+              method: "PATCH",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                status: source?.status === "active" ? "paused" : "active",
+              }),
+            });
 
       const data = (await response.json()) as { ok?: boolean; error?: string };
 
       if (!response.ok || !data.ok) {
         setError(data.error ?? "That didn't work.");
         return;
-      }
-
-      if (action === "scan") {
-        setNotice("Scan started — matching leads land in your inbox as they come in.");
       }
 
       startTransition(() => router.refresh());
@@ -118,7 +105,6 @@ export function SourceManager({ sources }: { sources: WatchSource[] }) {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-base font-semibold text-white">Sources</h2>
-          {notice && <p className="mt-0.5 text-xs text-signal-bright">{notice}</p>}
           {error && <p className="mt-0.5 text-xs text-red-400">{error}</p>}
         </div>
 
@@ -175,13 +161,6 @@ export function SourceManager({ sources }: { sources: WatchSource[] }) {
                     <p className="leading-relaxed">{source.intent || "No intent set."}</p>
                   </div>
 
-                  {source.last_run_at && (
-                    <p className="mt-2 flex items-center gap-1 text-[11px] text-ash-dim">
-                      <Clock className="size-3" />
-                      Last scanned {new Date(source.last_run_at).toLocaleString()}
-                    </p>
-                  )}
-
                   {source.last_error && (
                     <p className="mt-2 flex items-start gap-1.5 text-xs text-red-400">
                       <AlertCircle className="mt-0.5 size-3.5 shrink-0" />
@@ -193,13 +172,6 @@ export function SourceManager({ sources }: { sources: WatchSource[] }) {
                 <div className="flex shrink-0 items-center gap-1.5">
                   <IconButton label="Edit intent" busy={false} onClick={() => setEditing(source)}>
                     <Pencil className="size-4" />
-                  </IconButton>
-                  <IconButton
-                    label="Scan now"
-                    busy={busyId === source.id}
-                    onClick={() => mutate(source.id, "scan", source)}
-                  >
-                    <RefreshCw className="size-4" />
                   </IconButton>
                   <IconButton
                     label={source.status === "active" ? "Pause" : "Resume"}

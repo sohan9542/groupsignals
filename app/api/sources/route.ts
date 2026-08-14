@@ -2,6 +2,8 @@ import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 import { createServiceClient } from "@/lib/supabase/service";
 import { SOURCE_LIMIT, parseIntent, parseSourceUrl } from "@/lib/sources";
+import { resolveWebhookUrl, startScanForSource } from "@/lib/scan";
+import type { WatchSource } from "@/lib/types";
 
 export async function POST(request: Request) {
   const supabase = await createClient();
@@ -87,7 +89,7 @@ export async function POST(request: Request) {
       intent: parsedIntent.intent,
     })
     .select()
-    .single();
+    .single<WatchSource>();
 
   if (error) {
     // 23505 = unique_violation on (user_id, url).
@@ -98,6 +100,24 @@ export async function POST(request: Request) {
       );
     }
     return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
+  }
+
+  // Best-effort instant first scan — a brand-new source has no last_run_at,
+  // so this naturally pulls the latest few posts with no onlyPostsNewerThan
+  // filter, same as the very first scan always has. Creating the source must
+  // still succeed even if this fails or scanning isn't configured (e.g.
+  // local dev without APIFY_TOKEN); the failure just lands on the source's
+  // own status/last_error, exactly like any other scan attempt.
+  const webhookSecret = process.env.APIFY_WEBHOOK_SECRET;
+  if (process.env.APIFY_TOKEN && webhookSecret) {
+    const webhook = resolveWebhookUrl(request.url);
+    if (webhook.ok) {
+      try {
+        await startScanForSource(data, webhook.url, webhookSecret);
+      } catch (cause) {
+        console.error("Instant scan on source creation failed", cause);
+      }
+    }
   }
 
   return NextResponse.json({ ok: true, source: data });
