@@ -12,6 +12,7 @@
     "@paddle/paddle-js": "^1.6.4",
     "@supabase/ssr": "^0.12.4",
     "@supabase/supabase-js": "^2.112.2",
+    "@upstash/qstash": "^2.11.3",
     "framer-motion": "^12.23.12",
     "lucide-react": "^0.545.0",
     "next": "16.2.10",

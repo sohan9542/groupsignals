@@ -1,8 +1,13 @@
 import { timingSafeEqual } from "node:crypto";
 import { NextResponse } from "next/server";
 import { createServiceClient } from "@/lib/supabase/service";
+import { ensureScanSchedule } from "@/lib/qstash";
 import { resolveWebhookUrl, startScanForSource } from "@/lib/scan";
 import type { WatchSource } from "@/lib/types";
+
+export const runtime = "nodejs";
+export const maxDuration = 60;
+export const dynamic = "force-dynamic";
 
 // A source scanned more recently than this is assumed still in flight (or to
 // have just finished) — skips a redundant, billable Apify run if this
@@ -18,22 +23,46 @@ function secretMatches(received: string, expected: string): boolean {
 }
 
 /**
- * Hit by an Upstash QStash schedule every 5 minutes (see README for the
- * schedule setup). QStash is configured to forward a shared secret as the
- * X-Cron-Secret header — same trust model as the Apify webhook's own secret,
- * just a static header instead of a per-run payload field, since this
- * endpoint takes no run-specific input from its caller.
+ * QStash forwards X-Cron-Secret. Vercel Cron sends Authorization: Bearer
+ * <CRON_SECRET>. Both must be accepted or one of the two schedulers 401s
+ * every tick and the watchlist never rescans.
  */
-export async function POST(request: Request) {
+function isAuthorized(request: Request, expected: string): boolean {
+  const headerSecret = request.headers.get("x-cron-secret");
+  if (headerSecret && secretMatches(headerSecret, expected)) return true;
+
+  const auth = request.headers.get("authorization");
+  if (auth?.toLowerCase().startsWith("bearer ")) {
+    const token = auth.slice(7).trim();
+    if (token && secretMatches(token, expected)) return true;
+  }
+
+  return false;
+}
+
+/**
+ * Hit by an Upstash QStash schedule every 5 minutes (created automatically
+ * when QSTASH_TOKEN is set — see lib/qstash.ts). Also accepts Vercel Cron
+ * (GET + Bearer CRON_SECRET).
+ */
+async function runScan(request: Request) {
   const expected = process.env.CRON_SECRET;
   const webhookSecret = process.env.APIFY_WEBHOOK_SECRET;
   if (!expected || !process.env.APIFY_TOKEN || !webhookSecret) {
-    return NextResponse.json({ ok: false }, { status: 503 });
+    return NextResponse.json(
+      { ok: false, error: "Cron isn't configured — missing CRON_SECRET, APIFY_TOKEN, or APIFY_WEBHOOK_SECRET." },
+      { status: 503 }
+    );
   }
 
-  const received = request.headers.get("x-cron-secret");
-  if (!received || !secretMatches(received, expected)) {
+  if (!isAuthorized(request, expected)) {
     return NextResponse.json({ ok: false }, { status: 401 });
+  }
+
+  try {
+    await ensureScanSchedule();
+  } catch (cause) {
+    console.error("[qstash] failed to ensure scan schedule", cause);
   }
 
   const webhook = resolveWebhookUrl(request.url);
@@ -70,4 +99,12 @@ export async function POST(request: Request) {
   }
 
   return NextResponse.json({ ok: true, scanned: results.filter((r) => r.ok).length, results });
+}
+
+export async function POST(request: Request) {
+  return runScan(request);
+}
+
+export async function GET(request: Request) {
+  return runScan(request);
 }
