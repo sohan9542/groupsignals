@@ -20,10 +20,18 @@ const FACEBOOK_ACTOR =
 const PRIVATE_FACEBOOK_ACTOR =
   process.env.APIFY_PRIVATE_FACEBOOK_GROUP_ACTOR ?? "whoareyouanas~facebook-group-scraper";
 
-/** Cap every run — first scan and later ones. After the first, `onlyPostsNewerThan`
- *  already limits us to new posts; this just stops a busy group from dumping a
- *  huge (and expensive) batch in one go. */
-const SCAN_RESULTS_LIMIT = 5;
+/** Target number of USABLE (text-bearing) posts per scan — applied after
+ *  filtering in the webhook (lib/apify.ts's normalisePost drops anything
+ *  with no text, e.g. image/video-only posts). Exported so the webhook
+ *  slices to the same number after filtering. */
+export const SCAN_RESULTS_LIMIT = 5;
+
+/** What we actually ask the actor to scrape. Higher than SCAN_RESULTS_LIMIT
+ *  on purpose — some fraction of raw posts are image/video-only with no
+ *  text and get thrown away, so asking for exactly 5 raw posts routinely
+ *  yields far fewer than 5 usable ones. This is a rough buffer, not a
+ *  measured ratio; revisit if usable-post counts still run low. */
+const RAW_FETCH_LIMIT = SCAN_RESULTS_LIMIT * 3;
 
 // Field names verified against a real run of apify/facebook-groups-scraper.
 // The optional aliases are kept because the actor has renamed fields before and
@@ -85,16 +93,23 @@ async function triggerActorRun(
 ): Promise<{ runId: string }> {
   const token = requireToken();
 
-  // Apify substitutes the run fields into this payload template when it fires.
-  const payloadTemplate = JSON.stringify({
-    runId: "{{resource.id}}",
-    datasetId: "{{resource.defaultDatasetId}}",
-    status: "{{resource.status}}",
+  // Apify substitutes these dot-path variables into the payload when the
+  // webhook fires. Per Apify's own docs the substitution already carries its
+  // own JSON typing (a string value comes out already-quoted) — so these
+  // MUST be unquoted in the template, e.g. "runId":{{resource.id}}, not
+  // "runId":"{{resource.id}}". Quoting them (the original bug here) doesn't
+  // error, it just silently leaves the literal "{{resource.id}}" text in the
+  // delivered payload, which is why this needs building by hand instead of
+  // JSON.stringify for the whole object.
+  const staticFields = JSON.stringify({
     sourceId: webhook.sourceId,
     userId: webhook.userId,
     secret: webhook.webhookSecret,
     ...(webhook.cookieId ? { cookieId: webhook.cookieId } : {}),
   });
+  const payloadTemplate =
+    staticFields.slice(0, -1) +
+    ',"runId":{{resource.id}},"datasetId":{{resource.defaultDatasetId}},"status":{{resource.status}},"eventType":{{eventType}}}';
 
   const webhooks = Buffer.from(
     JSON.stringify([
@@ -143,7 +158,7 @@ export async function startFacebookGroupScrape(options: {
     FACEBOOK_ACTOR,
     {
       startUrls: [{ url: options.groupUrl }],
-      resultsLimit: options.resultsLimit ?? SCAN_RESULTS_LIMIT,
+      resultsLimit: options.resultsLimit ?? RAW_FETCH_LIMIT,
       // Actor accepts a full ISO timestamp here. First scan omits it and
       // only pulls the latest few posts; later scans only fetch newer ones.
       ...(options.since ? { onlyPostsNewerThan: options.since } : {}),
@@ -175,7 +190,7 @@ export async function startPrivateFacebookGroupScrape(options: {
     PRIVATE_FACEBOOK_ACTOR,
     {
       startUrls: [{ url: options.groupUrl }],
-      maxPosts: options.resultsLimit ?? SCAN_RESULTS_LIMIT,
+      maxPosts: options.resultsLimit ?? RAW_FETCH_LIMIT,
       includeGroupInfo: true,
       cookies: options.cookies,
       ...(options.since ? { onlyPostsNewerThan: options.since } : {}),

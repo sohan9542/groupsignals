@@ -1,7 +1,7 @@
 import { timingSafeEqual } from "node:crypto";
 import { NextResponse } from "next/server";
 import { createServiceClient } from "@/lib/supabase/service";
-import { fetchDatasetItems, groupTitleFrom, normalisePost } from "@/lib/apify";
+import { SCAN_RESULTS_LIMIT, fetchDatasetItems, groupTitleFrom, normalisePost } from "@/lib/apify";
 import { matchPostsToIntent } from "@/lib/match-intent";
 import { sendAdminCookieAlert, sendLeadAlert } from "@/lib/email";
 import type { ScrapedPost } from "@/lib/apify";
@@ -11,12 +11,23 @@ type WebhookBody = {
   runId?: string;
   datasetId?: string;
   status?: string;
+  /** e.g. "ACTOR.RUN.SUCCEEDED" / "ACTOR.RUN.FAILED" — the primary success
+   *  signal; unlike `status` it can't be confused with an unrelated resource
+   *  status value, so it's checked first. */
+  eventType?: string;
   sourceId?: string;
   userId?: string;
   secret?: string;
   /** Present only for a private-source run — see lib/apify.ts WebhookOptions. */
   cookieId?: string;
 };
+
+/** True if a template field never got substituted by Apify — the payload
+ *  would literally contain the string "{{resource.status}}" etc. Distinct
+ *  from a real failure so it never gets silently misread as one again. */
+function looksUnsubstituted(value: string | undefined): boolean {
+  return typeof value === "string" && value.includes("{{");
+}
 
 function secretMatches(received: string, expected: string): boolean {
   const a = Buffer.from(received);
@@ -46,24 +57,40 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false }, { status: 401 });
   }
 
-  const { sourceId, userId, datasetId, status, cookieId } = body;
+  const { sourceId, userId, datasetId, status, eventType, cookieId } = body;
   if (!sourceId || !userId) {
     return NextResponse.json({ ok: false }, { status: 400 });
   }
 
   const supabase = createServiceClient();
 
-  if (status && status !== "SUCCEEDED") {
+  if (looksUnsubstituted(status) || looksUnsubstituted(eventType) || looksUnsubstituted(datasetId)) {
+    // Apify's payloadTemplate didn't get filled in -- every run would look
+    // like a failure forever without ever actually failing. This needs a
+    // human, not a retry.
+    const diagnostic = `Apify webhook payload wasn't substituted (status=${status}, eventType=${eventType}) — check payloadTemplate syntax in lib/apify.ts.`;
+    console.error(diagnostic);
     await supabase
       .from("watch_sources")
-      .update({ status: "error", last_error: `Scrape run ${status}` })
+      .update({ status: "error", last_error: diagnostic.slice(0, 500) })
+      .eq("id", sourceId)
+      .eq("user_id", userId);
+    return NextResponse.json({ ok: false, error: diagnostic }, { status: 500 });
+  }
+
+  const succeeded = eventType ? eventType === "ACTOR.RUN.SUCCEEDED" : status === "SUCCEEDED";
+
+  if (!succeeded) {
+    await supabase
+      .from("watch_sources")
+      .update({ status: "error", last_error: `Scrape run ${status ?? eventType ?? "unknown"}` })
       .eq("id", sourceId)
       .eq("user_id", userId);
 
     // A FAILED run that was using a pooled cookie is the signal we have for
     // "this cookie stopped working" — there's no separate health-check, so a
     // failure is treated as a ban until an admin says otherwise in Settings.
-    if (cookieId && status === "FAILED") {
+    if (cookieId && (status === "FAILED" || eventType === "ACTOR.RUN.FAILED")) {
       const detail = `Run ${body.runId ?? "unknown"} failed while using this cookie.`;
       const { data: cookie } = await supabase
         .from("facebook_cookies")
@@ -109,9 +136,14 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false }, { status: 502 });
   }
 
+  // normalisePost already drops anything with no text (image/video-only
+  // posts) -- the cap applies AFTER that filter, not to the raw scrape, so
+  // "up to 5 posts" means 5 posts that actually have text to match against,
+  // not 5 raw items where most turn out unusable.
   const posts = items
     .map(normalisePost)
-    .filter((post): post is ScrapedPost => post !== null);
+    .filter((post): post is ScrapedPost => post !== null)
+    .slice(0, SCAN_RESULTS_LIMIT);
 
   // reasonById stays empty (→ no matches) if there's nothing to classify or
   // no intent to classify against, rather than guessing.
