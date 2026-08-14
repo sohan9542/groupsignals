@@ -183,6 +183,13 @@ export async function POST(request: Request) {
     }));
 
   let imported = 0;
+  // Surfaced as the source's last_error even though the scan itself
+  // succeeded -- a silently-failed email is exactly the kind of thing that
+  // needs to be visible somewhere, not just console.error'd into logs
+  // nobody's looking at. Set at most once; the first failure is the useful
+  // one, not the last.
+  let emailWarning: string | null = null;
+
   if (rows.length > 0) {
     // ignoreDuplicates leans on the (user_id, platform, external_id) unique
     // index so re-scraping a group never re-alerts on posts already seen —
@@ -207,34 +214,54 @@ export async function POST(request: Request) {
     imported = inserted?.length ?? 0;
 
     if (imported > 0) {
-      const { data: destinations } = await supabase
-        .from("email_destinations")
-        .select("address")
-        .eq("user_id", userId)
-        .eq("status", "verified")
-        .eq("digest", "instant");
+      const emailConfigured = Boolean(process.env.RESEND_API_KEY && process.env.EMAIL_FROM);
 
-      for (const lead of inserted ?? []) {
-        for (const destination of destinations ?? []) {
-          try {
-            await sendLeadAlert({
-              to: destination.address,
-              sourceName: source.name,
-              content: lead.content,
-              postUrl: lead.post_url,
-              authorName: lead.author_name,
-              reason: lead.match_reason ?? "Matches what you're watching for.",
-            });
-          } catch (cause) {
-            // One bad send shouldn't lose the lead or block the rest of the batch.
-            console.error("Lead alert email failed", cause);
-          }
+      if (!emailConfigured) {
+        emailWarning = `Found ${imported} new lead${imported > 1 ? "s" : ""} but couldn't email them — RESEND_API_KEY/EMAIL_FROM aren't configured.`;
+      } else {
+        const { data: destinations } = await supabase
+          .from("email_destinations")
+          .select("address")
+          .eq("user_id", userId)
+          .eq("status", "verified")
+          .eq("digest", "instant");
+
+        if (!destinations || destinations.length === 0) {
+          emailWarning = `Found ${imported} new lead${imported > 1 ? "s" : ""} but there's no verified instant-alert email destination to send to.`;
         }
 
-        await supabase
-          .from("leads")
-          .update({ notified_at: new Date().toISOString() })
-          .eq("id", lead.id);
+        for (const lead of inserted ?? []) {
+          let sentAny = false;
+
+          for (const destination of destinations ?? []) {
+            try {
+              await sendLeadAlert({
+                to: destination.address,
+                sourceName: source.name,
+                content: lead.content,
+                postUrl: lead.post_url,
+                authorName: lead.author_name,
+                reason: lead.match_reason ?? "Matches what you're watching for.",
+              });
+              sentAny = true;
+            } catch (cause) {
+              const detail = cause instanceof Error ? cause.message : "Lead alert email failed";
+              console.error("Lead alert email failed", cause);
+              if (!emailWarning) emailWarning = detail.slice(0, 500);
+            }
+          }
+
+          // Only stamped on an actual successful send -- previously this ran
+          // unconditionally after the attempt, so a lead could be marked
+          // "notified" even when every send threw and nothing was ever
+          // delivered.
+          if (sentAny) {
+            await supabase
+              .from("leads")
+              .update({ notified_at: new Date().toISOString() })
+              .eq("id", lead.id);
+          }
+        }
       }
     }
   }
@@ -247,7 +274,7 @@ export async function POST(request: Request) {
     .from("watch_sources")
     .update({
       status: "active",
-      last_error: null,
+      last_error: emailWarning,
       last_run_at: new Date().toISOString(),
       ...(groupTitle ? { name: groupTitle } : {}),
     })

@@ -20,18 +20,13 @@ const FACEBOOK_ACTOR =
 const PRIVATE_FACEBOOK_ACTOR =
   process.env.APIFY_PRIVATE_FACEBOOK_GROUP_ACTOR ?? "whoareyouanas~facebook-group-scraper";
 
-/** Target number of USABLE (text-bearing) posts per scan — applied after
- *  filtering in the webhook (lib/apify.ts's normalisePost drops anything
- *  with no text, e.g. image/video-only posts). Exported so the webhook
- *  slices to the same number after filtering. */
+/** Hard ceiling on every scan, first or repeat — this is what's actually
+ *  sent to Apify as resultsLimit/maxPosts, not a post-filter target. No
+ *  over-fetch buffer: cost control wins over guaranteeing 5 usable (text)
+ *  posts, so a scan that turns up mostly image-only posts just yields fewer
+ *  than 5 leads rather than costing more to compensate. Exported so the
+ *  webhook applies the same cap defensively after filtering. */
 export const SCAN_RESULTS_LIMIT = 5;
-
-/** What we actually ask the actor to scrape. Higher than SCAN_RESULTS_LIMIT
- *  on purpose — some fraction of raw posts are image/video-only with no
- *  text and get thrown away, so asking for exactly 5 raw posts routinely
- *  yields far fewer than 5 usable ones. This is a rough buffer, not a
- *  measured ratio; revisit if usable-post counts still run low. */
-const RAW_FETCH_LIMIT = SCAN_RESULTS_LIMIT * 3;
 
 // Field names verified against a real run of apify/facebook-groups-scraper.
 // The optional aliases are kept because the actor has renamed fields before and
@@ -158,7 +153,7 @@ export async function startFacebookGroupScrape(options: {
     FACEBOOK_ACTOR,
     {
       startUrls: [{ url: options.groupUrl }],
-      resultsLimit: options.resultsLimit ?? RAW_FETCH_LIMIT,
+      resultsLimit: options.resultsLimit ?? SCAN_RESULTS_LIMIT,
       // Actor accepts a full ISO timestamp here. First scan omits it and
       // only pulls the latest few posts; later scans only fetch newer ones.
       ...(options.since ? { onlyPostsNewerThan: options.since } : {}),
@@ -190,7 +185,7 @@ export async function startPrivateFacebookGroupScrape(options: {
     PRIVATE_FACEBOOK_ACTOR,
     {
       startUrls: [{ url: options.groupUrl }],
-      maxPosts: options.resultsLimit ?? RAW_FETCH_LIMIT,
+      maxPosts: options.resultsLimit ?? SCAN_RESULTS_LIMIT,
       includeGroupInfo: true,
       cookies: options.cookies,
       ...(options.since ? { onlyPostsNewerThan: options.since } : {}),
