@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { createServiceClient } from "@/lib/supabase/service";
 import { isAdmin } from "@/lib/admin";
 import { isCronEnabled } from "@/lib/settings";
+import { getScheduleStatus } from "@/lib/qstash";
 import { CookiePool } from "@/components/CookiePool";
 import { ScanScheduleToggle } from "@/components/ScanScheduleToggle";
 import type { FacebookCookiePoolEntry } from "@/lib/types";
@@ -25,13 +26,14 @@ export default async function SettingsPage() {
   // authenticated role at all, so even the admin's own session can't read
   // them without the service client.
   const service = createServiceClient();
-  const [{ data: cookies }, cronEnabled] = await Promise.all([
+  const [{ data: cookies }, cronEnabled, schedule] = await Promise.all([
     service
       .from("facebook_cookies")
       .select("id, name, status, last_used_at, last_error, created_at")
       .order("created_at", { ascending: false })
       .returns<FacebookCookiePoolEntry[]>(),
     isCronEnabled(),
+    getScheduleStatus(),
   ]);
 
   return (
@@ -43,7 +45,7 @@ export default async function SettingsPage() {
         </p>
       </div>
 
-      <ScanScheduleToggle enabled={cronEnabled} />
+      <ScanScheduleToggle enabled={cronEnabled} schedule={schedule} />
       <CookiePool cookies={cookies ?? []} />
     </div>
   );
