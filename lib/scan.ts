@@ -1,6 +1,7 @@
 import { createServiceClient } from "./supabase/service";
 import { startFacebookGroupScrape, startPrivateFacebookGroupScrape } from "./apify";
 import { decryptCookies, type FacebookCookie } from "./facebook-cookies";
+import { resolvePublicOrigin } from "./public-url";
 import type { WatchSource } from "./types";
 
 export type ScanOutcome = { ok: true; runId: string } | { ok: false; error: string; status: number };
@@ -108,17 +109,17 @@ export async function startScanForSource(
 /**
  * Apify calls the webhook back from its own servers, so it must be publicly
  * reachable — a localhost URL would leave every run finishing into the void.
+ * Prefers PUBLIC_WEBHOOK_BASE_URL / NEXT_PUBLIC_SITE_URL over request.url
+ * because Vercel/QStash invocations often look like localhost internally.
  */
 export function resolveWebhookUrl(requestUrl: string): { ok: true; url: string } | { ok: false; error: string } {
-  const base = process.env.PUBLIC_WEBHOOK_BASE_URL?.trim() || requestUrl;
-  const url = new URL("/api/apify/webhook", base).toString();
-
-  if (url.includes("localhost") || url.includes("127.0.0.1")) {
+  const base = resolvePublicOrigin(requestUrl);
+  if (!base) {
     return {
       ok: false,
       error: "Set PUBLIC_WEBHOOK_BASE_URL to a public URL (tunnel or deployed domain) — Apify can't call localhost back.",
     };
   }
 
-  return { ok: true, url };
+  return { ok: true, url: new URL("/api/apify/webhook", base).toString() };
 }

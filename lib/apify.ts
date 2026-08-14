@@ -20,6 +20,11 @@ const FACEBOOK_ACTOR =
 const PRIVATE_FACEBOOK_ACTOR =
   process.env.APIFY_PRIVATE_FACEBOOK_GROUP_ACTOR ?? "whoareyouanas~facebook-group-scraper";
 
+/** Cap every run — first scan and later ones. After the first, `onlyPostsNewerThan`
+ *  already limits us to new posts; this just stops a busy group from dumping a
+ *  huge (and expensive) batch in one go. */
+const SCAN_RESULTS_LIMIT = 5;
+
 // Field names verified against a real run of apify/facebook-groups-scraper.
 // The optional aliases are kept because the actor has renamed fields before and
 // a rename should degrade to a missing value, not a crashed import.
@@ -138,9 +143,9 @@ export async function startFacebookGroupScrape(options: {
     FACEBOOK_ACTOR,
     {
       startUrls: [{ url: options.groupUrl }],
-      resultsLimit: options.resultsLimit ?? 50,
-      // Actor accepts a full ISO timestamp here; omitted entirely on a
-      // source's first scan so we get some history to start with.
+      resultsLimit: options.resultsLimit ?? SCAN_RESULTS_LIMIT,
+      // Actor accepts a full ISO timestamp here. First scan omits it and
+      // only pulls the latest few posts; later scans only fetch newer ones.
       ...(options.since ? { onlyPostsNewerThan: options.since } : {}),
     },
     options
@@ -170,7 +175,7 @@ export async function startPrivateFacebookGroupScrape(options: {
     PRIVATE_FACEBOOK_ACTOR,
     {
       startUrls: [{ url: options.groupUrl }],
-      maxPosts: options.resultsLimit ?? 50,
+      maxPosts: options.resultsLimit ?? SCAN_RESULTS_LIMIT,
       includeGroupInfo: true,
       cookies: options.cookies,
       ...(options.since ? { onlyPostsNewerThan: options.since } : {}),

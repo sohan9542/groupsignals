@@ -26,7 +26,8 @@ ones without which things silently do nothing:
 | `SUPABASE_SERVICE_ROLE_KEY` | The Apify webhook, Paddle webhook, and the cookie-pool/admin routes all write or read rows for a user who isn't making the request (or that aren't owned by any user). Without it they return 503/403. |
 | `APIFY_TOKEN` | Starting a scrape run. |
 | `APIFY_WEBHOOK_SECRET` | Our own random string, not something Apify issues. We embed it in the run's payload template and compare it back on the way in. |
-| `PUBLIC_WEBHOOK_BASE_URL` | Apify calls us back from its servers, so this must be publicly reachable. A scan refuses to start if it resolves to localhost. |
+| `PUBLIC_WEBHOOK_BASE_URL` | Apify calls us back from its servers, so this must be publicly reachable. Falls back to `NEXT_PUBLIC_SITE_URL` / the Vercel production host — a scan only refuses if every candidate is localhost. |
+| `QSTASH_TOKEN` | Creates and keeps the 5-minute scan schedule. Without it, only the daily Vercel Cron backup in `vercel.json` fires. |
 | `FACEBOOK_COOKIE_ENCRYPTION_KEY` | Encrypts every cookie in the admin pool at rest. Without it, adding or using a pooled cookie fails outright. |
 | `ANTHROPIC_API_KEY` | Classifying scraped posts against a source's intent. Without it a scan finishes but finds zero leads. |
 | `RESEND_API_KEY` / `EMAIL_FROM` | Sending lead alerts and admin cookie-ban alerts. `EMAIL_FROM` must be on a Resend-verified domain — the sandbox `onboarding@resend.dev` address only delivers to the Resend account's own email. |
@@ -83,34 +84,31 @@ supabase/migrations/     schema, RLS policies, new-user bootstrap
    *is* the ban signal, so a false positive just means a healthy cookie sits
    disabled until an admin flips it back in Settings.
 
-Repeat scans pass `onlyPostsNewerThan` from the source's `last_run_at`, so a
-rescan fetches new posts only rather than re-walking the group's history.
+The first scan only pulls the latest 5 posts. Repeat scans pass
+`onlyPostsNewerThan` from the source's `last_run_at`, so a rescan fetches
+new posts only (still capped at 5) rather than re-walking the group's history.
 
-## Scheduled scans (Upstash QStash)
+## Scheduled scans (Upstash QStash + Vercel Cron)
 
-Nothing scans on its own until a QStash schedule is pointed at
-`/api/cron/scan`. That endpoint sweeps every `active` source (skipping
-anything scanned in the last 4 minutes, so an overlapping/retried trigger
-doesn't double-run one) and starts a scan for each, the same way the
-"Scan now" button does.
+`/api/cron/scan` sweeps every `active` source (skipping anything scanned in
+the last 4 minutes) and starts a scan for each, the same way the "Scan now"
+button does.
 
-Create the schedule once, from your Upstash QStash dashboard token:
+Two things can hit that route:
 
-```bash
-curl -X POST "https://qstash.upstash.io/v2/schedules/https://YOUR_DOMAIN/api/cron/scan" \
-  -H "Authorization: Bearer YOUR_QSTASH_TOKEN" \
-  -H "Upstash-Cron: */5 * * * *" \
-  -H "Upstash-Forward-X-Cron-Secret: YOUR_CRON_SECRET"
-```
+1. **QStash, every 5 minutes** — set `QSTASH_TOKEN` (Upstash console → QStash)
+   on Vercel. The first authorized cron request creates schedule
+   `groupsignals-watchlist-scan` pointed at the public site URL, with
+   `X-Cron-Secret` already attached. Redeploys update the destination if the
+   domain changes. No manual curl.
+2. **Vercel Cron, once a day** (`vercel.json`, 08:00 UTC) — Hobby-safe backup
+   so groups still get scanned if QStash isn't configured yet. Vercel sends
+   `Authorization: Bearer $CRON_SECRET`; the route accepts that as well as
+   `X-Cron-Secret`.
 
-- `YOUR_DOMAIN` — the deployed app's public URL. QStash calls this from
-  Upstash's servers, so it can't be localhost.
-- `YOUR_CRON_SECRET` — must match `CRON_SECRET` in the deployed environment.
-  `/api/cron/scan` checks this header before doing anything else.
-
-`Upstash-Forward-*` headers are QStash's way of passing a header through to
-the destination request untouched — that's how `X-Cron-Secret` reaches our
-route.
+`PUBLIC_WEBHOOK_BASE_URL` / `NEXT_PUBLIC_SITE_URL` must be a public origin
+(your Vercel domain, not localhost). Apify's webhook is built from that,
+because QStash and Vercel invocations often look like `localhost` internally.
 
 ## Security notes
 
