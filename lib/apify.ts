@@ -163,17 +163,14 @@ export async function startFacebookGroupScrape(options: {
 }
 
 /**
- * The private actor's onlyPostsNewerThan rejects the ISO timestamps the
- * public actor happily accepts (its input schema requires *either* a strict
- * ISO datetime or a relative duration like "3 days" — our ISO strings were
- * failing that branch on every run). Sidesteps the ISO branch entirely by
- * expressing the same cutoff as minutes elapsed since it, which is exactly
- * what the relative-duration branch expects.
+ * The private actor's runtime rejects `onlyPostsNewerThan` with milliseconds
+ * (Date#toISOString()'s default, "...T00:00:00.000Z") even though its own
+ * declared input schema appeared to allow it — its actual error says plainly
+ * "Use an ISO 8601 date or date-time string", so strip the fractional
+ * seconds Date#toISOString() always adds and send the plain form instead.
  */
-function minutesSince(since: string): string {
-  const elapsedMs = Date.now() - new Date(since).getTime();
-  const minutes = Math.max(1, Math.ceil(elapsedMs / 60_000));
-  return `${minutes} minutes`;
+function isoNoMillis(since: string): string {
+  return new Date(since).toISOString().replace(/\.\d+Z$/, "Z");
 }
 
 /**
@@ -202,7 +199,7 @@ export async function startPrivateFacebookGroupScrape(options: {
       maxPosts: options.resultsLimit ?? SCAN_RESULTS_LIMIT,
       includeGroupInfo: true,
       cookies: options.cookies,
-      ...(options.since ? { onlyPostsNewerThan: minutesSince(options.since) } : {}),
+      ...(options.since ? { onlyPostsNewerThan: isoNoMillis(options.since) } : {}),
     },
     options
   );
