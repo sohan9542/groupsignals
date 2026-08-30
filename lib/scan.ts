@@ -47,20 +47,25 @@ export async function startScanForSource(
   let privateAuth: { cookieId: string; cookies: FacebookCookie[] } | null = null;
 
   if (source.requires_login) {
-    // Least-recently-used active cookie — spreads load across the pool
-    // instead of hammering the same account on every scan.
-    const { data: cookie } = await service
-      .from("facebook_cookies")
-      .select("id, cookies_ciphertext")
-      .eq("status", "active")
-      .order("last_used_at", { ascending: true, nullsFirst: true })
-      .limit(1)
-      .maybeSingle<{ id: string; cookies_ciphertext: string }>();
+    // Strictly the account an admin assigned to THIS group — no fallback to
+    // any other pooled cookie, even if one is sitting idle. Keeps each
+    // group's exposure to a deliberate, admin-chosen set of accounts.
+    const { data: assignment } = await service
+      .from("group_account_assignments")
+      .select("cookie_id, facebook_cookies!inner(id, cookies_ciphertext, status)")
+      .eq("source_id", source.id)
+      .eq("role", "active")
+      .eq("facebook_cookies.status", "active")
+      .maybeSingle<{ cookie_id: string; facebook_cookies: { id: string; cookies_ciphertext: string; status: string } }>();
+
+    const cookie = assignment
+      ? { id: assignment.cookie_id, cookies_ciphertext: assignment.facebook_cookies.cookies_ciphertext }
+      : null;
 
     if (!cookie) {
       return {
         ok: false,
-        error: "No connected Facebook accounts available right now.",
+        error: "No active Facebook account assigned to this group — assign one in the admin panel.",
         status: 503,
       };
     }

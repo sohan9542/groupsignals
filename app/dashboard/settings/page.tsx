@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { createServiceClient } from "@/lib/supabase/service";
@@ -47,6 +48,16 @@ export default async function SettingsPage() {
 
       <ScanScheduleToggle enabled={cronEnabled} schedule={schedule} />
       <CookiePool cookies={cookies ?? []} />
+
+      <Link
+        href="/dashboard/private-groups"
+        className="block rounded-2xl border border-white/8 bg-surface/50 p-5 text-sm font-medium text-white transition-colors hover:bg-white/5"
+      >
+        Manage private group accounts →
+        <span className="mt-1 block text-xs font-normal text-ash-dim">
+          Assign which pooled accounts scan each private group.
+        </span>
+      </Link>
     </div>
   );
 }

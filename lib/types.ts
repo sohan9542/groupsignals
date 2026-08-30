@@ -4,6 +4,7 @@ export type LeadStatus = "new" | "saved" | "replied" | "dismissed";
 export type DestinationStatus = "pending" | "verified";
 export type DigestMode = "instant" | "daily";
 export type CookieStatus = "active" | "banned" | "disabled";
+export type GroupAccountRole = "active" | "backup";
 
 export type WatchSource = {
   id: string;
@@ -52,6 +53,29 @@ export type FacebookCookiePoolEntry = {
   last_used_at: string | null;
   last_error: string | null;
   created_at: string;
+};
+
+export type GroupAccountAssignment = {
+  id: string;
+  source_id: string;
+  role: GroupAccountRole;
+  assigned_at: string;
+  cookie: { id: string; name: string; status: CookieStatus };
+};
+
+/** One row of the admin "Private groups" view: a private watch_source plus
+ *  who submitted it and which pooled accounts are assigned to it. */
+export type PrivateGroupWithAssignments = {
+  id: string;
+  user_id: string;
+  user_email: string | null;
+  url: string;
+  name: string;
+  status: WatchStatus;
+  last_run_at: string | null;
+  last_error: string | null;
+  created_at: string;
+  assignments: GroupAccountAssignment[];
 };
 
 export type EmailDestination = {
