@@ -1,6 +1,5 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { createServiceClient } from "@/lib/supabase/service";
 import { SOURCE_LIMIT, parseIntent, parseSourceUrl } from "@/lib/sources";
 import { resolveWebhookUrl, startScanForSource } from "@/lib/scan";
 import type { WatchSource } from "@/lib/types";
@@ -40,26 +39,10 @@ export async function POST(request: Request) {
   // sending requiresLogin would silently create a source we can never scan.
   const requiresLogin = body.requiresLogin === true && parsedUrl.platform === "facebook";
 
-  if (requiresLogin) {
-    // facebook_cookies has no RLS policy for the authenticated role at all —
-    // only the pool's existence matters here, not its contents, so a
-    // service-role read is the only way to even ask the question.
-    const service = createServiceClient();
-    const { count } = await service
-      .from("facebook_cookies")
-      .select("id", { count: "exact", head: true })
-      .eq("status", "active");
-
-    if (!count) {
-      return NextResponse.json(
-        {
-          ok: false,
-          error: "Private groups aren't available right now — no connected Facebook accounts in the pool.",
-        },
-        { status: 503 }
-      );
-    }
-  }
+  // No pool-existence check here anymore — a private group is always
+  // submittable. It just won't scan (clear last_error via startScanForSource
+  // below) until an admin assigns it a specific account on the private-groups
+  // admin page; pool size doesn't say anything about *this* group's assignment.
 
   // Checked here rather than in the DB so the message can name the limit.
   const { count, error: countError } = await supabase
