@@ -1,4 +1,4 @@
-# GroupSignals
+# GroupSignal
 
 Facebook group leads, sent to your inbox. Users watch groups — public need no
 login, private are handled through an admin-managed pool of Facebook cookies —

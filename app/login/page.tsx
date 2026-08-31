@@ -19,7 +19,7 @@ export default function LoginPage() {
 
       <main className="relative mx-auto flex w-full max-w-md flex-1 flex-col justify-center px-5 py-12 sm:px-8">
         <h1 className="text-2xl font-semibold tracking-tight">
-          Sign in to GroupSignals
+          Sign in to GroupSignal
         </h1>
         <p className="mt-2 text-sm text-ash">
           We&apos;ll email you a link. No password to remember — and if you

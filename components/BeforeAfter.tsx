@@ -53,7 +53,7 @@ export function BeforeAfter() {
               className="pointer-events-none absolute -right-16 -top-16 size-48 rounded-full bg-signal/10 blur-3xl"
             />
             <h3 className="relative text-lg font-semibold text-fg">
-              With GroupSignals
+              With GroupSignal
             </h3>
             <ul className="relative mt-6 space-y-4">
               {WITH_US.map((item) => (

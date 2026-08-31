@@ -17,7 +17,7 @@ export function FounderNote() {
             check ourselves. That&apos;s still all it does.
           </p>
           <p className="mt-6 text-sm font-semibold uppercase tracking-[0.16em] text-ash-dim">
-            Why we built GroupSignals
+            Why we built GroupSignal
           </p>
         </Reveal>
       </div>

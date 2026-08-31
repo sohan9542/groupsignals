@@ -37,9 +37,9 @@ export function Hero() {
               {...rise(0.16)}
               className="mt-6 text-pretty text-base leading-relaxed text-ash sm:text-lg"
             >
-              We watch the groups your buyers post in and send you the ones
-              worth replying to. Add a group, tell us what a good customer
-              sounds like, and check your inbox.
+              We watch local Facebook groups for homeowners asking for a
+              company like yours, and email you the moment they post. Add a
+              group, tell us what a good job looks like, and check your inbox.
             </motion.p>
 
             <motion.div
@@ -97,12 +97,12 @@ function LeadAlertCard({ reduceMotion }: { reduceMotion: boolean }) {
           </div>
 
           <p className="mt-4 text-xs text-ash-dim">
-            SaaS Founders &amp; Agencies
+            Local Neighbors &amp; Homeowners
           </p>
 
           <blockquote className="mt-3 rounded-xl border border-fg/8 bg-fg/[0.03] p-4 text-sm leading-relaxed text-fg/90">
-            &ldquo;Looking for an agency to build a custom React dashboard.
-            Budget $5k-$10k...&rdquo;
+            &ldquo;AC stopped blowing cold air, need someone out this week.
+            Anyone have a reliable HVAC company they trust?&rdquo;
           </blockquote>
 
           <button
