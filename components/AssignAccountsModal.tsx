@@ -74,7 +74,7 @@ export function AssignAccountsModal({
                 <li
                   key={cookie.id}
                   className={`flex items-center justify-between gap-3 rounded-xl border px-3 py-2.5 ${
-                    checked ? "border-signal/40 bg-signal/5" : "border-white/10"
+                    checked ? "border-signal/40 bg-signal/5" : "border-fg/10"
                   }`}
                 >
                   <label className="flex min-w-0 flex-1 items-center gap-2.5">
@@ -83,9 +83,9 @@ export function AssignAccountsModal({
                       checked={checked}
                       disabled={disabled}
                       onChange={() => toggle(cookie.id)}
-                      className="size-4 rounded border-white/20 bg-white/5 accent-signal disabled:opacity-40"
+                      className="size-4 rounded border-fg/20 bg-fg/5 accent-signal disabled:opacity-40"
                     />
-                    <span className="min-w-0 truncate text-sm text-white">{cookie.name}</span>
+                    <span className="min-w-0 truncate text-sm text-fg">{cookie.name}</span>
                     {cookie.status !== "active" && (
                       <span className="shrink-0 rounded-md bg-red-500/12 px-1.5 py-0.5 text-[10px] font-medium text-red-300">
                         {cookie.status}
@@ -116,18 +116,18 @@ export function AssignAccountsModal({
           </p>
         )}
 
-        <div className="flex justify-end gap-3 border-t border-white/8 pt-5">
+        <div className="flex justify-end gap-3 border-t border-fg/8 pt-5">
           <button
             type="button"
             onClick={onClose}
-            className="rounded-xl px-4 py-2.5 text-sm font-medium text-ash transition-colors hover:text-white"
+            className="rounded-xl px-4 py-2.5 text-sm font-medium text-ash transition-colors hover:text-fg"
           >
             Cancel
           </button>
           <button
             type="submit"
             disabled={!canSave}
-            className="inline-flex items-center gap-2 rounded-xl bg-signal px-5 py-2.5 text-sm font-semibold text-ink transition hover:bg-signal-bright disabled:cursor-not-allowed disabled:opacity-50"
+            className="inline-flex items-center gap-2 rounded-xl bg-signal px-5 py-2.5 text-sm font-semibold text-on-signal transition hover:bg-signal-bright disabled:cursor-not-allowed disabled:opacity-50"
           >
             {saving ? <Loader2 className="size-4 animate-spin" /> : <Save className="size-4" />}
             Save

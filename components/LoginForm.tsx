@@ -46,14 +46,14 @@ export function LoginForm() {
         <span className="mx-auto flex size-11 items-center justify-center rounded-xl bg-signal/15">
           <MailCheck className="size-5 text-signal-bright" />
         </span>
-        <p className="mt-4 text-sm font-semibold text-white">Check your email</p>
+        <p className="mt-4 text-sm font-semibold text-fg">Check your email</p>
         <p className="mt-1.5 text-sm text-ash">
           We sent a sign-in link to {email}. It expires in an hour.
         </p>
         <button
           type="button"
           onClick={() => setStatus("idle")}
-          className="mt-4 text-sm text-ash-dim underline underline-offset-4 hover:text-white"
+          className="mt-4 text-sm text-ash-dim underline underline-offset-4 hover:text-fg"
         >
           Use a different email
         </button>
@@ -63,7 +63,7 @@ export function LoginForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor="login-email" className="block text-sm font-medium text-white">
+      <label htmlFor="login-email" className="block text-sm font-medium text-fg">
         Email address
       </label>
       <input
@@ -75,13 +75,13 @@ export function LoginForm() {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="you@company.com"
-        className="mt-2 w-full rounded-xl border border-white/12 bg-white/5 px-4 py-3.5 text-sm text-white placeholder:text-ash-dim focus:border-signal/50 focus:outline-none focus:ring-2 focus:ring-signal/25"
+        className="mt-2 w-full rounded-xl border border-fg/12 bg-fg/5 px-4 py-3.5 text-sm text-fg placeholder:text-ash-dim focus:border-signal/50 focus:outline-none focus:ring-2 focus:ring-signal/25"
       />
 
       <button
         type="submit"
         disabled={status === "sending"}
-        className="group mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-signal px-6 py-3.5 text-sm font-semibold text-ink transition hover:bg-signal-bright disabled:cursor-not-allowed disabled:opacity-70"
+        className="group mt-4 flex w-full items-center justify-center gap-2 rounded-xl bg-signal px-6 py-3.5 text-sm font-semibold text-on-signal transition hover:bg-signal-bright disabled:cursor-not-allowed disabled:opacity-70"
       >
         {status === "sending" ? (
           <>

@@ -26,7 +26,7 @@ export default function LoginPage() {
           don&apos;t have an account yet, this creates one.
         </p>
 
-        <div className="mt-8 rounded-2xl border border-white/10 bg-surface/60 p-6">
+        <div className="mt-8 rounded-2xl border border-fg/10 bg-surface/60 p-6">
           {/* LoginForm reads ?next= via useSearchParams, which opts the subtree
               into client rendering and needs a boundary to prerender around. */}
           <Suspense fallback={<div className="h-[9.5rem]" />}>

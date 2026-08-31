@@ -106,13 +106,13 @@ export function CookiePool({ cookies }: { cookies: FacebookCookiePoolEntry[] }) 
 
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-base font-semibold text-white">Cookie pool</h2>
+          <h2 className="text-base font-semibold text-fg">Cookie pool</h2>
           {error && <p className="mt-0.5 text-xs text-red-400">{error}</p>}
         </div>
         <button
           type="button"
           onClick={() => setShowAdd(true)}
-          className="inline-flex items-center gap-2 rounded-xl bg-signal px-4 py-2.5 text-sm font-semibold text-ink transition hover:bg-signal-bright"
+          className="inline-flex items-center gap-2 rounded-xl bg-signal px-4 py-2.5 text-sm font-semibold text-on-signal transition hover:bg-signal-bright"
         >
           <Plus className="size-4" />
           Add cookie
@@ -120,20 +120,20 @@ export function CookiePool({ cookies }: { cookies: FacebookCookiePoolEntry[] }) 
       </div>
 
       {cookies.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-white/10 p-10 text-center">
+        <div className="rounded-2xl border border-dashed border-fg/10 p-10 text-center">
           <p className="text-sm text-ash-dim">No cookies in the pool yet.</p>
           <p className="mt-1 text-xs text-ash-dim">
             Private-group sources will fail to scan until at least one is added.
           </p>
         </div>
       ) : (
-        <ul className="divide-y divide-white/8 overflow-hidden rounded-2xl border border-white/8 bg-surface/50">
+        <ul className="divide-y divide-fg/8 overflow-hidden rounded-2xl border border-fg/8 bg-surface/50">
           {cookies.map((cookie) => (
             <li key={cookie.id} className="p-5">
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-2">
-                    <h3 className="truncate text-sm font-semibold text-white">{cookie.name}</h3>
+                    <h3 className="truncate text-sm font-semibold text-fg">{cookie.name}</h3>
                     <StatusPill status={cookie.status} />
                   </div>
                   <p className="mt-1 font-mono text-[11px] text-ash-dim">{cookie.id}</p>
@@ -214,11 +214,11 @@ function StatCard({
   tone?: "signal" | "warn";
 }) {
   return (
-    <div className="rounded-2xl border border-white/8 bg-surface/50 p-4">
+    <div className="rounded-2xl border border-fg/8 bg-surface/50 p-4">
       <span className="text-xs font-medium uppercase tracking-wide text-ash-dim">{label}</span>
       <p
         className={`mt-1.5 text-2xl font-semibold ${
-          tone === "signal" ? "text-signal-bright" : tone === "warn" ? "text-amber-400" : "text-white"
+          tone === "signal" ? "text-signal-bright" : tone === "warn" ? "text-amber-400" : "text-fg"
         }`}
       >
         {value}
@@ -230,7 +230,7 @@ function StatCard({
 function StatusPill({ status }: { status: CookieStatus }) {
   const styles: Record<CookieStatus, string> = {
     active: "bg-signal/15 text-signal-bright",
-    disabled: "bg-white/8 text-ash",
+    disabled: "bg-fg/8 text-ash",
     banned: "bg-red-500/12 text-red-300",
   };
   const icons: Record<CookieStatus, React.ComponentType<{ className?: string }>> = {
@@ -268,10 +268,10 @@ function IconButton({
       disabled={busy}
       title={label}
       aria-label={label}
-      className={`rounded-lg border border-white/10 p-2 transition-colors disabled:opacity-40 ${
+      className={`rounded-lg border border-fg/10 p-2 transition-colors disabled:opacity-40 ${
         destructive
           ? "text-ash hover:border-red-500/30 hover:bg-red-500/10 hover:text-red-300"
-          : "text-ash hover:bg-white/5 hover:text-white"
+          : "text-ash hover:bg-fg/5 hover:text-fg"
       }`}
     >
       {busy ? <Loader2 className="size-4 animate-spin" /> : children}

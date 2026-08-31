@@ -21,7 +21,7 @@ export function DashboardNav({ email, isAdmin }: { email: string; isAdmin: boole
   const items = isAdmin ? [...ITEMS, ADMIN_ITEM] : ITEMS;
 
   return (
-    <div className="flex flex-col gap-4 border-b border-white/8 pb-4 lg:flex-row lg:items-center lg:justify-between lg:pb-0">
+    <div className="flex flex-col gap-4 border-b border-fg/8 pb-4 lg:flex-row lg:items-center lg:justify-between lg:pb-0">
       <nav aria-label="Dashboard" className="-mx-1 overflow-x-auto">
         <ul className="flex items-center gap-1 px-1">
           {items.map((item) => {
@@ -39,7 +39,7 @@ export function DashboardNav({ email, isAdmin }: { email: string; isAdmin: boole
                   className={`flex items-center gap-2 whitespace-nowrap rounded-lg px-3.5 py-2 text-sm font-medium transition-colors ${
                     active
                       ? "bg-signal/15 text-signal-bright"
-                      : "text-ash hover:bg-white/5 hover:text-white"
+                      : "text-ash hover:bg-fg/5 hover:text-fg"
                   }`}
                 >
                   <item.icon className="size-4" strokeWidth={1.8} />
@@ -56,7 +56,7 @@ export function DashboardNav({ email, isAdmin }: { email: string; isAdmin: boole
         <form action="/auth/signout" method="post">
           <button
             type="submit"
-            className="flex items-center gap-1.5 rounded-lg border border-white/10 px-3 py-1.5 text-xs font-medium text-ash transition-colors hover:bg-white/5 hover:text-white"
+            className="flex items-center gap-1.5 rounded-lg border border-fg/10 px-3 py-1.5 text-xs font-medium text-ash transition-colors hover:bg-fg/5 hover:text-fg"
           >
             <LogOut className="size-3.5" />
             Sign out

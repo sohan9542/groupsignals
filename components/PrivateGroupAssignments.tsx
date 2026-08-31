@@ -57,7 +57,7 @@ export function PrivateGroupAssignments({
 
   if (groups.length === 0) {
     return (
-      <div className="rounded-2xl border border-dashed border-white/10 p-10 text-center">
+      <div className="rounded-2xl border border-dashed border-fg/10 p-10 text-center">
         <p className="text-sm text-ash-dim">No private groups submitted yet.</p>
       </div>
     );
@@ -67,7 +67,7 @@ export function PrivateGroupAssignments({
     <div className="space-y-4">
       {error && <p className="text-xs text-red-400">{error}</p>}
 
-      <ul className="divide-y divide-white/8 overflow-hidden rounded-2xl border border-white/8 bg-surface/50">
+      <ul className="divide-y divide-fg/8 overflow-hidden rounded-2xl border border-fg/8 bg-surface/50">
         {groups.map((group) => {
           const active = group.assignments.find((a) => a.role === "active");
           const backups = group.assignments.filter((a) => a.role === "backup");
@@ -77,7 +77,7 @@ export function PrivateGroupAssignments({
             <li key={group.id} className="p-5">
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div className="min-w-0">
-                  <h3 className="truncate text-sm font-semibold text-white">{group.name}</h3>
+                  <h3 className="truncate text-sm font-semibold text-fg">{group.name}</h3>
                   <p className="truncate text-xs text-ash-dim">{group.url}</p>
                   <p className="mt-1 text-[11px] text-ash-dim">Submitted by {group.user_email ?? group.user_id}</p>
 
@@ -97,7 +97,7 @@ export function PrivateGroupAssignments({
                           disabled={busy || b.cookie.status !== "active"}
                           onClick={() => makeActive(group.id, b.cookie.id)}
                           title="Make active"
-                          className="rounded-md p-1 text-ash-dim transition-colors hover:bg-white/8 hover:text-white disabled:cursor-not-allowed disabled:opacity-30"
+                          className="rounded-md p-1 text-ash-dim transition-colors hover:bg-fg/8 hover:text-fg disabled:cursor-not-allowed disabled:opacity-30"
                         >
                           {busy ? <Loader2 className="size-3 animate-spin" /> : <Star className="size-3" />}
                         </button>
@@ -121,7 +121,7 @@ export function PrivateGroupAssignments({
                 <button
                   type="button"
                   onClick={() => setManaging(group)}
-                  className="inline-flex shrink-0 items-center gap-2 rounded-xl border border-white/10 px-3 py-2 text-xs font-medium text-ash transition-colors hover:bg-white/5 hover:text-white"
+                  className="inline-flex shrink-0 items-center gap-2 rounded-xl border border-fg/10 px-3 py-2 text-xs font-medium text-ash transition-colors hover:bg-fg/5 hover:text-fg"
                 >
                   <Settings2 className="size-3.5" />
                   Manage accounts
@@ -150,7 +150,7 @@ function AccountPill({ label, status, active }: { label: string; status: CookieS
       ? "bg-red-500/12 text-red-300"
       : active
         ? "bg-signal/15 text-signal-bright"
-        : "bg-white/8 text-ash";
+        : "bg-fg/8 text-ash";
 
   return (
     <span className={`flex items-center gap-1 rounded-md px-2 py-0.5 text-[11px] font-medium ${tone}`}>

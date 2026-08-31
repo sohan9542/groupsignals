@@ -22,7 +22,7 @@ export function Logo({
         />
         <Radar className="relative size-5 text-signal-bright" strokeWidth={2} />
       </span>
-      <span className="text-[17px] font-semibold tracking-tight text-white">
+      <span className="text-[17px] font-semibold tracking-tight text-fg">
         Group<span className="text-signal-bright">Signals</span>
       </span>
     </a>

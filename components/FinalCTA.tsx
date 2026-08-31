@@ -1,5 +1,5 @@
 import { ArrowRight } from "lucide-react";
-import { offer } from "@/lib/offer";
+import { PLANS } from "@/lib/offer";
 import { Reveal } from "./Reveal";
 
 export function FinalCTA() {
@@ -16,13 +16,13 @@ export function FinalCTA() {
               Someone in your groups is asking for you right now.
             </h2>
             <p className="mt-4 text-pretty text-base text-ash">
-              Add your first group and find out. {offer.foundingPrice}/mo while
-              the founding seats last.
+              Add your first group and find out. Plans start at{" "}
+              {PLANS[0].price}/mo.
             </p>
             <div className="mt-8 flex justify-center">
               <a
                 href="/login"
-                className="group inline-flex items-center justify-center gap-2 rounded-xl bg-signal px-6 py-3.5 text-sm font-semibold text-ink shadow-[0_0_36px_-6px_var(--color-signal)] transition hover:bg-signal-bright"
+                className="group inline-flex items-center justify-center gap-2 rounded-xl bg-signal px-6 py-3.5 text-sm font-semibold text-on-signal shadow-[0_0_36px_-6px_var(--color-signal)] transition hover:bg-signal-bright"
               >
                 Start watching your groups
                 <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />

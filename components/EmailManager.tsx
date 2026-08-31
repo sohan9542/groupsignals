@@ -92,8 +92,8 @@ export function EmailManager({
 
   return (
     <div className="space-y-8">
-      <section className="rounded-2xl border border-white/8 bg-surface/50 p-6">
-        <h2 className="text-base font-semibold text-white">Add an address</h2>
+      <section className="rounded-2xl border border-fg/8 bg-surface/50 p-6">
+        <h2 className="text-base font-semibold text-fg">Add an address</h2>
         <p className="mt-1.5 text-sm text-ash">
           Send leads to a shared inbox, a teammate, or a Zapier/n8n catch-all.
         </p>
@@ -109,12 +109,12 @@ export function EmailManager({
             value={address}
             onChange={(e) => setAddress(e.target.value)}
             placeholder="leads@youragency.com"
-            className="min-w-0 flex-1 rounded-xl border border-white/12 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-ash-dim focus:border-signal/50 focus:outline-none focus:ring-2 focus:ring-signal/25"
+            className="min-w-0 flex-1 rounded-xl border border-fg/12 bg-fg/5 px-4 py-3 text-sm text-fg placeholder:text-ash-dim focus:border-signal/50 focus:outline-none focus:ring-2 focus:ring-signal/25"
           />
           <button
             type="submit"
             disabled={adding}
-            className="inline-flex items-center justify-center gap-2 rounded-xl bg-signal px-5 py-3 text-sm font-semibold text-ink transition hover:bg-signal-bright disabled:opacity-50"
+            className="inline-flex items-center justify-center gap-2 rounded-xl bg-signal px-5 py-3 text-sm font-semibold text-on-signal transition hover:bg-signal-bright disabled:opacity-50"
           >
             {adding ? <Loader2 className="size-4 animate-spin" /> : <Plus className="size-4" />}
             Add
@@ -129,18 +129,18 @@ export function EmailManager({
       </section>
 
       <section>
-        <h2 className="text-base font-semibold text-white">Delivering to</h2>
+        <h2 className="text-base font-semibold text-fg">Delivering to</h2>
 
         <ul className="mt-4 space-y-3">
           {destinations.map((destination) => (
             <li
               key={destination.id}
-              className="rounded-2xl border border-white/8 bg-surface/50 p-5"
+              className="rounded-2xl border border-fg/8 bg-surface/50 p-5"
             >
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div className="min-w-0">
                   <div className="flex flex-wrap items-center gap-2">
-                    <span className="truncate text-sm font-medium text-white">
+                    <span className="truncate text-sm font-medium text-fg">
                       {destination.address}
                     </span>
                     {destination.is_primary && (
@@ -153,13 +153,13 @@ export function EmailManager({
                         Unverified — not receiving leads
                       </span>
                     ) : (
-                      <span className="rounded-md bg-white/8 px-2 py-0.5 text-[11px] font-medium text-ash">
+                      <span className="rounded-md bg-fg/8 px-2 py-0.5 text-[11px] font-medium text-ash">
                         Verified
                       </span>
                     )}
                   </div>
 
-                  <div className="mt-3 inline-flex rounded-lg border border-white/10 p-0.5">
+                  <div className="mt-3 inline-flex rounded-lg border border-fg/10 p-0.5">
                     {(["instant", "daily"] as DigestMode[]).map((mode) => (
                       <button
                         key={mode}
@@ -169,7 +169,7 @@ export function EmailManager({
                         className={`inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 text-xs font-medium transition-colors disabled:opacity-40 ${
                           destination.digest === mode
                             ? "bg-signal/15 text-signal-bright"
-                            : "text-ash hover:text-white"
+                            : "text-ash hover:text-fg"
                         }`}
                       >
                         {mode === "instant" ? (
@@ -191,7 +191,7 @@ export function EmailManager({
                       aria-label="Make primary"
                       disabled={busyId === destination.id}
                       onClick={() => patch(destination.id, { makePrimary: true })}
-                      className="rounded-lg border border-white/10 p-2 text-ash transition-colors hover:bg-white/5 hover:text-white disabled:opacity-40"
+                      className="rounded-lg border border-fg/10 p-2 text-ash transition-colors hover:bg-fg/5 hover:text-fg disabled:opacity-40"
                     >
                       <Star className="size-4" />
                     </button>
@@ -203,7 +203,7 @@ export function EmailManager({
                       aria-label="Remove"
                       disabled={busyId === destination.id}
                       onClick={() => remove(destination.id)}
-                      className="rounded-lg border border-white/10 p-2 text-ash transition-colors hover:border-red-500/30 hover:bg-red-500/10 hover:text-red-300 disabled:opacity-40"
+                      className="rounded-lg border border-fg/10 p-2 text-ash transition-colors hover:border-red-500/30 hover:bg-red-500/10 hover:text-red-300 disabled:opacity-40"
                     >
                       {busyId === destination.id ? (
                         <Loader2 className="size-4 animate-spin" />
@@ -218,7 +218,7 @@ export function EmailManager({
           ))}
         </ul>
 
-        <p className="mt-4 rounded-lg border border-white/8 bg-white/[0.03] px-3.5 py-2.5 text-xs leading-relaxed text-ash-dim">
+        <p className="mt-4 rounded-lg border border-fg/8 bg-fg/[0.03] px-3.5 py-2.5 text-xs leading-relaxed text-ash-dim">
           Your primary address can&apos;t be removed — demote it first by making
           another one primary.
         </p>

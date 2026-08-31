@@ -70,7 +70,7 @@ export function LeadList({
             className={`rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
               active === filter.value
                 ? "bg-signal/15 text-signal-bright"
-                : "text-ash hover:bg-white/5 hover:text-white"
+                : "text-ash hover:bg-fg/5 hover:text-fg"
             }`}
           >
             {filter.label}
@@ -85,7 +85,7 @@ export function LeadList({
       )}
 
       {leads.length === 0 ? (
-        <p className="mt-6 rounded-2xl border border-dashed border-white/10 p-10 text-center text-sm text-ash-dim">
+        <p className="mt-6 rounded-2xl border border-dashed border-fg/10 p-10 text-center text-sm text-ash-dim">
           No leads here yet. Add a group on the Watchlist and hit scan.
         </p>
       ) : (
@@ -93,13 +93,13 @@ export function LeadList({
           {leads.map((lead) => (
             <li
               key={lead.id}
-              className="rounded-2xl border border-white/8 bg-surface/50 p-5"
+              className="rounded-2xl border border-fg/8 bg-surface/50 p-5"
             >
               <div className="flex items-start justify-between gap-4">
                 <div className="flex min-w-0 items-center gap-2.5">
                   <PlatformIcon platform={lead.platform} />
                   <div className="min-w-0">
-                    <p className="truncate text-sm font-medium text-white">
+                    <p className="truncate text-sm font-medium text-fg">
                       {lead.author_name ?? "Unknown poster"}
                     </p>
                     <p className="truncate text-xs text-ash-dim">
@@ -112,13 +112,13 @@ export function LeadList({
                 </div>
 
                 {lead.status !== "new" && (
-                  <span className="shrink-0 rounded-md bg-white/8 px-2 py-0.5 text-[11px] font-medium capitalize text-ash">
+                  <span className="shrink-0 rounded-md bg-fg/8 px-2 py-0.5 text-[11px] font-medium capitalize text-ash">
                     {lead.status}
                   </span>
                 )}
               </div>
 
-              <blockquote className="mt-4 whitespace-pre-line rounded-xl border border-white/8 bg-white/[0.03] p-4 text-sm leading-relaxed text-white/90">
+              <blockquote className="mt-4 whitespace-pre-line rounded-xl border border-fg/8 bg-fg/[0.03] p-4 text-sm leading-relaxed text-fg/90">
                 {lead.content}
               </blockquote>
 
@@ -181,7 +181,7 @@ function ActionButton({
       type="button"
       onClick={onClick}
       disabled={busy}
-      className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 px-3.5 py-2 text-xs font-medium text-ash transition-colors hover:bg-white/5 hover:text-white disabled:opacity-40"
+      className="inline-flex items-center gap-1.5 rounded-lg border border-fg/10 px-3.5 py-2 text-xs font-medium text-ash transition-colors hover:bg-fg/5 hover:text-fg disabled:opacity-40"
     >
       {busy ? <Loader2 className="size-3.5 animate-spin" /> : icon}
       {label}

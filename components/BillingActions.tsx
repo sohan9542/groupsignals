@@ -3,26 +3,29 @@
 import { useState } from "react";
 import { initializePaddle, type Paddle } from "@paddle/paddle-js";
 import { ArrowRight, Loader2 } from "lucide-react";
-import { offer } from "@/lib/offer";
+import type { Plan } from "@/lib/offer";
 
 export function BillingActions({
+  plan,
   email,
   userId,
-  hasSubscription,
+  isCurrentPlan,
 }: {
+  plan: Plan;
   email: string;
   userId: string;
-  hasSubscription: boolean;
+  /** True when this is the plan the subscription's price_id already matches
+   *  — same button slot, but there's nothing to check out into. */
+  isCurrentPlan: boolean;
 }) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
 
   async function openCheckout() {
     const token = process.env.NEXT_PUBLIC_PADDLE_CLIENT_TOKEN;
-    const priceId = process.env.NEXT_PUBLIC_PADDLE_PRICE_ID;
 
-    if (!token || !priceId) {
-      setError("Billing isn't configured on this environment yet.");
+    if (!token || !plan.paddlePriceId) {
+      setError("This plan isn't set up for checkout yet.");
       return;
     }
 
@@ -42,7 +45,7 @@ export function BillingActions({
       }
 
       paddle.Checkout.open({
-        items: [{ priceId, quantity: 1 }],
+        items: [{ priceId: plan.paddlePriceId, quantity: 1 }],
         customer: { email },
         // Echoed back on the webhook so we know which account to credit —
         // the browser never gets to assert this on its own.
@@ -55,19 +58,11 @@ export function BillingActions({
     }
   }
 
-  if (hasSubscription) {
+  if (isCurrentPlan) {
     return (
-      <p className="text-sm text-ash">
-        Need to change your card, download an invoice, or cancel? Use the link in
-        any Paddle receipt email, or{" "}
-        <a
-          href="mailto:billing@groupsignals.com"
-          className="text-signal-bright underline underline-offset-4"
-        >
-          email us
-        </a>{" "}
-        and we&apos;ll sort it.
-      </p>
+      <span className="inline-flex items-center justify-center rounded-xl border border-signal/30 bg-signal/10 px-4 py-2.5 text-sm font-semibold text-signal-bright">
+        Current plan
+      </span>
     );
   }
 
@@ -76,8 +71,8 @@ export function BillingActions({
       <button
         type="button"
         onClick={openCheckout}
-        disabled={busy}
-        className="group inline-flex items-center justify-center gap-2 rounded-xl bg-signal px-6 py-3.5 text-sm font-semibold text-ink transition hover:bg-signal-bright disabled:opacity-60"
+        disabled={busy || !plan.paddlePriceId}
+        className="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-signal px-4 py-2.5 text-sm font-semibold text-on-signal transition hover:bg-signal-bright disabled:cursor-not-allowed disabled:opacity-60"
       >
         {busy ? (
           <>
@@ -86,14 +81,14 @@ export function BillingActions({
           </>
         ) : (
           <>
-            Start the {offer.foundingPrice}/mo founding plan
+            Subscribe
             <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
           </>
         )}
       </button>
 
       {error && (
-        <p role="alert" className="mt-3 text-sm text-red-400">
+        <p role="alert" className="mt-2 text-xs text-red-400">
           {error}
         </p>
       )}

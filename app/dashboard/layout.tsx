@@ -20,7 +20,7 @@ export default async function DashboardLayout({
 
   return (
     <div className="min-h-dvh">
-      <header className="border-b border-white/8 bg-ink-soft/60">
+      <header className="border-b border-fg/8 bg-ink-soft/60">
         <div className="mx-auto flex h-16 max-w-6xl items-center px-5 sm:px-8">
           <Logo href="/dashboard" />
         </div>

@@ -22,10 +22,10 @@ export function SectionHeading({
           : "max-w-2xl text-left"
       }
     >
-      <span className="inline-block rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-signal-bright">
+      <span className="inline-block rounded-full border border-fg/10 bg-fg/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-signal-bright">
         {eyebrow}
       </span>
-      <h2 className="mt-5 text-balance text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">
+      <h2 className="mt-5 text-balance text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
         {title}
       </h2>
       {description && (
