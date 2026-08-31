@@ -81,7 +81,7 @@ export function ScanScheduleToggle({
   const badgeStyles: Record<typeof statusTone, string> = {
     on: "bg-signal/15 text-signal-bright",
     off: "bg-fg/8 text-ash",
-    warn: "bg-amber-500/15 text-amber-300",
+    warn: "bg-amber-500/15 text-amber-700",
   };
 
   return (
@@ -102,7 +102,7 @@ export function ScanScheduleToggle({
 
       <p
         className={`mt-4 rounded-lg px-3.5 py-2.5 text-xs leading-relaxed ${
-          isRunning ? "bg-fg/[0.03] text-ash-dim" : "border border-amber-500/20 bg-amber-500/[0.06] text-amber-200/90"
+          isRunning ? "bg-fg/[0.03] text-ash-dim" : "border border-amber-500/20 bg-amber-500/[0.06] text-amber-800"
         }`}
       >
         {helperText}

@@ -98,6 +98,10 @@ export async function PUT(request: Request, { params }: Params) {
     return NextResponse.json({ ok: false, error: insertError.message }, { status: 500 });
   }
 
+  // Assigning an account makes the group scannable — it does not approve it.
+  // A pending group stays pending until the admin explicitly approves it via
+  // PATCH .../status, even after accounts are assigned.
+
   // Best-effort instant rescan with the newly-assigned active account —
   // same "must still succeed even if scanning fails" contract as source
   // creation; a failure here just lands on the source's own last_error.

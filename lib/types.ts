@@ -1,5 +1,5 @@
 export type WatchPlatform = "facebook" | "reddit";
-export type WatchStatus = "active" | "paused" | "error";
+export type WatchStatus = "active" | "paused" | "error" | "pending";
 export type LeadStatus = "new" | "saved" | "replied" | "dismissed";
 export type DestinationStatus = "pending" | "verified";
 export type DigestMode = "instant" | "daily";
