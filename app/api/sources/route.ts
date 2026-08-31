@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { parseIntent, parseSourceUrl } from "@/lib/sources";
 import { resolveWebhookUrl, startScanForSource } from "@/lib/scan";
 import { groupLimitForSubscription } from "@/lib/offer";
+import { isAdmin } from "@/lib/admin";
 import type { Subscription, WatchSource } from "@/lib/types";
 
 export async function POST(request: Request) {
@@ -45,45 +46,47 @@ export async function POST(request: Request) {
   // below) until an admin assigns it a specific account on the private-groups
   // admin page; pool size doesn't say anything about *this* group's assignment.
 
-  // A card is required before any group can be watched at all — no
-  // subscription means a group limit of zero, not a free tier.
-  const { data: subscription, error: subError } = await supabase
-    .from("subscriptions")
-    .select("status, price_id")
-    .eq("user_id", user.id)
-    .maybeSingle<Pick<Subscription, "status" | "price_id">>();
+  // The owner-operator account isn't a customer — no subscription, no limit.
+  // Everyone else needs a card on file before watching any group at all.
+  if (!isAdmin(user.email)) {
+    const { data: subscription, error: subError } = await supabase
+      .from("subscriptions")
+      .select("status, price_id")
+      .eq("user_id", user.id)
+      .maybeSingle<Pick<Subscription, "status" | "price_id">>();
 
-  if (subError) {
-    return NextResponse.json({ ok: false, error: subError.message }, { status: 500 });
-  }
+    if (subError) {
+      return NextResponse.json({ ok: false, error: subError.message }, { status: 500 });
+    }
 
-  const groupLimit = groupLimitForSubscription(subscription);
+    const groupLimit = groupLimitForSubscription(subscription);
 
-  if (groupLimit === 0) {
-    return NextResponse.json(
-      { ok: false, error: "Subscribe to a plan first — see the Billing page." },
-      { status: 402 }
-    );
-  }
+    if (groupLimit === 0) {
+      return NextResponse.json(
+        { ok: false, error: "Subscribe to a plan first — see the Billing page." },
+        { status: 402 }
+      );
+    }
 
-  // Checked here rather than in the DB so the message can name the limit.
-  const { count, error: countError } = await supabase
-    .from("watch_sources")
-    .select("id", { count: "exact", head: true })
-    .eq("user_id", user.id);
+    // Checked here rather than in the DB so the message can name the limit.
+    const { count, error: countError } = await supabase
+      .from("watch_sources")
+      .select("id", { count: "exact", head: true })
+      .eq("user_id", user.id);
 
-  if (countError) {
-    return NextResponse.json({ ok: false, error: countError.message }, { status: 500 });
-  }
+    if (countError) {
+      return NextResponse.json({ ok: false, error: countError.message }, { status: 500 });
+    }
 
-  if ((count ?? 0) >= groupLimit) {
-    return NextResponse.json(
-      {
-        ok: false,
-        error: `Your plan covers ${groupLimit} group${groupLimit === 1 ? "" : "s"}. Upgrade on the Billing page to add more.`,
-      },
-      { status: 400 }
-    );
+    if ((count ?? 0) >= groupLimit) {
+      return NextResponse.json(
+        {
+          ok: false,
+          error: `Your plan covers ${groupLimit} group${groupLimit === 1 ? "" : "s"}. Upgrade on the Billing page to add more.`,
+        },
+        { status: 400 }
+      );
+    }
   }
 
   const { data, error } = await supabase
@@ -95,6 +98,10 @@ export async function POST(request: Request) {
       name: parsedUrl.name,
       requires_login: requiresLogin,
       intent: parsedIntent.intent,
+      // A private group can't actually be scanned until an admin assigns it
+      // a pooled account (see the private-groups admin page) — 'pending'
+      // says so instead of showing 'active' for a group that isn't yet.
+      status: requiresLogin ? "pending" : "active",
     })
     .select()
     .single<WatchSource>();

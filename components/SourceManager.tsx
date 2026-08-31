@@ -20,6 +20,7 @@ import { PLATFORM_LABEL, type WatchSource } from "@/lib/types";
 import { AddSourceModal } from "./AddSourceModal";
 import { EditIntentModal } from "./EditIntentModal";
 import { PlatformIcon } from "./PlatformIcon";
+import { StatusPill } from "./StatusPill";
 
 export function SourceManager({
   sources,
@@ -27,8 +28,9 @@ export function SourceManager({
 }: {
   sources: WatchSource[];
   /** From the caller's active subscription — zero means no plan at all, not
-   *  a free tier, so the add flow needs a different message than "at limit". */
-  groupLimit: number;
+   *  a free tier, so the add flow needs a different message than "at limit".
+   *  null means no limit at all (the admin account isn't a paying customer). */
+  groupLimit: number | null;
 }) {
   const router = useRouter();
   const [showAdd, setShowAdd] = useState(false);
@@ -38,7 +40,7 @@ export function SourceManager({
   const [, startTransition] = useTransition();
 
   const noPlan = groupLimit === 0;
-  const atLimit = noPlan || sources.length >= groupLimit;
+  const atLimit = noPlan || (groupLimit !== null && sources.length >= groupLimit);
   const active = sources.filter((s) => s.status === "active").length;
   const errored = sources.filter((s) => s.status === "error").length;
 
@@ -106,7 +108,11 @@ export function SourceManager({
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-3 gap-3 sm:gap-4">
-        <StatCard label="Watching" value={noPlan ? `${sources.length}` : `${sources.length}/${groupLimit}`} icon={Sparkles} />
+        <StatCard
+          label="Watching"
+          value={groupLimit == null || noPlan ? `${sources.length}` : `${sources.length}/${groupLimit}`}
+          icon={Sparkles}
+        />
         <StatCard label="Active" value={active} icon={CheckCircle2} tone="signal" />
         <StatCard label="Needs attention" value={errored} icon={AlertCircle} tone={errored > 0 ? "warn" : undefined} />
       </div>
@@ -206,13 +212,15 @@ export function SourceManager({
                   <IconButton label="Edit intent" busy={false} onClick={() => setEditing(source)}>
                     <Pencil className="size-4" />
                   </IconButton>
-                  <IconButton
-                    label={source.status === "active" ? "Pause" : "Resume"}
-                    busy={busyId === source.id}
-                    onClick={() => mutate(source.id, "toggle", source)}
-                  >
-                    {source.status === "active" ? <Pause className="size-4" /> : <Play className="size-4" />}
-                  </IconButton>
+                  {source.status !== "pending" && (
+                    <IconButton
+                      label={source.status === "active" ? "Pause" : "Resume"}
+                      busy={busyId === source.id}
+                      onClick={() => mutate(source.id, "toggle", source)}
+                    >
+                      {source.status === "active" ? <Pause className="size-4" /> : <Play className="size-4" />}
+                    </IconButton>
+                  )}
                   <IconButton
                     label="Remove"
                     destructive
@@ -273,16 +281,6 @@ function Badge({ icon: Icon, label }: { icon: React.ComponentType<{ className?: 
       {label}
     </span>
   );
-}
-
-function StatusPill({ status }: { status: WatchSource["status"] }) {
-  const styles: Record<string, string> = {
-    active: "bg-signal/15 text-signal-bright",
-    paused: "bg-fg/8 text-ash",
-    error: "bg-red-500/12 text-red-300",
-  };
-
-  return <span className={`rounded-md px-2 py-0.5 text-[11px] font-medium ${styles[status]}`}>{status}</span>;
 }
 
 function IconButton({

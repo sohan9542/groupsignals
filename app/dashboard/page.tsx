@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { SourceManager } from "@/components/SourceManager";
 import { createClient } from "@/lib/supabase/server";
 import { groupLimitForSubscription } from "@/lib/offer";
+import { isAdmin } from "@/lib/admin";
 import type { Subscription, WatchSource } from "@/lib/types";
 
 export const metadata: Metadata = { title: "Watchlist" };
@@ -36,7 +37,10 @@ export default async function WatchlistPage() {
         </p>
       </div>
 
-      <SourceManager sources={sources ?? []} groupLimit={groupLimitForSubscription(subscription)} />
+      <SourceManager
+        sources={sources ?? []}
+        groupLimit={isAdmin(user?.email) ? null : groupLimitForSubscription(subscription)}
+      />
     </>
   );
 }
