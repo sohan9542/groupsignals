@@ -47,7 +47,7 @@ export function Footer() {
 
         <div className="mt-10 flex flex-col gap-4 border-t border-fg/8 pt-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-xs text-ash-dim">
-            © {new Date().getFullYear()} GroupSignals. All rights reserved. Not
+            © {new Date().getFullYear()} GroupSignal. All rights reserved. Not
             affiliated with or endorsed by Meta Platforms, Inc.
           </p>
           <div className="flex gap-6">

@@ -24,17 +24,17 @@ const fraunces = Fraunces({
 });
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://groupsignals.com";
-const title = "GroupSignals — Facebook Group Leads, Sent to Your Inbox";
+const title = "GroupSignal — Facebook Group Leads, Sent to Your Inbox";
 const description = `We watch the Facebook groups your buyers post in and send you the ones worth replying to. Plans start at ${PLANS[0].price}/mo.`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
     default: title,
-    template: "%s — GroupSignals",
+    template: "%s — GroupSignal",
   },
   description,
-  applicationName: "GroupSignals",
+  applicationName: "GroupSignal",
   keywords: [
     "facebook group leads",
     "facebook group lead generation",
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: siteUrl,
-    siteName: "GroupSignals",
+    siteName: "GroupSignal",
     title,
     description,
   },
