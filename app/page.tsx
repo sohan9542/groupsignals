@@ -1,14 +1,17 @@
 import { BeforeAfter } from "@/components/BeforeAfter";
+import { BuiltFor } from "@/components/BuiltFor";
 import { FAQ } from "@/components/FAQ";
 import { FinalCTA } from "@/components/FinalCTA";
 import { Footer } from "@/components/Footer";
+import { FounderNote } from "@/components/FounderNote";
 import { GetStarted } from "@/components/GetStarted";
 import { Hero } from "@/components/Hero";
-import { HowItWorks } from "@/components/HowItWorks";
 import { Navbar } from "@/components/Navbar";
-import { OfferStrip } from "@/components/OfferStrip";
+import { RecentRequests } from "@/components/RecentRequests";
+import { TradeLogos } from "@/components/TradeLogos";
 import { Trust } from "@/components/Trust";
 import { WhatYouGet } from "@/components/WhatYouGet";
+import { WhyThisWorks } from "@/components/WhyThisWorks";
 
 export default function Home() {
   return (
@@ -16,12 +19,15 @@ export default function Home() {
       <Navbar />
       <main>
         <Hero />
-        <OfferStrip />
+        <TradeLogos />
+        <BuiltFor />
         <BeforeAfter />
+        <RecentRequests />
+        <WhyThisWorks />
         <WhatYouGet />
-        <HowItWorks />
         <GetStarted />
         <Trust />
+        <FounderNote />
         <FAQ />
         <FinalCTA />
       </main>

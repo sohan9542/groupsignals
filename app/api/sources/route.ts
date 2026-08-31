@@ -1,8 +1,9 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase/server";
-import { SOURCE_LIMIT, parseIntent, parseSourceUrl } from "@/lib/sources";
+import { parseIntent, parseSourceUrl } from "@/lib/sources";
 import { resolveWebhookUrl, startScanForSource } from "@/lib/scan";
-import type { WatchSource } from "@/lib/types";
+import { groupLimitForSubscription } from "@/lib/offer";
+import type { Subscription, WatchSource } from "@/lib/types";
 
 export async function POST(request: Request) {
   const supabase = await createClient();
@@ -44,6 +45,27 @@ export async function POST(request: Request) {
   // below) until an admin assigns it a specific account on the private-groups
   // admin page; pool size doesn't say anything about *this* group's assignment.
 
+  // A card is required before any group can be watched at all — no
+  // subscription means a group limit of zero, not a free tier.
+  const { data: subscription, error: subError } = await supabase
+    .from("subscriptions")
+    .select("status, price_id")
+    .eq("user_id", user.id)
+    .maybeSingle<Pick<Subscription, "status" | "price_id">>();
+
+  if (subError) {
+    return NextResponse.json({ ok: false, error: subError.message }, { status: 500 });
+  }
+
+  const groupLimit = groupLimitForSubscription(subscription);
+
+  if (groupLimit === 0) {
+    return NextResponse.json(
+      { ok: false, error: "Subscribe to a plan first — see the Billing page." },
+      { status: 402 }
+    );
+  }
+
   // Checked here rather than in the DB so the message can name the limit.
   const { count, error: countError } = await supabase
     .from("watch_sources")
@@ -54,9 +76,12 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: countError.message }, { status: 500 });
   }
 
-  if ((count ?? 0) >= SOURCE_LIMIT) {
+  if ((count ?? 0) >= groupLimit) {
     return NextResponse.json(
-      { ok: false, error: `You're watching ${SOURCE_LIMIT} sources already. Remove one to add another.` },
+      {
+        ok: false,
+        error: `Your plan covers ${groupLimit} group${groupLimit === 1 ? "" : "s"}. Upgrade on the Billing page to add more.`,
+      },
       { status: 400 }
     );
   }

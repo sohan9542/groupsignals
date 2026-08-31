@@ -15,13 +15,21 @@ import {
   Sparkles,
   Trash2,
 } from "lucide-react";
-import { SOURCE_LIMIT } from "@/lib/sources";
+import Link from "next/link";
 import { PLATFORM_LABEL, type WatchSource } from "@/lib/types";
 import { AddSourceModal } from "./AddSourceModal";
 import { EditIntentModal } from "./EditIntentModal";
 import { PlatformIcon } from "./PlatformIcon";
 
-export function SourceManager({ sources }: { sources: WatchSource[] }) {
+export function SourceManager({
+  sources,
+  groupLimit,
+}: {
+  sources: WatchSource[];
+  /** From the caller's active subscription — zero means no plan at all, not
+   *  a free tier, so the add flow needs a different message than "at limit". */
+  groupLimit: number;
+}) {
   const router = useRouter();
   const [showAdd, setShowAdd] = useState(false);
   const [editing, setEditing] = useState<WatchSource | null>(null);
@@ -29,7 +37,8 @@ export function SourceManager({ sources }: { sources: WatchSource[] }) {
   const [error, setError] = useState("");
   const [, startTransition] = useTransition();
 
-  const atLimit = sources.length >= SOURCE_LIMIT;
+  const noPlan = groupLimit === 0;
+  const atLimit = noPlan || sources.length >= groupLimit;
   const active = sources.filter((s) => s.status === "active").length;
   const errored = sources.filter((s) => s.status === "error").length;
 
@@ -97,49 +106,73 @@ export function SourceManager({ sources }: { sources: WatchSource[] }) {
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-3 gap-3 sm:gap-4">
-        <StatCard label="Watching" value={`${sources.length}/${SOURCE_LIMIT}`} icon={Sparkles} />
+        <StatCard label="Watching" value={noPlan ? `${sources.length}` : `${sources.length}/${groupLimit}`} icon={Sparkles} />
         <StatCard label="Active" value={active} icon={CheckCircle2} tone="signal" />
         <StatCard label="Needs attention" value={errored} icon={AlertCircle} tone={errored > 0 ? "warn" : undefined} />
       </div>
 
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-base font-semibold text-white">Sources</h2>
+          <h2 className="text-base font-semibold text-fg">Sources</h2>
           {error && <p className="mt-0.5 text-xs text-red-400">{error}</p>}
         </div>
 
-        <button
-          type="button"
-          onClick={() => setShowAdd(true)}
-          disabled={atLimit}
-          title={atLimit ? `You're watching ${SOURCE_LIMIT} sources already` : "Watch a group"}
-          className="inline-flex items-center gap-2 rounded-xl bg-signal px-4 py-2.5 text-sm font-semibold text-ink transition hover:bg-signal-bright disabled:cursor-not-allowed disabled:opacity-40"
-        >
-          <Plus className="size-4" />
-          Add
-        </button>
-      </div>
-
-      {sources.length === 0 ? (
-        <div className="rounded-2xl border border-dashed border-white/10 p-10 text-center">
-          <p className="text-sm text-ash-dim">Nothing yet.</p>
+        {noPlan ? (
+          <Link
+            href="/dashboard/billing"
+            className="inline-flex items-center gap-2 rounded-xl bg-signal px-4 py-2.5 text-sm font-semibold text-on-signal transition hover:bg-signal-bright"
+          >
+            <Plus className="size-4" />
+            Subscribe to add a group
+          </Link>
+        ) : (
           <button
             type="button"
             onClick={() => setShowAdd(true)}
-            className="mt-3 text-sm font-medium text-signal-bright underline underline-offset-4 hover:text-signal"
+            disabled={atLimit}
+            title={atLimit ? `Your plan covers ${groupLimit} group${groupLimit === 1 ? "" : "s"} already` : "Watch a group"}
+            className="inline-flex items-center gap-2 rounded-xl bg-signal px-4 py-2.5 text-sm font-semibold text-on-signal transition hover:bg-signal-bright disabled:cursor-not-allowed disabled:opacity-40"
           >
-            Watch your first group
+            <Plus className="size-4" />
+            Add
           </button>
+        )}
+      </div>
+
+      {sources.length === 0 ? (
+        <div className="rounded-2xl border border-dashed border-fg/10 p-10 text-center">
+          {noPlan ? (
+            <>
+              <p className="text-sm text-ash-dim">Subscribe to a plan to start watching groups.</p>
+              <Link
+                href="/dashboard/billing"
+                className="mt-3 inline-block text-sm font-medium text-signal-bright underline underline-offset-4 hover:text-signal"
+              >
+                See plans
+              </Link>
+            </>
+          ) : (
+            <>
+              <p className="text-sm text-ash-dim">Nothing yet.</p>
+              <button
+                type="button"
+                onClick={() => setShowAdd(true)}
+                className="mt-3 text-sm font-medium text-signal-bright underline underline-offset-4 hover:text-signal"
+              >
+                Watch your first group
+              </button>
+            </>
+          )}
         </div>
       ) : (
-        <ul className="divide-y divide-white/8 overflow-hidden rounded-2xl border border-white/8 bg-surface/50">
+        <ul className="divide-y divide-fg/8 overflow-hidden rounded-2xl border border-fg/8 bg-surface/50">
           {sources.map((source) => (
             <li key={source.id} className="p-5">
               <div className="flex flex-wrap items-start justify-between gap-4">
                 <div className="min-w-0 flex-1">
                   <div className="flex flex-wrap items-center gap-2">
                     <PlatformIcon platform={source.platform} />
-                    <h3 className="truncate text-sm font-semibold text-white">{source.name}</h3>
+                    <h3 className="truncate text-sm font-semibold text-fg">{source.name}</h3>
                     {source.requires_login && (
                       <Badge icon={Lock} label="Private" />
                     )}
@@ -150,13 +183,13 @@ export function SourceManager({ sources }: { sources: WatchSource[] }) {
                     href={source.url}
                     target="_blank"
                     rel="noreferrer noopener"
-                    className="mt-1 inline-flex items-center gap-1 text-xs text-ash-dim hover:text-white"
+                    className="mt-1 inline-flex items-center gap-1 text-xs text-ash-dim hover:text-fg"
                   >
                     {PLATFORM_LABEL[source.platform]}
                     <ExternalLink className="size-3" />
                   </a>
 
-                  <div className="mt-2.5 flex items-start gap-1.5 rounded-lg bg-white/[0.03] px-3 py-2 text-xs text-ash">
+                  <div className="mt-2.5 flex items-start gap-1.5 rounded-lg bg-fg/[0.03] px-3 py-2 text-xs text-ash">
                     <Sparkles className="mt-0.5 size-3.5 shrink-0 text-signal-bright" />
                     <p className="leading-relaxed">{source.intent || "No intent set."}</p>
                   </div>
@@ -219,7 +252,7 @@ function StatCard({
   tone?: "signal" | "warn";
 }) {
   return (
-    <div className="rounded-2xl border border-white/8 bg-surface/50 p-4">
+    <div className="rounded-2xl border border-fg/8 bg-surface/50 p-4">
       <div className="flex items-center gap-2 text-ash-dim">
         <Icon
           className={`size-4 ${
@@ -228,14 +261,14 @@ function StatCard({
         />
         <span className="text-xs font-medium uppercase tracking-wide">{label}</span>
       </div>
-      <p className="mt-1.5 text-2xl font-semibold text-white">{value}</p>
+      <p className="mt-1.5 text-2xl font-semibold text-fg">{value}</p>
     </div>
   );
 }
 
 function Badge({ icon: Icon, label }: { icon: React.ComponentType<{ className?: string }>; label: string }) {
   return (
-    <span className="flex items-center gap-1 rounded-md bg-white/8 px-2 py-0.5 text-[11px] font-medium text-ash">
+    <span className="flex items-center gap-1 rounded-md bg-fg/8 px-2 py-0.5 text-[11px] font-medium text-ash">
       <Icon className="size-3" />
       {label}
     </span>
@@ -245,7 +278,7 @@ function Badge({ icon: Icon, label }: { icon: React.ComponentType<{ className?: 
 function StatusPill({ status }: { status: WatchSource["status"] }) {
   const styles: Record<string, string> = {
     active: "bg-signal/15 text-signal-bright",
-    paused: "bg-white/8 text-ash",
+    paused: "bg-fg/8 text-ash",
     error: "bg-red-500/12 text-red-300",
   };
 
@@ -272,10 +305,10 @@ function IconButton({
       disabled={busy}
       title={label}
       aria-label={label}
-      className={`rounded-lg border border-white/10 p-2 transition-colors disabled:opacity-40 ${
+      className={`rounded-lg border border-fg/10 p-2 transition-colors disabled:opacity-40 ${
         destructive
           ? "text-ash hover:border-red-500/30 hover:bg-red-500/10 hover:text-red-300"
-          : "text-ash hover:bg-white/5 hover:text-white"
+          : "text-ash hover:bg-fg/5 hover:text-fg"
       }`}
     >
       {busy ? <Loader2 className="size-4 animate-spin" /> : children}

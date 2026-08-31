@@ -1,22 +1,31 @@
 @import "tailwindcss";
 
-/* GroupSignals is a committed dark-mode product surface — there is no light
-   palette to switch to, so the tokens live directly on :root and color-scheme
-   is pinned so native controls (scrollbars, form widgets) match. */
+/* Light product surface. Same token names as before so every component that
+   already reads --color-ink/--color-surface/--color-ash/etc. just picks up
+   the new values — only two things needed an actual rename, not a retheme:
+   `ink` used to double as both "page background" (#0b0f17, meant to flip)
+   and "text sitting on a solid signal-green button" (meant to stay dark
+   regardless of theme) — split into `ink` and the new `on-signal`. And every
+   literal text-white/bg-white/border-white in components (the dark-theme
+   idiom for "foreground on a dark surface") got swapped for the new `fg`
+   token, since bare Tailwind white isn't theme-aware. */
 @theme {
-  --color-ink: #0b0f17;
-  --color-ink-soft: #0e1420;
-  --color-surface: #111826;
-  --color-surface-2: #161f30;
-  --color-hairline: #1e293b;
-  --color-signal: #10b981;
-  --color-signal-bright: #34d399;
-  --color-signal-deep: #047857;
-  --color-ash: #94a3b8;
+  --color-ink: #f7f8fa;
+  --color-ink-soft: #ffffff;
+  --color-surface: #ffffff;
+  --color-surface-2: #f1f5f9;
+  --color-hairline: #e2e8f0;
+  --color-signal: #059669;
+  --color-signal-bright: #047857;
+  --color-signal-deep: #065f46;
+  --color-fg: #0f172a;
+  --color-on-signal: #ffffff;
+  --color-ash: #475569;
   --color-ash-dim: #64748b;
 
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-display: var(--font-fraunces), Georgia, serif;
 
   --animate-radar: radar 3s cubic-bezier(0.16, 1, 0.3, 1) infinite;
   --animate-pulse-dot: pulse-dot 2s ease-in-out infinite;
@@ -67,7 +76,7 @@
 }
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 html {
@@ -79,7 +88,7 @@ html {
 
 body {
   background-color: var(--color-ink);
-  color: #ffffff;
+  color: var(--color-fg);
   -webkit-font-smoothing: antialiased;
 }
 
@@ -98,15 +107,15 @@ body {
 }
 
 ::selection {
-  background-color: color-mix(in oklab, var(--color-signal) 35%, transparent);
-  color: #ffffff;
+  background-color: color-mix(in oklab, var(--color-signal) 30%, transparent);
+  color: var(--color-fg);
 }
 
 @utility text-gradient {
   background-image: linear-gradient(
     100deg,
-    #ffffff 0%,
-    #ffffff 45%,
+    var(--color-fg) 0%,
+    var(--color-fg) 45%,
     var(--color-signal-bright) 100%
   );
   background-clip: text;
@@ -117,7 +126,7 @@ body {
 @utility signal-glow {
   background-image: radial-gradient(
     60% 60% at 50% 0%,
-    color-mix(in oklab, var(--color-signal) 18%, transparent) 0%,
+    color-mix(in oklab, var(--color-signal) 12%, transparent) 0%,
     transparent 70%
   );
 }
@@ -126,12 +135,12 @@ body {
   background-image:
     linear-gradient(
       to right,
-      color-mix(in oklab, #ffffff 4%, transparent) 1px,
+      color-mix(in oklab, var(--color-fg) 5%, transparent) 1px,
       transparent 1px
     ),
     linear-gradient(
       to bottom,
-      color-mix(in oklab, #ffffff 4%, transparent) 1px,
+      color-mix(in oklab, var(--color-fg) 5%, transparent) 1px,
       transparent 1px
     );
   background-size: 64px 64px;

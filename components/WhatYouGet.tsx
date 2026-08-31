@@ -38,12 +38,12 @@ export function WhatYouGet() {
               key={item.title}
               delay={i * 0.08}
               as="article"
-              className="group flex h-full flex-col rounded-2xl border border-white/8 bg-surface/50 p-7 transition-colors duration-300 hover:border-signal/30 hover:bg-surface"
+              className="group flex h-full flex-col rounded-2xl border border-fg/8 bg-surface/50 p-7 transition-colors duration-300 hover:border-signal/30 hover:bg-surface"
             >
               <span className="flex size-11 items-center justify-center rounded-xl border border-signal/20 bg-signal/10 text-signal-bright transition-transform duration-300 group-hover:scale-105">
                 <item.icon className="size-5" strokeWidth={1.8} />
               </span>
-              <h3 className="mt-5 text-base font-semibold leading-snug text-white">
+              <h3 className="mt-5 text-base font-semibold leading-snug text-fg">
                 {item.title}
               </h3>
               <p className="mt-2.5 text-sm leading-relaxed text-ash">

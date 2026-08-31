@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Plus } from "lucide-react";
-import { offer } from "@/lib/offer";
+import { PLANS } from "@/lib/offer";
 import { SectionHeading } from "./SectionHeading";
 
 const FAQS = [
@@ -29,7 +29,7 @@ const FAQS = [
   },
   {
     q: "What does it cost?",
-    a: `${offer.foundingPrice} a month while the founding seats last, locked for as long as you stay. It goes to ${offer.listPrice} after that.`,
+    a: `${PLANS.map((p) => `${p.price}/mo for ${p.groupLimit} group${p.groupLimit === 1 ? "" : "s"}`).join(", ")}. Cancel any time.`,
   },
 ];
 
@@ -51,7 +51,7 @@ export function FAQ() {
   return (
     <section
       id="faq"
-      className="relative border-t border-white/8 bg-ink-soft/50 py-20 sm:py-28"
+      className="relative border-t border-fg/8 bg-ink-soft/50 py-20 sm:py-28"
     >
       <script
         type="application/ld+json"
@@ -60,7 +60,7 @@ export function FAQ() {
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeading eyebrow="FAQ" title="The questions people actually ask." />
 
-        <div className="mx-auto mt-14 max-w-3xl divide-y divide-white/8 overflow-hidden rounded-2xl border border-white/8 bg-surface/40">
+        <div className="mx-auto mt-14 max-w-3xl divide-y divide-fg/8 overflow-hidden rounded-2xl border border-fg/8 bg-surface/40">
           {FAQS.map((faq, i) => {
             const isOpen = openIndex === i;
             return (
@@ -71,14 +71,14 @@ export function FAQ() {
                     onClick={() => setOpenIndex(isOpen ? null : i)}
                     aria-expanded={isOpen}
                     aria-controls={`faq-panel-${i}`}
-                    className="flex w-full items-center justify-between gap-5 px-6 py-5 text-left transition-colors hover:bg-white/[0.03]"
+                    className="flex w-full items-center justify-between gap-5 px-6 py-5 text-left transition-colors hover:bg-fg/[0.03]"
                   >
-                    <span className="text-[15px] font-medium text-white">
+                    <span className="text-[15px] font-medium text-fg">
                       {faq.q}
                     </span>
                     <span
-                      className={`flex size-7 shrink-0 items-center justify-center rounded-lg border border-white/10 text-signal-bright transition-transform duration-300 ${
-                        isOpen ? "rotate-45 bg-signal/15" : "bg-white/5"
+                      className={`flex size-7 shrink-0 items-center justify-center rounded-lg border border-fg/10 text-signal-bright transition-transform duration-300 ${
+                        isOpen ? "rotate-45 bg-signal/15" : "bg-fg/5"
                       }`}
                     >
                       <Plus className="size-4" />

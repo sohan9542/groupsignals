@@ -28,7 +28,7 @@ export function BeforeAfter() {
             delay={0.05}
             className="rounded-2xl border border-red-500/15 bg-red-500/[0.03] p-7 sm:p-8"
           >
-            <h3 className="text-lg font-semibold text-white">Today</h3>
+            <h3 className="text-lg font-semibold text-fg">Today</h3>
             <ul className="mt-6 space-y-4">
               {TODAY.map((item) => (
                 <li key={item} className="flex gap-3">
@@ -52,7 +52,7 @@ export function BeforeAfter() {
               aria-hidden
               className="pointer-events-none absolute -right-16 -top-16 size-48 rounded-full bg-signal/10 blur-3xl"
             />
-            <h3 className="relative text-lg font-semibold text-white">
+            <h3 className="relative text-lg font-semibold text-fg">
               With GroupSignals
             </h3>
             <ul className="relative mt-6 space-y-4">
@@ -62,7 +62,7 @@ export function BeforeAfter() {
                     className="mt-0.5 size-4.5 shrink-0 text-signal"
                     strokeWidth={2.5}
                   />
-                  <span className="text-sm leading-relaxed text-white/90">
+                  <span className="text-sm leading-relaxed text-fg/90">
                     {item}
                   </span>
                 </li>

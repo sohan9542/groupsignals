@@ -41,7 +41,7 @@ export function EditIntentModal({
     <Modal title={`Edit intent — ${source.name}`} onClose={onClose}>
       <form onSubmit={handleSubmit} className="space-y-5">
         <div>
-          <label htmlFor="edit-intent" className="block text-sm font-medium text-white">
+          <label htmlFor="edit-intent" className="block text-sm font-medium text-fg">
             What should trigger a notification?
           </label>
           <textarea
@@ -51,7 +51,7 @@ export function EditIntentModal({
             onChange={(e) => setIntent(e.target.value)}
             rows={3}
             maxLength={500}
-            className="mt-2 w-full rounded-xl border border-white/12 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-ash-dim focus:border-signal/50 focus:outline-none focus:ring-2 focus:ring-signal/25"
+            className="mt-2 w-full rounded-xl border border-fg/12 bg-fg/5 px-4 py-3 text-sm text-fg placeholder:text-ash-dim focus:border-signal/50 focus:outline-none focus:ring-2 focus:ring-signal/25"
           />
         </div>
 
@@ -61,18 +61,18 @@ export function EditIntentModal({
           </p>
         )}
 
-        <div className="flex justify-end gap-3 border-t border-white/8 pt-5">
+        <div className="flex justify-end gap-3 border-t border-fg/8 pt-5">
           <button
             type="button"
             onClick={onClose}
-            className="rounded-xl px-4 py-2.5 text-sm font-medium text-ash transition-colors hover:text-white"
+            className="rounded-xl px-4 py-2.5 text-sm font-medium text-ash transition-colors hover:text-fg"
           >
             Cancel
           </button>
           <button
             type="submit"
             disabled={!canSave}
-            className="inline-flex items-center gap-2 rounded-xl bg-signal px-5 py-2.5 text-sm font-semibold text-ink transition hover:bg-signal-bright disabled:cursor-not-allowed disabled:opacity-50"
+            className="inline-flex items-center gap-2 rounded-xl bg-signal px-5 py-2.5 text-sm font-semibold text-on-signal transition hover:bg-signal-bright disabled:cursor-not-allowed disabled:opacity-50"
           >
             {saving ? <Loader2 className="size-4 animate-spin" /> : <Save className="size-4" />}
             Save

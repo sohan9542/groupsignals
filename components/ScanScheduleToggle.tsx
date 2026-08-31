@@ -80,15 +80,15 @@ export function ScanScheduleToggle({
 
   const badgeStyles: Record<typeof statusTone, string> = {
     on: "bg-signal/15 text-signal-bright",
-    off: "bg-white/8 text-ash",
+    off: "bg-fg/8 text-ash",
     warn: "bg-amber-500/15 text-amber-300",
   };
 
   return (
-    <section className="rounded-2xl border border-white/8 bg-surface/50 p-6">
+    <section className="rounded-2xl border border-fg/8 bg-surface/50 p-6">
       <div className="flex items-start justify-between gap-4">
         <div>
-          <h2 className="text-base font-semibold text-white">Scheduled scanning</h2>
+          <h2 className="text-base font-semibold text-fg">Scheduled scanning</h2>
           <p className="mt-1.5 max-w-2xl text-sm text-ash">
             When actually running: once an hour — 24 times a day — checking every active source
             for up to 5 new posts each and emailing users on a match.
@@ -102,7 +102,7 @@ export function ScanScheduleToggle({
 
       <p
         className={`mt-4 rounded-lg px-3.5 py-2.5 text-xs leading-relaxed ${
-          isRunning ? "bg-white/[0.03] text-ash-dim" : "border border-amber-500/20 bg-amber-500/[0.06] text-amber-200/90"
+          isRunning ? "bg-fg/[0.03] text-ash-dim" : "border border-amber-500/20 bg-amber-500/[0.06] text-amber-200/90"
         }`}
       >
         {helperText}
@@ -114,8 +114,8 @@ export function ScanScheduleToggle({
         disabled={saving}
         className={`mt-4 inline-flex items-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-50 ${
           enabled
-            ? "border border-white/10 text-ash hover:border-red-500/30 hover:bg-red-500/10 hover:text-red-300"
-            : "bg-signal text-ink hover:bg-signal-bright"
+            ? "border border-fg/10 text-ash hover:border-red-500/30 hover:bg-red-500/10 hover:text-red-300"
+            : "bg-signal text-on-signal hover:bg-signal-bright"
         }`}
       >
         {saving ? <Loader2 className="size-4 animate-spin" /> : <Power className="size-4" />}

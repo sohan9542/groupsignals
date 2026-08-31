@@ -51,7 +51,7 @@ export default async function SettingsPage() {
 
       <Link
         href="/dashboard/private-groups"
-        className="block rounded-2xl border border-white/8 bg-surface/50 p-5 text-sm font-medium text-white transition-colors hover:bg-white/5"
+        className="block rounded-2xl border border-fg/8 bg-surface/50 p-5 text-sm font-medium text-fg transition-colors hover:bg-fg/5"
       >
         Manage private group accounts →
         <span className="mt-1 block text-xs font-normal text-ash-dim">

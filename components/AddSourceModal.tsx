@@ -56,7 +56,7 @@ export function AddSourceModal({
     <Modal title="Watch a Facebook group" description="Reddit is paused for now." onClose={onClose}>
       <form onSubmit={handleSubmit} className="space-y-5">
         <div>
-          <label htmlFor="source-url" className="block text-sm font-medium text-white">
+          <label htmlFor="source-url" className="block text-sm font-medium text-fg">
             Group link
           </label>
           <input
@@ -66,20 +66,20 @@ export function AddSourceModal({
             value={url}
             onChange={(e) => setUrl(e.target.value)}
             placeholder="facebook.com/groups/your-group"
-            className="mt-2 w-full rounded-xl border border-white/12 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-ash-dim focus:border-signal/50 focus:outline-none focus:ring-2 focus:ring-signal/25"
+            className="mt-2 w-full rounded-xl border border-fg/12 bg-fg/5 px-4 py-3 text-sm text-fg placeholder:text-ash-dim focus:border-signal/50 focus:outline-none focus:ring-2 focus:ring-signal/25"
           />
           {urlError && <p className="mt-1.5 text-xs text-amber-400">{urlError}</p>}
         </div>
 
         <div>
-          <label htmlFor="source-visibility" className="block text-sm font-medium text-white">
+          <label htmlFor="source-visibility" className="block text-sm font-medium text-fg">
             Group type
           </label>
           <select
             id="source-visibility"
             value={visibility}
             onChange={(e) => setVisibility(e.target.value as "public" | "private")}
-            className="mt-2 w-full appearance-none rounded-xl border border-white/12 bg-white/5 bg-[url('data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22%23a1a1aa%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20d%3D%22M5.23%207.21a.75.75%200%20011.06.02L10%2011.168l3.71-3.938a.75.75%200%20111.08%201.04l-4.25%204.5a.75.75%200%2001-1.08%200l-4.25-4.5a.75.75%200%2001.02-1.06z%22%20clip-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.1rem] bg-[right_0.9rem_center] bg-no-repeat px-4 py-3 text-sm text-white focus:border-signal/50 focus:outline-none focus:ring-2 focus:ring-signal/25"
+            className="mt-2 w-full appearance-none rounded-xl border border-fg/12 bg-fg/5 bg-[url('data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22%23a1a1aa%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20d%3D%22M5.23%207.21a.75.75%200%20011.06.02L10%2011.168l3.71-3.938a.75.75%200%20111.08%201.04l-4.25%204.5a.75.75%200%2001-1.08%200l-4.25-4.5a.75.75%200%2001.02-1.06z%22%20clip-rule%3D%22evenodd%22%2F%3E%3C%2Fsvg%3E')] bg-[length:1.1rem] bg-[right_0.9rem_center] bg-no-repeat px-4 py-3 text-sm text-fg focus:border-signal/50 focus:outline-none focus:ring-2 focus:ring-signal/25"
           >
             <option value="public">Public — anyone can read it</option>
             <option value="private">Private — closed / membership required</option>
@@ -92,7 +92,7 @@ export function AddSourceModal({
         </div>
 
         <div>
-          <label htmlFor="source-intent" className="block text-sm font-medium text-white">
+          <label htmlFor="source-intent" className="block text-sm font-medium text-fg">
             What should trigger a notification?
           </label>
           <textarea
@@ -102,7 +102,7 @@ export function AddSourceModal({
             placeholder={INTENT_PLACEHOLDER}
             rows={3}
             maxLength={500}
-            className="mt-2 w-full rounded-xl border border-white/12 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-ash-dim focus:border-signal/50 focus:outline-none focus:ring-2 focus:ring-signal/25"
+            className="mt-2 w-full rounded-xl border border-fg/12 bg-fg/5 px-4 py-3 text-sm text-fg placeholder:text-ash-dim focus:border-signal/50 focus:outline-none focus:ring-2 focus:ring-signal/25"
           />
           <p className="mt-1.5 text-xs text-ash-dim">
             Plain English — our AI reads every new post and matches it against this, so be as
@@ -119,18 +119,18 @@ export function AddSourceModal({
           </p>
         )}
 
-        <div className="flex justify-end gap-3 border-t border-white/8 pt-5">
+        <div className="flex justify-end gap-3 border-t border-fg/8 pt-5">
           <button
             type="button"
             onClick={onClose}
-            className="rounded-xl px-4 py-2.5 text-sm font-medium text-ash transition-colors hover:text-white"
+            className="rounded-xl px-4 py-2.5 text-sm font-medium text-ash transition-colors hover:text-fg"
           >
             Cancel
           </button>
           <button
             type="submit"
             disabled={!canSubmit}
-            className="inline-flex items-center gap-2 rounded-xl bg-signal px-5 py-2.5 text-sm font-semibold text-ink transition hover:bg-signal-bright disabled:cursor-not-allowed disabled:opacity-50"
+            className="inline-flex items-center gap-2 rounded-xl bg-signal px-5 py-2.5 text-sm font-semibold text-on-signal transition hover:bg-signal-bright disabled:cursor-not-allowed disabled:opacity-50"
           >
             {submitting ? <Loader2 className="size-4 animate-spin" /> : <Plus className="size-4" />}
             Start watching

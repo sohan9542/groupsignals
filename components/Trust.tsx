@@ -37,12 +37,12 @@ export function Trust() {
             <Reveal
               key={point.title}
               delay={i * 0.08}
-              className="flex h-full flex-col rounded-2xl border border-white/8 bg-surface/50 p-7"
+              className="flex h-full flex-col rounded-2xl border border-fg/8 bg-surface/50 p-7"
             >
               <span className="flex size-11 items-center justify-center rounded-xl border border-signal/20 bg-signal/10 text-signal-bright">
                 <point.icon className="size-5" strokeWidth={1.8} />
               </span>
-              <h3 className="mt-5 text-base font-semibold text-white">
+              <h3 className="mt-5 text-base font-semibold text-fg">
                 {point.title}
               </h3>
               <p className="mt-2.5 text-sm leading-relaxed text-ash">

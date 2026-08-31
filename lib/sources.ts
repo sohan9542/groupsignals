@@ -1,7 +1,5 @@
 import type { WatchPlatform } from "./types";
 
-export const SOURCE_LIMIT = 10;
-
 export type ParsedSource = {
   platform: WatchPlatform;
   /** Canonical URL stored in the DB — what the unique index dedupes on. */
