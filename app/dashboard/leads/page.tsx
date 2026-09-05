@@ -3,7 +3,7 @@ import { LeadList } from "@/components/LeadList";
 import { createClient } from "@/lib/supabase/server";
 import type { Lead, LeadStatus, WatchSource } from "@/lib/types";
 
-export const metadata: Metadata = { title: "Leads" };
+export const metadata: Metadata = { title: "Mentions" };
 
 const STATUSES: LeadStatus[] = ["new", "saved", "replied", "dismissed"];
 
@@ -41,9 +41,9 @@ export default async function LeadsPage({
   return (
     <>
       <div className="mb-8">
-        <h1 className="text-2xl font-semibold tracking-tight">Leads</h1>
+        <h1 className="text-2xl font-semibold tracking-tight">Mentions</h1>
         <p className="mt-1.5 text-sm text-ash">
-          Posts from your groups worth replying to.
+          Conversations from your groups worth your attention.
         </p>
       </div>
 

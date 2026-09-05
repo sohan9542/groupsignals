@@ -4,14 +4,14 @@ import { SectionHeading } from "./SectionHeading";
 
 const TODAY = [
   "You find the post two days late",
-  "Someone else already replied",
-  "You scroll groups instead of selling",
+  "The conversation has already moved on",
+  "You scroll groups instead of running your business",
 ];
 
 const WITH_US = [
-  "The lead reaches you while it's still warm",
-  "You reply first",
-  "You close it and get on with your day",
+  "The signal reaches you while it's still relevant",
+  "You see it first",
+  "You decide what to do next, and get on with your day",
 ];
 
 export function BeforeAfter() {
@@ -20,7 +20,7 @@ export function BeforeAfter() {
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeading
           eyebrow="Why now"
-          title="In group selling, second place pays nothing."
+          title="Miss the conversation, miss the moment."
         />
 
         <div className="mt-14 grid gap-5 lg:grid-cols-2">

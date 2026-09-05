@@ -9,17 +9,17 @@ const ITEMS: Item[] = [
   {
     icon: Target,
     title: "Only the posts worth your time",
-    body: "Someone asking to hire, buy, or switch. Not the spam, not the other sellers.",
+    body: "Real conversations relevant to your business. Not the spam, not the noise.",
   },
   {
     icon: Inbox,
     title: "Sent where you already look",
-    body: "Email or Slack. You open it, you read the post, you reply.",
+    body: "Email or Slack. You open it, you read the post, you decide what to do.",
   },
   {
     icon: Filter,
-    title: "Your groups, your definition of a good lead",
-    body: "You tell us which groups matter and what your buyer sounds like. We handle the watching.",
+    title: "Your groups, your definition of a signal",
+    body: "You tell us which groups matter and what a relevant conversation sounds like. We handle the watching.",
   },
 ];
 
@@ -29,7 +29,7 @@ export function WhatYouGet() {
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeading
           eyebrow="What you get"
-          title="Leads in your inbox. That's the whole product."
+          title="Relevant conversations in your inbox. That's the whole product."
         />
 
         <div className="mt-14 grid gap-5 md:grid-cols-3">
