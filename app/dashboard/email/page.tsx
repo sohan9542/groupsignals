@@ -18,7 +18,7 @@ export default async function EmailPage() {
     <>
       <div className="mb-8">
         <h1 className="text-2xl font-semibold tracking-tight">Email</h1>
-        <p className="mt-1.5 text-sm text-ash">Where your leads get delivered.</p>
+        <p className="mt-1.5 text-sm text-ash">Where your mentions get delivered.</p>
       </div>
 
       <EmailManager destinations={data ?? []} />

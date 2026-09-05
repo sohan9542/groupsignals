@@ -9,7 +9,7 @@ import { SectionHeading } from "./SectionHeading";
 const FAQS = [
   {
     q: "What happens after I sign up?",
-    a: "You add the groups you want watched and say what a good customer sounds like. Matching posts show up in your dashboard and your inbox.",
+    a: "You add the groups you want watched and say what a relevant conversation sounds like. Matching posts show up in your dashboard and your inbox.",
   },
   {
     q: "Do I need to be an admin of the groups?",

@@ -57,7 +57,7 @@ export default async function BillingPage() {
               <ul className="mt-5 space-y-2.5">
                 {[
                   `Up to ${plan.groupLimit} group${plan.groupLimit === 1 ? "" : "s"} watched for you`,
-                  "Leads delivered to your inbox",
+                  "Relevant conversations delivered to your inbox",
                   "AI matching, in your own words",
                   "Cancel whenever you want",
                 ].map((item) => (

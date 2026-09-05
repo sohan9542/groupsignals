@@ -27,9 +27,9 @@ const EXAMPLES = [
 ];
 
 const STEPS = [
-  { title: "Homeowner posts", body: "A request like this shows up in a group you're watching." },
+  { title: "Someone posts", body: "A conversation like this shows up in a group you're watching." },
   { title: "We catch it fast", body: "GroupSignal matches it against your intent and emails you the moment it's found." },
-  { title: "You reply first", body: "Message them directly, before the post scrolls past everyone else." },
+  { title: "You see it first", body: "Review it and decide how to respond, before it scrolls past everyone else." },
 ];
 
 export function RecentRequests() {
@@ -38,8 +38,8 @@ export function RecentRequests() {
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeading
           eyebrow="What lands in your inbox"
-          title="Real homeowner requests, straight from Facebook groups."
-          description="This is the kind of post GroupSignal catches for you — high intent, easy to miss, gone in a day."
+          title="Real conversations, straight from Facebook groups."
+          description="This is the kind of post GroupSignal catches for you — relevant, easy to miss, gone in a day."
         />
 
         <div className="mt-14 grid gap-5 md:grid-cols-3">

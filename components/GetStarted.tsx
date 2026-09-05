@@ -5,7 +5,7 @@ import { SectionHeading } from "./SectionHeading";
 
 const INCLUDED = [
   "15 days free trial",
-  "Leads delivered to your inbox",
+  "Relevant conversations delivered to your inbox",
   "AI matching, in your own words — no keyword lists to maintain",
   "Cancel whenever you want",
 ];

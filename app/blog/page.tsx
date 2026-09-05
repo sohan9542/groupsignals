@@ -9,7 +9,7 @@ import { createClient } from "@/lib/supabase/server";
 export const metadata: Metadata = {
   title: "Blog",
   description:
-    "Facebook group lead generation for local businesses and agencies — how to catch buying-intent posts before your competitors do.",
+    "Social listening and community monitoring for local service businesses — how to track relevant conversations in Facebook groups.",
   alternates: { canonical: "/blog" },
 };
 
@@ -39,11 +39,11 @@ export default async function BlogIndexPage() {
             Blog
           </span>
           <h1 className="mt-5 max-w-2xl text-balance text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
-            Facebook group lead generation, explained.
+            Social listening for local service businesses, explained.
           </h1>
           <p className="mt-4 max-w-2xl text-pretty text-base leading-relaxed text-ash">
-            Practical notes on catching buying-intent posts in Facebook
-            groups before someone else replies first.
+            Practical notes on monitoring Facebook groups for the
+            conversations that matter to your business.
           </p>
 
           <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
