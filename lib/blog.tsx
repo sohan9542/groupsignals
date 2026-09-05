@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import { PLANS } from "@/lib/offer";
 
 /**
  * Hand-written posts, not a CMS — there's a handful of these, not hundreds.
@@ -77,11 +76,10 @@ export const BLOG_POSTS: BlogPost[] = [
           posts a month that were actually worth your time.
         </p>
 
-        <h2>Try it</h2>
+        <h2>See it for yourself</h2>
         <p>
-          Every plan starts with a 15-day free trial, no card charged until it
-          ends. Plans start at {PLANS[0].price}/mo depending on how many
-          groups you need watched —{" "}
+          Add a group, tell us what a good lead looks like, and watch the
+          next matching post land in your inbox —{" "}
           <a href="/login">start watching your groups</a>.
         </p>
       </>
