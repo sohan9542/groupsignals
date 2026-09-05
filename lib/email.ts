@@ -64,6 +64,30 @@ export async function sendLeadAlert(options: {
   await send(options.to, subject, html);
 }
 
+/** Fires when a user submits a login-gated (private) group — it can't scan
+ *  until an admin assigns it a pooled cookie on the private-groups page. */
+export async function sendAdminPrivateGroupAlert(options: {
+  sourceUrl: string;
+  sourceName: string;
+  userEmail: string | null;
+}): Promise<void> {
+  const subject = `New private group submitted: ${options.sourceName}`;
+  const html = `
+    <p style="font-family:-apple-system,Segoe UI,sans-serif;font-size:14px;color:#111;">
+      ${options.userEmail ? escapeHtml(options.userEmail) : "A user"} submitted a private group
+      that needs a pooled account assigned before it can scan:
+    </p>
+    <p style="font-family:-apple-system,Segoe UI,sans-serif;font-size:14px;color:#111;">
+      <strong>${escapeHtml(options.sourceName)}</strong><br/>
+      <a href="${escapeHtml(options.sourceUrl)}" style="color:#10b981;">${escapeHtml(options.sourceUrl)}</a>
+    </p>
+    <p style="font-family:-apple-system,Segoe UI,sans-serif;font-size:13px;color:#666;">
+      Assign it a cookie on the private-groups admin page.
+    </p>
+  `;
+  await send(ADMIN_EMAIL, subject, html);
+}
+
 /** Fires when a scan run using a pooled cookie fails and that cookie gets
  *  marked banned — see app/api/apify/webhook/route.ts. */
 export async function sendAdminCookieAlert(options: {

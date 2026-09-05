@@ -10,7 +10,7 @@ const NAV_LINKS = [
   { label: "FAQ", href: "#faq" },
 ];
 
-export function Navbar() {
+export function Navbar({ loggedIn }: { loggedIn: boolean }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -57,18 +57,29 @@ export function Navbar() {
         </ul>
 
         <div className="hidden items-center gap-2 lg:flex">
-          <a
-            href="/login"
-            className="rounded-lg px-4 py-2 text-sm font-medium text-ash transition-colors hover:bg-fg/5 hover:text-fg"
-          >
-            Sign in
-          </a>
-          <a
-            href="/login"
-            className="rounded-lg bg-signal px-4 py-2 text-sm font-semibold text-on-signal shadow-[0_0_24px_-4px_var(--color-signal)] transition hover:bg-signal-bright hover:shadow-[0_0_32px_-2px_var(--color-signal)]"
-          >
-            Get Started
-          </a>
+          {loggedIn ? (
+            <a
+              href="/dashboard"
+              className="rounded-lg bg-signal px-4 py-2 text-sm font-semibold text-on-signal shadow-[0_0_24px_-4px_var(--color-signal)] transition hover:bg-signal-bright hover:shadow-[0_0_32px_-2px_var(--color-signal)]"
+            >
+              Dashboard
+            </a>
+          ) : (
+            <>
+              <a
+                href="/login"
+                className="rounded-lg px-4 py-2 text-sm font-medium text-ash transition-colors hover:bg-fg/5 hover:text-fg"
+              >
+                Sign in
+              </a>
+              <a
+                href="/login"
+                className="rounded-lg bg-signal px-4 py-2 text-sm font-semibold text-on-signal shadow-[0_0_24px_-4px_var(--color-signal)] transition hover:bg-signal-bright hover:shadow-[0_0_32px_-2px_var(--color-signal)]"
+              >
+                Get Started
+              </a>
+            </>
+          )}
         </div>
 
         <button
@@ -101,20 +112,32 @@ export function Navbar() {
               </li>
             ))}
             <li className="mt-2 flex flex-col gap-2 border-t border-fg/10 pt-4">
-              <a
-                href="/login"
-                onClick={() => setOpen(false)}
-                className="rounded-lg border border-fg/10 px-4 py-2.5 text-center text-sm font-medium text-fg transition-colors hover:bg-fg/5"
-              >
-                Sign in
-              </a>
-              <a
-                href="/login"
-                onClick={() => setOpen(false)}
-                className="rounded-lg bg-signal px-4 py-2.5 text-center text-sm font-semibold text-on-signal shadow-[0_0_24px_-4px_var(--color-signal)]"
-              >
-                Get Started
-              </a>
+              {loggedIn ? (
+                <a
+                  href="/dashboard"
+                  onClick={() => setOpen(false)}
+                  className="rounded-lg bg-signal px-4 py-2.5 text-center text-sm font-semibold text-on-signal shadow-[0_0_24px_-4px_var(--color-signal)]"
+                >
+                  Dashboard
+                </a>
+              ) : (
+                <>
+                  <a
+                    href="/login"
+                    onClick={() => setOpen(false)}
+                    className="rounded-lg border border-fg/10 px-4 py-2.5 text-center text-sm font-medium text-fg transition-colors hover:bg-fg/5"
+                  >
+                    Sign in
+                  </a>
+                  <a
+                    href="/login"
+                    onClick={() => setOpen(false)}
+                    className="rounded-lg bg-signal px-4 py-2.5 text-center text-sm font-semibold text-on-signal shadow-[0_0_24px_-4px_var(--color-signal)]"
+                  >
+                    Get Started
+                  </a>
+                </>
+              )}
             </li>
           </ul>
         </div>
