@@ -10,7 +10,7 @@ import { PlatformIcon } from "./PlatformIcon";
 const FILTERS: { label: string; value: LeadStatus | "all" }[] = [
   { label: "New", value: "new" },
   { label: "Saved", value: "saved" },
-  { label: "Replied", value: "replied" },
+  { label: "Actioned", value: "replied" },
   { label: "Dismissed", value: "dismissed" },
   { label: "All", value: "all" },
 ];
@@ -86,7 +86,7 @@ export function LeadList({
 
       {leads.length === 0 ? (
         <p className="mt-6 rounded-2xl border border-dashed border-fg/10 p-10 text-center text-sm text-ash-dim">
-          No leads here yet. Add a group on the Watchlist and hit scan.
+          No mentions here yet. Add a group on the Watchlist and hit scan.
         </p>
       ) : (
         <ul className="mt-6 space-y-3">
@@ -142,7 +142,7 @@ export function LeadList({
                   busy={busyId === lead.id}
                   onClick={() => setStatus(lead.id, "replied")}
                   icon={<Check className="size-3.5" />}
-                  label="Replied"
+                  label="Actioned"
                 />
                 <ActionButton
                   busy={busyId === lead.id}

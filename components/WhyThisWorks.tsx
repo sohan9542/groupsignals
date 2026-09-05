@@ -7,18 +7,18 @@ type Reason = { icon: LucideIcon; title: string; body: string };
 const REASONS: Reason[] = [
   {
     icon: Eye,
-    title: "High intent",
-    body: "They already have a problem and are actively looking for someone to hire.",
+    title: "High relevance",
+    body: "These are people actively discussing a real need or decision in your space.",
   },
   {
     icon: Timer,
     title: "Time sensitive",
-    body: "Recommendations start arriving quickly, and the first credible reply gets the attention.",
+    body: "The conversation moves fast, and threads fall out of view within a day or two.",
   },
   {
     icon: MessagesSquare,
     title: "Easy to miss",
-    body: "You're running jobs and answering the phone — not scrolling ten Facebook groups a day.",
+    body: "You're running your business, not scrolling ten Facebook groups a day.",
   },
 ];
 
@@ -38,11 +38,11 @@ export function WhyThisWorks() {
             works
           </h2>
           <p className="mt-4 text-pretty text-base leading-relaxed text-ash">
-            Homeowners use Facebook groups when they need someone they can
-            trust. They ask who can fix the AC, stop a leak, replace a roof,
-            or quote a project. These posts carry real buying intent, and
-            they move fast — by the time someone checks the thread, the
-            homeowner may already have a list of companies to call.
+            Homeowners use Facebook groups to talk about what they need —
+            who can fix the AC, stop a leak, replace a roof, or quote a
+            project. These conversations carry real signal about demand in
+            your market, and they move fast — by the time someone checks
+            the thread, it may have already scrolled out of view.
           </p>
         </Reveal>
 
@@ -67,8 +67,8 @@ export function WhyThisWorks() {
           <div className="m-3 rounded-xl bg-signal/8 p-4">
             <p className="text-sm font-semibold leading-relaxed text-fg">
               We watch these groups for you and email you the moment a post
-              matches what you&apos;re looking for — so you can be the first
-              reply, not the fifth.
+              matches what you&apos;re looking for — so you&apos;re never the
+              last to know.
             </p>
           </div>
         </Reveal>

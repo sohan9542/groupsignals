@@ -95,7 +95,7 @@ export function EmailManager({
       <section className="rounded-2xl border border-fg/8 bg-surface/50 p-6">
         <h2 className="text-base font-semibold text-fg">Add an address</h2>
         <p className="mt-1.5 text-sm text-ash">
-          Send leads to a shared inbox, a teammate, or a Zapier/n8n catch-all.
+          Send mentions to a shared inbox, a teammate, or a Zapier/n8n catch-all.
         </p>
 
         <form onSubmit={addAddress} className="mt-5 flex flex-col gap-3 sm:flex-row">
@@ -108,7 +108,7 @@ export function EmailManager({
             required
             value={address}
             onChange={(e) => setAddress(e.target.value)}
-            placeholder="leads@youragency.com"
+            placeholder="mentions@yourteam.com"
             className="min-w-0 flex-1 rounded-xl border border-fg/12 bg-fg/5 px-4 py-3 text-sm text-fg placeholder:text-ash-dim focus:border-signal/50 focus:outline-none focus:ring-2 focus:ring-signal/25"
           />
           <button
@@ -150,7 +150,7 @@ export function EmailManager({
                     )}
                     {destination.status === "pending" ? (
                       <span className="rounded-md bg-amber-500/12 px-2 py-0.5 text-[11px] font-medium text-amber-300">
-                        Unverified — not receiving leads
+                        Unverified — not receiving mentions
                       </span>
                     ) : (
                       <span className="rounded-md bg-fg/8 px-2 py-0.5 text-[11px] font-medium text-ash">
@@ -177,7 +177,7 @@ export function EmailManager({
                         ) : (
                           <Clock className="size-3" />
                         )}
-                        {mode === "instant" ? "Every lead" : "Daily digest"}
+                        {mode === "instant" ? "Every mention" : "Daily digest"}
                       </button>
                     ))}
                   </div>

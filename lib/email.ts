@@ -39,7 +39,7 @@ export async function sendLeadAlert(options: {
   authorName: string | null;
   reason: string;
 }): Promise<void> {
-  const subject = `New lead in ${options.sourceName}`;
+  const subject = `New mention in ${options.sourceName}`;
   const html = `
     <div style="font-family:-apple-system,Segoe UI,sans-serif;max-width:560px;margin:0 auto;">
       <p style="color:#111;font-size:15px;line-height:1.5;">

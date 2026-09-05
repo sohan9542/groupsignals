@@ -33,7 +33,7 @@ export default async function WatchlistPage() {
       <div className="mb-8">
         <h1 className="text-2xl font-semibold tracking-tight">Watchlist</h1>
         <p className="mt-1.5 text-sm text-ash">
-          The groups we check for you. Leads show up under Leads.
+          The groups we check for you. Matches show up under Mentions.
         </p>
       </div>
 

@@ -20,7 +20,7 @@ type NavItem = { label: string; href: string; icon: LucideIcon };
 
 const ITEMS: NavItem[] = [
   { label: "Watchlist", href: "/dashboard", icon: Radio },
-  { label: "Leads", href: "/dashboard/leads", icon: Inbox },
+  { label: "Mentions", href: "/dashboard/leads", icon: Inbox },
   { label: "Email", href: "/dashboard/email", icon: Mail },
   { label: "Billing", href: "/dashboard/billing", icon: CreditCard },
 ];
