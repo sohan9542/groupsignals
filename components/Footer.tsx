@@ -11,6 +11,7 @@ const FOOTER_LINKS = [
 const LEGAL_LINKS = [
   { label: "Terms", href: "/terms" },
   { label: "Privacy Policy", href: "/privacy" },
+  { label: "Refund Policy", href: "/refund" },
 ];
 
 export function Footer() {

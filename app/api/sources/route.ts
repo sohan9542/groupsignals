@@ -4,6 +4,7 @@ import { parseIntent, parseSourceUrl } from "@/lib/sources";
 import { resolveWebhookUrl, startScanForSource } from "@/lib/scan";
 import { groupLimitForSubscription } from "@/lib/offer";
 import { isAdmin } from "@/lib/admin";
+import { sendAdminPrivateGroupAlert } from "@/lib/email";
 import type { Subscription, WatchSource } from "@/lib/types";
 
 export async function POST(request: Request) {
@@ -115,6 +116,20 @@ export async function POST(request: Request) {
       );
     }
     return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
+  }
+
+  // Needs a pooled cookie assigned before it can scan at all — tell the admin
+  // now rather than leaving it to sit unnoticed on the private-groups page.
+  if (requiresLogin) {
+    try {
+      await sendAdminPrivateGroupAlert({
+        sourceUrl: data.url,
+        sourceName: data.name,
+        userEmail: user.email ?? null,
+      });
+    } catch (cause) {
+      console.error("Private group admin alert failed", cause);
+    }
   }
 
   // Best-effort instant first scan — a brand-new source has no last_run_at,
