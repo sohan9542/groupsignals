@@ -1,65 +1,86 @@
 import type { Metadata } from "next";
-import { PLANS } from "@/lib/offer";
-import { LegalLayout } from "@/components/LegalLayout";
+import Link from "next/link";
+import { ArrowRight, Calendar, Clock } from "lucide-react";
+import { Navbar } from "@/components/Navbar";
+import { Footer } from "@/components/Footer";
+import { BLOG_POSTS } from "@/lib/blog";
+import { createClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
-  title: "Your Next Customer Is Already Posting in a Facebook Group",
+  title: "Blog",
+  description:
+    "Facebook group lead generation for local businesses and agencies — how to catch buying-intent posts before your competitors do.",
+  alternates: { canonical: "/blog" },
 };
 
-export default function BlogPage() {
+function formatDate(iso: string): string {
+  return new Date(iso).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+}
+
+export default async function BlogIndexPage() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   return (
-    <LegalLayout
-      title="Your Next Customer Is Already Posting in a Facebook Group"
-      updated="September 5, 2026"
-    >
-      <p>
-        Somewhere right now, someone in a local Facebook group is asking who
-        they can trust to fix their AC, quote a roof, or handle a job like
-        yours. They&apos;re not googling &quot;best HVAC company near
-        me&quot; — they&apos;re asking neighbors who&apos;ve actually hired
-        someone. That post has more buying intent than almost any ad you
-        could run, and it&apos;s completely free to reply to.
-      </p>
+    <>
+      <Navbar loggedIn={!!user} />
+      <main className="pt-32 pb-20 sm:pt-40 sm:pb-28">
+        <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          {/* Static, not scroll-revealed — this sits at the very top of the
+              page with nothing above it, so there's no scroll for a
+              whileInView entrance to trigger on. */}
+          <span className="inline-block rounded-full border border-fg/10 bg-fg/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-signal-bright">
+            Blog
+          </span>
+          <h1 className="mt-5 max-w-2xl text-balance text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
+            Facebook group lead generation, explained.
+          </h1>
+          <p className="mt-4 max-w-2xl text-pretty text-base leading-relaxed text-ash">
+            Practical notes on catching buying-intent posts in Facebook
+            groups before someone else replies first.
+          </p>
 
-      <p>
-        The problem is nobody&apos;s watching for it. You&apos;re running
-        jobs, answering the phone, not scrolling ten Facebook groups a day
-        hoping to catch the right post before someone else does. By the time
-        you check the thread, the homeowner already has three names to call
-        and the first credible reply usually wins.
-      </p>
+          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {BLOG_POSTS.map((post) => (
+              <Link
+                key={post.slug}
+                href={`/blog/${post.slug}`}
+                className="group flex h-full flex-col rounded-2xl border border-fg/8 bg-surface/50 p-7 transition-colors duration-300 hover:border-signal/30 hover:bg-surface"
+              >
+                <div className="flex items-center gap-3 text-xs text-ash-dim">
+                  <span className="inline-flex items-center gap-1.5">
+                    <Calendar className="size-3.5" strokeWidth={2} />
+                    {formatDate(post.publishedAt)}
+                  </span>
+                  <span className="inline-flex items-center gap-1.5">
+                    <Clock className="size-3.5" strokeWidth={2} />
+                    {post.readMinutes} min read
+                  </span>
+                </div>
 
-      <h2>What GroupSignal actually does</h2>
-      <p>
-        You add the groups where your buyers hang out and tell us, in your
-        own words, what a good lead looks like — &quot;someone asking for a
-        plumber, not another plumber posting their own ad.&quot; We watch
-        those groups continuously and email you the moment a post matches.
-        You open the email, you reply, you&apos;re first.
-      </p>
+                <h2 className="mt-4 text-lg font-semibold leading-snug tracking-tight text-fg">
+                  {post.title}
+                </h2>
+                <p className="mt-2.5 flex-1 text-sm leading-relaxed text-ash">
+                  {post.description}
+                </p>
 
-      <h2>Private groups too</h2>
-      <p>
-        A lot of the best local groups are private — invite-only,
-        login-gated. Most tools skip those entirely. We don&apos;t: submit
-        one, and we assign it a pooled account on our side so it gets watched
-        like any other group, no invite needed on your part.
-      </p>
-
-      <h2>Why speed matters more than volume</h2>
-      <p>
-        You don&apos;t need a hundred leads a week — you need to be the
-        second name a homeowner tags, not the twentieth. GroupSignal isn&apos;t
-        about flooding your inbox; it&apos;s about not missing the ten posts a
-        month that were actually worth your time.
-      </p>
-
-      <h2>Try it</h2>
-      <p>
-        Every plan starts with a 15-day free trial, no card charged until it
-        ends. Plans start at {PLANS[0].price}/mo depending on how many groups
-        you need watched — <a href="/login">start watching your groups</a>.
-      </p>
-    </LegalLayout>
+                <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-signal-bright">
+                  Read more
+                  <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+                </span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </main>
+      <Footer />
+    </>
   );
 }
