@@ -14,7 +14,7 @@ export default function PrivacyPage() {
 
       <h2>What we collect</h2>
       <ul>
-        <li>Your email address, for account access and lead alerts.</li>
+        <li>Your email address, for account access and mention alerts.</li>
         <li>
           The group URLs and keywords/intent you submit, so we know what to
           watch and what to match on.
@@ -33,7 +33,7 @@ export default function PrivacyPage() {
       <h2>How we use it</h2>
       <p>
         Solely to run the service: matching posts against your intent, emailing
-        you leads, and managing your subscription and account. We don&apos;t
+        you mentions, and managing your subscription and account. We don&apos;t
         sell your data or use it for advertising.
       </p>
 

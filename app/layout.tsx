@@ -25,8 +25,8 @@ const fraunces = Fraunces({
 });
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://groupsignals.com";
-const title = "GroupSignal — Facebook Group Leads, Sent to Your Inbox";
-const description = `We watch the Facebook groups your buyers post in and send you the ones worth replying to. Plans start at ${PLANS[0].price}/mo.`;
+const title = "GroupSignal — Social Listening for Facebook Groups";
+const description = `We monitor the Facebook groups that matter to your business and send you the conversations worth your attention. Plans start at ${PLANS[0].price}/mo.`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -37,11 +37,11 @@ export const metadata: Metadata = {
   description,
   applicationName: "GroupSignal",
   keywords: [
-    "facebook group leads",
-    "facebook group lead generation",
-    "lead alerts for agencies",
-    "find clients in facebook groups",
-    "agency lead generation",
+    "social listening",
+    "facebook group monitoring",
+    "brand monitoring",
+    "community monitoring",
+    "market intelligence",
   ],
   alternates: { canonical: "/" },
   openGraph: {

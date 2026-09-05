@@ -27,9 +27,8 @@ export default function TermsPage() {
       <h2>Your responsibilities</h2>
       <ul>
         <li>
-          You&apos;re responsible for how you use the leads we surface —
-          outreach must comply with the platform&apos;s rules and applicable
-          law (e.g. anti-spam regulations).
+          You&apos;re responsible for how you use the information we surface,
+          in compliance with the platform&apos;s rules and applicable law.
         </li>
         <li>
           Private-group monitoring uses a login-gated account you don&apos;t
@@ -42,8 +41,8 @@ export default function TermsPage() {
       <h2>No guarantee of results</h2>
       <p>
         We surface posts that match your stated intent as best our scanning
-        and matching can — we don&apos;t guarantee a minimum number of leads,
-        that every matching post will be caught, or that scanning a group
+        and matching can — we don&apos;t guarantee a minimum number of
+        mentions, that every matching post will be caught, or that scanning a group
         won&apos;t occasionally fail (a stale login, a rate limit, a group
         going private). We flag scan errors in the dashboard when they happen.
       </p>
