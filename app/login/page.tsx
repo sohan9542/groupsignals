@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
-import { Logo } from "@/components/Logo";
+import { Navbar } from "@/components/Navbar";
 import { LoginForm } from "@/components/LoginForm";
 
 export const metadata: Metadata = {
@@ -13,11 +13,9 @@ export default function LoginPage() {
     <div className="relative flex min-h-dvh flex-col overflow-hidden">
       <div aria-hidden className="pointer-events-none absolute inset-0 signal-glow" />
 
-      <header className="relative mx-auto flex h-16 w-full max-w-7xl items-center px-5 sm:px-8">
-        <Logo href="/" />
-      </header>
+      <Navbar loggedIn={false} />
 
-      <main className="relative mx-auto flex w-full max-w-md flex-1 flex-col justify-center px-5 py-12 sm:px-8">
+      <main className="relative mx-auto flex w-full max-w-md flex-1 flex-col justify-center px-5 py-12 pt-32 sm:px-8">
         <h1 className="text-2xl font-semibold tracking-tight">
           Sign in to GroupSignal
         </h1>
