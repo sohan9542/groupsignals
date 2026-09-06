@@ -5,7 +5,7 @@ import { SectionHeading } from "./SectionHeading";
 
 const INCLUDED = [
   "15 days free trial",
-  "Relevant conversations delivered to your inbox",
+  "Keyword alerts delivered to your inbox",
   "AI matching, in your own words — no keyword lists to maintain",
   "Cancel whenever you want",
 ];
@@ -21,7 +21,7 @@ export function GetStarted() {
       <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeading
           eyebrow="Pricing"
-          title="Pick a plan by how many groups you need watched."
+          title="Pick a plan by how many channels you need monitored."
         />
 
         <div className="mx-auto mt-14 grid max-w-5xl gap-5 md:grid-cols-3">
@@ -47,7 +47,7 @@ export function GetStarted() {
                     {plan.name}
                   </h3>
                   <p className="mt-1 text-sm text-ash-dim">
-                    {plan.groupLimit} group{plan.groupLimit === 1 ? "" : "s"} watched
+                    {plan.groupLimit} channel{plan.groupLimit === 1 ? "" : "s"} monitored
                   </p>
 
                   <div className="mt-4 flex items-end gap-1.5">
@@ -61,7 +61,7 @@ export function GetStarted() {
                     <li className="flex gap-2.5">
                       <Check className="mt-0.5 size-4 shrink-0 text-signal" strokeWidth={2.5} />
                       <span className="text-sm leading-relaxed text-fg/90">
-                        Up to {plan.groupLimit} group{plan.groupLimit === 1 ? "" : "s"} watched for you
+                        Up to {plan.groupLimit} channel{plan.groupLimit === 1 ? "" : "s"} monitored for you
                       </span>
                     </li>
                     {INCLUDED.map((item) => (

@@ -9,7 +9,7 @@ import { SectionHeading } from "./SectionHeading";
 const FAQS = [
   {
     q: "What happens after I sign up?",
-    a: "You add the groups you want watched and say what a relevant conversation sounds like. Matching posts show up in your dashboard and your inbox.",
+    a: "You add the public Facebook groups you want monitored and describe what a relevant conversation looks like. Matching posts show up in your dashboard and your inbox.",
   },
   {
     q: "Do I need to be an admin of the groups?",
@@ -17,19 +17,23 @@ const FAQS = [
   },
   {
     q: "Do you need my Facebook login?",
-    a: "No, and we won't ask for it. Public groups need no login at all. Private groups need one too — but it's ours, not yours; that part is handled entirely on our end.",
+    a: "No, and we never ask for one. We only read public groups anonymously — no login, no account access.",
   },
   {
-    q: "Can you watch private groups?",
-    a: "Yes — mark it private when you add it and we take care of getting access. Public groups still need nothing from you at all.",
+    q: "Do you collect personal information about the people posting?",
+    a: "No. We track keywords, topics, and conversation trends, not who's posting. We don't collect names, profile links, or contact lists.",
+  },
+  {
+    q: "Can I use this to build a contact list or run outreach campaigns?",
+    a: "No. GroupSignal is a market research and monitoring tool, not a lead generation or contact list service. Our terms prohibit using it for unsolicited outbound marketing, cold outreach, or building a marketing list.",
   },
   {
     q: "What about Reddit?",
-    a: "Paused for now while we focus on Facebook groups. We'll switch it back on and let existing watchers know.",
+    a: "Paused for now while we focus on Facebook groups. We'll switch it back on and let existing users know.",
   },
   {
     q: "What does it cost?",
-    a: `${PLANS.map((p) => `${p.price}/mo for ${p.groupLimit} group${p.groupLimit === 1 ? "" : "s"}`).join(", ")}. Cancel any time.`,
+    a: `${PLANS.map((p) => `${p.price}/mo for ${p.groupLimit} channel${p.groupLimit === 1 ? "" : "s"}`).join(", ")}. Cancel any time.`,
   },
 ];
 

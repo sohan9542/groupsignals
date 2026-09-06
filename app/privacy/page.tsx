@@ -5,24 +5,25 @@ export const metadata: Metadata = { title: "Privacy Policy" };
 
 export default function PrivacyPage() {
   return (
-    <LegalLayout title="Privacy Policy" updated="September 5, 2026">
+    <LegalLayout title="Privacy Policy" updated="September 6, 2026">
       <p>
-        GroupSignal (&quot;we&quot;, &quot;us&quot;) monitors Facebook groups you
-        choose to watch and sends you posts that match what you&apos;re looking
-        for. This page explains what we collect and why.
+        GroupSignal (&quot;we&quot;, &quot;us&quot;) is a brand monitoring and
+        market research platform. We track public Facebook group conversations
+        against the keywords and topics you define, and alert you when
+        something matches. This page explains what we collect and why.
       </p>
 
       <h2>What we collect</h2>
       <ul>
         <li>Your email address, for account access and mention alerts.</li>
         <li>
-          The group URLs and keywords/intent you submit, so we know what to
-          watch and what to match on.
+          The group URLs and keywords/topics you submit, so we know what to
+          monitor and what to match on.
         </li>
         <li>
-          Posts and comments from the groups you&apos;re watching, and the
-          public profile info attached to them (name, profile link) — only
-          from groups you&apos;ve asked us to monitor.
+          Public post content and a link to the post, from the public groups
+          you&apos;ve asked us to monitor — aggregated discussion data, not
+          the identity of who posted it.
         </li>
         <li>
           Billing details, handled entirely by Paddle (our payment processor
@@ -32,23 +33,41 @@ export default function PrivacyPage() {
 
       <h2>How we use it</h2>
       <p>
-        Solely to run the service: matching posts against your intent, emailing
-        you mentions, and managing your subscription and account. We don&apos;t
-        sell your data or use it for advertising.
+        Solely to run the service: matching posts against the keywords and
+        topics you&apos;re tracking, emailing you mentions, and managing your
+        subscription and account. We don&apos;t sell your data or use it for
+        advertising.
+      </p>
+
+      <h2>We are not a marketing data provider</h2>
+      <p>
+        GroupSignal does not sell, rent, license, enrich, or otherwise make
+        available any data — post content, keywords, account information, or
+        anything else collected through the service — to any party as a
+        marketing list, contact list, or similar dataset. We surface
+        aggregated public discussion data back to the account that requested
+        it, and nowhere else.
       </p>
 
       <h2>Third parties</h2>
       <p>
+<<<<<<< HEAD
         We use Paddle for billing, Resend for transactional email, Supabase for
         our database and authentication. Each only receives what it needs to do its job.
+=======
+        We use Paddle for billing, Resend for transactional email, Supabase
+        for our database and authentication, and Apify for scanning the
+        public groups you&apos;ve added. Each only receives what it needs to
+        do its job.
+>>>>>>> 15c42d3b7b4ba5b6ce3963edec0d30dcaf107805
       </p>
 
       <h2>Data retention</h2>
       <p>
-        We keep your data while your account is active. Delete your account and
-        we delete your watched groups, matched posts, and personal info within
-        30 days, except where we&apos;re required to keep billing records
-        longer for tax or legal reasons.
+        We keep your data while your account is active. Delete your account
+        and we delete your monitored groups and matched posts within 30 days,
+        except where we&apos;re required to keep billing records longer for
+        tax or legal reasons.
       </p>
 
       <h2>Your rights</h2>
