@@ -22,10 +22,10 @@ export function Footer() {
           <div className="max-w-sm">
             <Logo />
             <p className="mt-4 text-sm leading-relaxed text-ash-dim">
-              Brand monitoring and market research, sent to your inbox.
+              Facebook group leads for home service pros, sent to your inbox.
             </p>
             <p className="mt-4 inline-flex rounded-lg border border-fg/8 bg-fg/5 px-3 py-1.5 text-xs text-ash">
-              Brand Monitoring &amp; Market Research Platform
+              Lead Generation for Plumbers, HVAC & Electricians
             </p>
           </div>
 

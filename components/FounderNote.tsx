@@ -13,8 +13,7 @@ export function FounderNote() {
         <Reveal>
           <Quote className="mx-auto size-8 text-signal/40" strokeWidth={1.5} />
           <p className="mt-6 text-balance font-display text-2xl italic font-medium leading-snug text-fg sm:text-3xl">
-            We built this to watch the groups we didn&apos;t have time to
-            check ourselves. That&apos;s still all it does.
+            We built this to watch the groups our friends in the trades didn't have time to check themselves. That's still all it does.
           </p>
           <p className="mt-6 text-sm font-semibold uppercase tracking-[0.16em] text-ash-dim">
             Why we built GroupSignal

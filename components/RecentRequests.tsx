@@ -7,45 +7,44 @@ import { SectionHeading } from "./SectionHeading";
  * there's no name bar to blur here, only the group and the content. */
 const EXAMPLES = [
   {
-    tag: "PRODUCT MENTION",
-    category: "SaaS · Analytics",
-    group: "SaaS Growth Founders",
-    text: "Switched to a new analytics tool last week — way better onboarding than what we were using. Anyone else made the jump recently?",
+    tag: "SERVICE REQUEST",
+    category: "Plumbing · Urgent",
+    group: "Springfield Homeowners Group",
+    text: "Does anyone know a reliable plumber? Our water heater died this morning and we need someone today.",
   },
   {
-    tag: "COMPETITOR MENTION",
-    category: "E-commerce · Tooling",
-    group: "E-commerce Operators Hub",
-    text: "Comparing a few inventory platforms right now. Heard mixed things about the market leader lately — anyone had support issues?",
+    tag: "SERVICE REQUEST",
+    category: "HVAC · Repair",
+    group: "Oakwood Neighbors",
+    text: "AC hasn't been cooling right for two days. Any HVAC recommendations that won't take a week to show up?",
   },
   {
-    tag: "SENTIMENT SIGNAL",
-    category: "Productivity · Remote work",
-    group: "Remote Work Community",
-    text: "Really happy with the latest update from that project management app — finally fixed the notification bugs everyone complained about.",
+    tag: "SERVICE REQUEST",
+    category: "Electrical · Recommendation",
+    group: "Maple Ridge Community",
+    text: "Need an electrician to look at a breaker that keeps tripping. Anyone trustworthy they've used before?",
   },
 ];
 
 const STEPS = [
-  { title: "Someone posts", body: "A conversation like this shows up in a channel you're monitoring." },
-  { title: "We catch it fast", body: "GroupSignal matches it against what you're tracking and alerts you the moment it's found." },
-  { title: "You see it first", body: "Review the trend and log what's worth tracking, before it scrolls past everyone else." },
+  { title: "Someone posts", body: "A homeowner asks for help in a group you're monitoring." },
+  { title: "We catch it fast", body: "GroupSignal matches it against your trade and service area, and alerts you the moment it's posted." },
+  { title: "You reply first", body: "You respond before anyone else — and win the job." },
 ];
-
 export function RecentRequests() {
   return (
     <section className="relative border-y border-fg/8 bg-ink-soft/50 py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeading
           eyebrow="What lands in your inbox"
-          title="Real conversations, straight from Facebook groups."
-          description="This is the kind of post GroupSignal catches for you — relevant, easy to miss, gone in a day."
+          title="Real Requests, Straight from Facebook Groups."
+          description="This is the kind of post GroupSignal catches for you — a homeowner needs help right now, and the post is gone from the feed within hours."
         />
 
         <div className="mt-14 grid gap-5 md:grid-cols-3">
           {EXAMPLES.map((example, i) => (
             <Reveal
-              key={example.tag}
+              key={i}
               delay={i * 0.08}
               className="flex h-full flex-col rounded-2xl border border-fg/8 bg-surface p-6"
             >

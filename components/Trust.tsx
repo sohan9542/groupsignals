@@ -8,13 +8,13 @@ type Point = { icon: LucideIcon; title: string; body: string };
 const POINTS: Point[] = [
   {
     icon: Eye,
-    title: "Public groups only, no login needed",
-    body: "We only read public Facebook groups — nothing to connect, nothing to install, no login required. If a group turns out to be closed, we tell you in the dashboard instead of quietly returning nothing.",
+    title: "Public and private groups, all in one place",
+    body: "We monitor both public groups and the private groups you're already a member of — nothing extra to install, just connect the groups you want covered. If a group becomes inaccessible, we tell you in the dashboard instead of quietly returning nothing.",
   },
   {
     icon: ShieldCheck,
-    title: "No personal data collected",
-    body: "We track keywords and conversation trends, not who's posting. No names, no profile links, no contact lists — this is a research tool, not a lead database.",
+    title: "You see who's asking",
+    body: "Every alert includes the post, the poster, and the group it came from — so you know exactly who to reply to and where. This is a lead tool, built to get you in front of the homeowner fast.",
   },
   {
     icon: Wallet,

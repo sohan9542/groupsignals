@@ -13,18 +13,17 @@ export function FinalCTA() {
           />
           <div className="relative mx-auto max-w-2xl">
             <h2 className="text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
-              There&apos;s a conversation happening in your groups right now.
+              Someone's Asking for a Plumber, Electrician, or HVAC Tech Right Now.
             </h2>
             <p className="mt-4 text-pretty text-base text-ash">
-              Add your first channel and see what&apos;s being said. Plans
-              start at {PLANS[0].price}/mo.
+              Add your first group and start catching those posts today.
             </p>
             <div className="mt-8 flex justify-center">
               <a
                 href="/login"
                 className="group inline-flex items-center justify-center gap-2 rounded-xl bg-signal px-6 py-3.5 text-sm font-semibold text-on-signal shadow-[0_0_36px_-6px_var(--color-signal)] transition hover:bg-signal-bright"
               >
-                Start monitoring your channels
+                Start Monitoring Facebook Groups
                 <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
               </a>
             </div>

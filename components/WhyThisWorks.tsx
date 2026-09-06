@@ -8,17 +8,17 @@ const REASONS: Reason[] = [
   {
     icon: Eye,
     title: "High relevance",
-    body: "These are people actively discussing your brand, your category, or your competitors, in their own words.",
+    body: "These are homeowners actively asking for the exact service you offer, in their own words — not people browsing, comparing options."
   },
   {
     icon: Timer,
     title: "Time sensitive",
-    body: "The conversation moves fast, and threads fall out of view within a day or two.",
+    body: "Most jobs go to whoever replies first. Posts fall out of view within hours, and by the next day the homeowner has usually already hired someone.",
   },
   {
     icon: MessagesSquare,
     title: "Easy to miss",
-    body: "You're running research or strategy, not scrolling ten Facebook groups a day.",
+    body: "You're out on a job, not scrolling ten Facebook groups a day waiting for the right post to show up.",
   },
 ];
 
@@ -38,12 +38,7 @@ export function WhyThisWorks() {
             works
           </h2>
           <p className="mt-4 text-pretty text-base leading-relaxed text-ash">
-            People use Facebook groups to talk about the brands, products,
-            and services they use — what&apos;s working, what&apos;s not,
-            and what they&apos;re switching to. These conversations carry
-            real signal about market sentiment, and they move fast — by the
-            time someone checks the thread, it may have already scrolled
-            out of view.
+           People post in local Facebook groups when they need a plumber, an electrician, or an HVAC tech fast — a broken water heater, an AC that won't cool, a breaker that keeps tripping. These posts move fast: by the time someone checks back, three other contractors have already replied.
           </p>
         </Reveal>
 
@@ -67,9 +62,7 @@ export function WhyThisWorks() {
 
           <div className="m-3 rounded-xl bg-signal/8 p-4">
             <p className="text-sm font-semibold leading-relaxed text-fg">
-              We monitor these channels for you and email you the moment a
-              post matches what you&apos;re tracking — so you&apos;re never
-              the last to know.
+              We monitor these groups for you and alert you the moment someone needs your service — so you're never the one who replies too late.
             </p>
           </div>
         </Reveal>

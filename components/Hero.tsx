@@ -26,22 +26,18 @@ export function Hero() {
               {...rise(0)}
               className="text-balance text-4xl font-bold leading-[1.08] tracking-tight sm:text-5xl lg:text-[3.4rem]"
             >
-              Your market is{" "}
+              Facebook Group<br />
               <span className="text-gradient font-display italic font-medium">
-                talking right now
-              </span>{" "}
-              in a Facebook group.
+                Monitoring That
+              </span> <br /> {" "}
+              Finds You Leads
             </motion.h1>
 
             <motion.p
               {...rise(0.16)}
               className="mt-6 text-pretty text-base leading-relaxed text-ash sm:text-lg"
             >
-              GroupSignal tracks community trends and conversations across
-              public Facebook groups, matching every new post against the
-              keywords and topics you're researching — with real-time
-              discussion alerts the moment something relevant appears.
-            </motion.p>
+              We monitor local Facebook groups 24/7 for people asking for a plumber, HVAC tech, or electrician — and alert you instantly so you can reply first.            </motion.p>
 
             <motion.div
               {...rise(0.24)}
@@ -51,14 +47,14 @@ export function Hero() {
                 href="/login"
                 className="group inline-flex items-center justify-center gap-2 rounded-xl bg-signal px-6 py-3.5 text-sm font-semibold text-on-signal shadow-[0_0_36px_-6px_var(--color-signal)] transition hover:bg-signal-bright hover:shadow-[0_0_48px_-4px_var(--color-signal)]"
               >
-                Start monitoring your channels
+                Start Monitoring Facebook Groups
                 <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
               </a>
               <a
                 href="#features"
                 className="inline-flex items-center justify-center rounded-xl border border-fg/12 bg-fg/5 px-6 py-3.5 text-sm font-semibold text-fg transition hover:border-fg/25 hover:bg-fg/10"
               >
-                See features
+                See How It Works
               </a>
             </motion.div>
           </div>
@@ -98,19 +94,18 @@ function LeadAlertCard({ reduceMotion }: { reduceMotion: boolean }) {
           </div>
 
           <p className="mt-4 text-xs text-ash-dim">
-            SaaS Growth Founders
+            Springfield Homeowners Group
           </p>
 
           <blockquote className="mt-3 rounded-xl border border-fg/8 bg-fg/[0.03] p-4 text-sm leading-relaxed text-fg/90">
-            &ldquo;Anyone else switched analytics tools this quarter? Curious
-            what people think before we commit to one.&rdquo;
+            &ldquo;Does anyone know a good plumber? My water heater just died and I need someone today.&rdquo;
           </blockquote>
 
           <button
             type="button"
             className="mt-5 w-full rounded-xl border border-signal/30 bg-signal/10 py-3 text-sm font-semibold text-signal-bright transition hover:bg-signal/20"
           >
-            View the conversation
+            Reply Now
           </button>
         </div>
       </div>
@@ -125,7 +120,7 @@ function LeadAlertCard({ reduceMotion }: { reduceMotion: boolean }) {
           <Check className="size-3.5 text-signal-bright" strokeWidth={3} />
         </span>
         <span className="text-xs font-semibold text-fg">
-          Sent to your inbox
+          Sent to your email
         </span>
       </motion.div>
     </div>
