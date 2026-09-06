@@ -8,7 +8,7 @@ const REASONS: Reason[] = [
   {
     icon: Eye,
     title: "High relevance",
-    body: "These are people actively discussing a real need or decision in your space.",
+    body: "These are people actively discussing your brand, your category, or your competitors, in their own words.",
   },
   {
     icon: Timer,
@@ -18,7 +18,7 @@ const REASONS: Reason[] = [
   {
     icon: MessagesSquare,
     title: "Easy to miss",
-    body: "You're running your business, not scrolling ten Facebook groups a day.",
+    body: "You're running research or strategy, not scrolling ten Facebook groups a day.",
   },
 ];
 
@@ -38,11 +38,12 @@ export function WhyThisWorks() {
             works
           </h2>
           <p className="mt-4 text-pretty text-base leading-relaxed text-ash">
-            Homeowners use Facebook groups to talk about what they need —
-            who can fix the AC, stop a leak, replace a roof, or quote a
-            project. These conversations carry real signal about demand in
-            your market, and they move fast — by the time someone checks
-            the thread, it may have already scrolled out of view.
+            People use Facebook groups to talk about the brands, products,
+            and services they use — what&apos;s working, what&apos;s not,
+            and what they&apos;re switching to. These conversations carry
+            real signal about market sentiment, and they move fast — by the
+            time someone checks the thread, it may have already scrolled
+            out of view.
           </p>
         </Reveal>
 
@@ -66,9 +67,9 @@ export function WhyThisWorks() {
 
           <div className="m-3 rounded-xl bg-signal/8 p-4">
             <p className="text-sm font-semibold leading-relaxed text-fg">
-              We watch these groups for you and email you the moment a post
-              matches what you&apos;re looking for — so you&apos;re never the
-              last to know.
+              We monitor these channels for you and email you the moment a
+              post matches what you&apos;re tracking — so you&apos;re never
+              the last to know.
             </p>
           </div>
         </Reveal>

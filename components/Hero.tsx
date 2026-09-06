@@ -37,9 +37,10 @@ export function Hero() {
               {...rise(0.16)}
               className="mt-6 text-pretty text-base leading-relaxed text-ash sm:text-lg"
             >
-              We monitor local Facebook groups for conversations relevant to
-              your business and email you the moment one shows up. Add a
-              group, tell us what to watch for, and check your inbox.
+              GroupSignal tracks community trends and conversations across
+              public Facebook groups, matching every new post against the
+              keywords and topics you're researching — with real-time
+              discussion alerts the moment something relevant appears.
             </motion.p>
 
             <motion.div
@@ -50,14 +51,14 @@ export function Hero() {
                 href="/login"
                 className="group inline-flex items-center justify-center gap-2 rounded-xl bg-signal px-6 py-3.5 text-sm font-semibold text-on-signal shadow-[0_0_36px_-6px_var(--color-signal)] transition hover:bg-signal-bright hover:shadow-[0_0_48px_-4px_var(--color-signal)]"
               >
-                Start watching your groups
+                Start monitoring your channels
                 <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
               </a>
               <a
-                href="#what-you-get"
+                href="#features"
                 className="inline-flex items-center justify-center rounded-xl border border-fg/12 bg-fg/5 px-6 py-3.5 text-sm font-semibold text-fg transition hover:border-fg/25 hover:bg-fg/10"
               >
-                What you get
+                See features
               </a>
             </motion.div>
           </div>
@@ -91,18 +92,18 @@ function LeadAlertCard({ reduceMotion }: { reduceMotion: boolean }) {
           <div className="flex items-start justify-between gap-4">
             <span className="inline-flex items-center gap-2 rounded-md bg-signal/15 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-signal-bright">
               <span className="size-1.5 rounded-full bg-signal animate-pulse-dot" />
-              New signal
+              New mention
             </span>
             <span className="shrink-0 text-[11px] text-ash-dim">Just now</span>
           </div>
 
           <p className="mt-4 text-xs text-ash-dim">
-            Local Neighbors &amp; Homeowners
+            SaaS Growth Founders
           </p>
 
           <blockquote className="mt-3 rounded-xl border border-fg/8 bg-fg/[0.03] p-4 text-sm leading-relaxed text-fg/90">
-            &ldquo;AC stopped blowing cold air, need someone out this week.
-            Anyone have a reliable HVAC company they trust?&rdquo;
+            &ldquo;Anyone else switched analytics tools this quarter? Curious
+            what people think before we commit to one.&rdquo;
           </blockquote>
 
           <button
