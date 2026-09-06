@@ -8,28 +8,28 @@ type Item = { icon: LucideIcon; title: string; body: string };
 const ITEMS: Item[] = [
   {
     icon: Target,
-    title: "Only the posts worth your time",
-    body: "Real conversations relevant to your business. Not the spam, not the noise.",
+    title: "Keyword intelligence",
+    body: "AI matches new posts against what you're tracking — no keyword lists to maintain, just plain English.",
   },
   {
     icon: Inbox,
-    title: "Sent where you already look",
-    body: "Email or Slack. You open it, you read the post, you decide what to do.",
+    title: "Real-time discussion alerts",
+    body: "Email or Slack. You open it, read the conversation, and note what's worth tracking.",
   },
   {
     icon: Filter,
-    title: "Your groups, your definition of a signal",
-    body: "You tell us which groups matter and what a relevant conversation sounds like. We handle the watching.",
+    title: "Track community trends",
+    body: "You tell us which channels matter and what a relevant conversation sounds like. We handle the monitoring.",
   },
 ];
 
 export function WhatYouGet() {
   return (
-    <section id="what-you-get" className="relative py-20 sm:py-28">
+    <section id="features" className="relative py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeading
-          eyebrow="What you get"
-          title="Relevant conversations in your inbox. That's the whole product."
+          eyebrow="Features"
+          title="Keyword tracking, real-time alerts, trend analytics."
         />
 
         <div className="mt-14 grid gap-5 md:grid-cols-3">

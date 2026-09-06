@@ -5,7 +5,7 @@ export const metadata: Metadata = { title: "Refund Policy" };
 
 export default function RefundPage() {
   return (
-    <LegalLayout title="Refund Policy" updated="September 5, 2026">
+    <LegalLayout title="Refund Policy" updated="September 6, 2026">
       <p>
         Every plan starts with a 15-day free trial — you won&apos;t be charged
         until it ends. Cancel anytime during the trial from the Billing page
