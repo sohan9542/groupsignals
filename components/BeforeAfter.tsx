@@ -11,7 +11,7 @@ const TODAY = [
 const WITH_US = [
   "The signal reaches you while it's still relevant",
   "You see it first",
-  "You decide what to do next, and get on with your day",
+  "You note what matters, and get on with your day",
 ];
 
 export function BeforeAfter() {

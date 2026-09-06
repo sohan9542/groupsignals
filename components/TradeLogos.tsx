@@ -1,9 +1,9 @@
-import { Droplet, Home, Wind } from "lucide-react";
+import { BarChart3, Radar, TrendingUp } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Reveal } from "./Reveal";
 
 /* Illustrative logo marks, not real businesses — deliberately generic/
- * fictional so this reads as "the kind of trade this is built for" and never
+ * fictional so this reads as "the kind of team this is built for" and never
  * as a false claim that a specific company is a customer. Rendered in one
  * flat ash tone throughout (no color, no raster image) rather than a
  * grayscale filter on a photo/logo asset — same monochrome effect, none of
@@ -11,12 +11,12 @@ import { Reveal } from "./Reveal";
 type TradeLogo = { name: string; icon: LucideIcon };
 
 const LOGOS: TradeLogo[] = [
-  { name: "Coastal Air & Heat", icon: Wind },
-  { name: "Northline HVAC", icon: Wind },
-  { name: "BlueRoot Plumbing", icon: Droplet },
-  { name: "Ironwood Plumbing Co.", icon: Droplet },
-  { name: "Summit Roofing Group", icon: Home },
-  { name: "Redline Roofing", icon: Home },
+  { name: "Northline Analytics", icon: BarChart3 },
+  { name: "Beacon Insights", icon: Radar },
+  { name: "Meridian Brand Co.", icon: TrendingUp },
+  { name: "Harbor Research Group", icon: BarChart3 },
+  { name: "Vantage Media", icon: Radar },
+  { name: "Clearline Consulting", icon: TrendingUp },
 ];
 
 function LogoMark({ name, icon: Icon }: TradeLogo) {

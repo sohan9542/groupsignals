@@ -1,7 +1,7 @@
 import { Logo } from "./Logo";
 
 const FOOTER_LINKS = [
-  { label: "What You Get", href: "#what-you-get" },
+  { label: "Features", href: "#features" },
   { label: "Pricing", href: "#pricing" },
   { label: "FAQ", href: "#faq" },
   { label: "Blog", href: "/blog" },
@@ -22,10 +22,10 @@ export function Footer() {
           <div className="max-w-sm">
             <Logo />
             <p className="mt-4 text-sm leading-relaxed text-ash-dim">
-              Facebook group monitoring, sent to your inbox.
+              Brand monitoring and market research, sent to your inbox.
             </p>
             <p className="mt-4 inline-flex rounded-lg border border-fg/8 bg-fg/5 px-3 py-1.5 text-xs text-ash">
-              Built for Home Service Businesses
+              Brand Monitoring &amp; Market Research Platform
             </p>
           </div>
 

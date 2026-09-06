@@ -2,34 +2,34 @@ import { ArrowRight, Facebook, Users } from "lucide-react";
 import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 
-/* Anonymised, illustrative example posts — the blurred name bar mirrors what
- * a real post looks like in the dashboard (poster identity is real there;
- * it's just blurred here since these three aren't real people). */
+/* Illustrative example posts — not real people or real groups, just the kind
+ * of conversation GroupSignal catches. We don't surface poster identity, so
+ * there's no name bar to blur here, only the group and the content. */
 const EXAMPLES = [
   {
-    tag: "HVAC REQUEST",
-    location: "Maple County, TX",
-    group: "Local Homeowners Group",
-    text: "Our furnace died overnight and it's freezing. Anyone have a reliable HVAC company that can come out today? Not trying to get scammed on emergency pricing.",
+    tag: "PRODUCT MENTION",
+    category: "SaaS · Analytics",
+    group: "SaaS Growth Founders",
+    text: "Switched to a new analytics tool last week — way better onboarding than what we were using. Anyone else made the jump recently?",
   },
   {
-    tag: "ROOFING REQUEST",
-    location: "Cedar Falls, OH",
-    group: "Neighbors of Cedar Falls",
-    text: "Noticed shingles missing after last week's storm and need a roof inspection. Looking for someone licensed and insured — references appreciated.",
+    tag: "COMPETITOR MENTION",
+    category: "E-commerce · Tooling",
+    group: "E-commerce Operators Hub",
+    text: "Comparing a few inventory platforms right now. Heard mixed things about the market leader lately — anyone had support issues?",
   },
   {
-    tag: "PLUMBING REQUEST",
-    location: "Rivergate, GA",
-    group: "Rivergate Community Board",
-    text: "Water heater is leaking under the house. Need a plumber who can come same-day if possible. Who do you all use and trust?",
+    tag: "SENTIMENT SIGNAL",
+    category: "Productivity · Remote work",
+    group: "Remote Work Community",
+    text: "Really happy with the latest update from that project management app — finally fixed the notification bugs everyone complained about.",
   },
 ];
 
 const STEPS = [
-  { title: "Someone posts", body: "A conversation like this shows up in a group you're watching." },
-  { title: "We catch it fast", body: "GroupSignal matches it against your intent and emails you the moment it's found." },
-  { title: "You see it first", body: "Review it and decide how to respond, before it scrolls past everyone else." },
+  { title: "Someone posts", body: "A conversation like this shows up in a channel you're monitoring." },
+  { title: "We catch it fast", body: "GroupSignal matches it against what you're tracking and alerts you the moment it's found." },
+  { title: "You see it first", body: "Review the trend and log what's worth tracking, before it scrolls past everyone else." },
 ];
 
 export function RecentRequests() {
@@ -75,7 +75,7 @@ export function RecentRequests() {
                   {example.tag}
                 </span>
                 <span className="text-ash-dim">·</span>
-                <span className="text-ash-dim">{example.location}</span>
+                <span className="text-ash-dim">{example.category}</span>
               </div>
             </Reveal>
           ))}
