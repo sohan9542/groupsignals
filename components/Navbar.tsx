@@ -5,9 +5,9 @@ import { Menu, X } from "lucide-react";
 import { Logo } from "./Logo";
 
 const NAV_LINKS = [
-  { label: "Features", href: "#features" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "FAQ", href: "#faq" },
+  { label: "Features", href: "/#features" },
+  { label: "Pricing", href: "/#pricing" },
+  { label: "FAQ", href: "/#faq" },
 ];
 
 export function Navbar({ loggedIn }: { loggedIn: boolean }) {
