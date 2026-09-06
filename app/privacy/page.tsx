@@ -40,8 +40,7 @@ export default function PrivacyPage() {
       <h2>Third parties</h2>
       <p>
         We use Paddle for billing, Resend for transactional email, Supabase for
-        our database and authentication, and Apify for scanning the groups
-        you&apos;ve added. Each only receives what it needs to do its job.
+        our database and authentication. Each only receives what it needs to do its job.
       </p>
 
       <h2>Data retention</h2>
