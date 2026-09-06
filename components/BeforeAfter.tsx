@@ -3,15 +3,15 @@ import { Reveal } from "./Reveal";
 import { SectionHeading } from "./SectionHeading";
 
 const TODAY = [
-  "You find the post two days late",
-  "The conversation has already moved on",
-  "You scroll groups instead of running your business",
+  "You find the post after someone already replied",
+  "The homeowner already hired someone else",
+  "You're scrolling groups instead of finishing the job you're on",
 ];
 
 const WITH_US = [
-  "The signal reaches you while it's still relevant",
-  "You see it first",
-  "You note what matters, and get on with your day",
+  "You get alerted the moment someone posts",
+  "You're the first to reply",
+  "You win the job — without babysitting Facebook all day",
 ];
 
 export function BeforeAfter() {
@@ -20,7 +20,7 @@ export function BeforeAfter() {
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeading
           eyebrow="Why now"
-          title="Miss the conversation, miss the moment."
+          title="Miss the Post, Miss the Job."
         />
 
         <div className="mt-14 grid gap-5 lg:grid-cols-2">

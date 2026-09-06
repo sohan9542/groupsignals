@@ -1,4 +1,4 @@
-import { BarChart3, Radar, TrendingUp } from "lucide-react";
+import { Droplet, Wind, Zap, Home, Thermometer, Wrench } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Reveal } from "./Reveal";
 
@@ -11,12 +11,12 @@ import { Reveal } from "./Reveal";
 type TradeLogo = { name: string; icon: LucideIcon };
 
 const LOGOS: TradeLogo[] = [
-  { name: "Northline Analytics", icon: BarChart3 },
-  { name: "Beacon Insights", icon: Radar },
-  { name: "Meridian Brand Co.", icon: TrendingUp },
-  { name: "Harbor Research Group", icon: BarChart3 },
-  { name: "Vantage Media", icon: Radar },
-  { name: "Clearline Consulting", icon: TrendingUp },
+  { name: "Ace Plumbing Co.", icon: Droplet },
+  { name: "Coldwell HVAC", icon: Wind },
+  { name: "Brightline Electric", icon: Zap },
+  { name: "Summit Roofing", icon: Home },
+  { name: "Reliable Heating & Air", icon: Thermometer },
+  { name: "Precision Electrical", icon: Wrench },
 ];
 
 function LogoMark({ name, icon: Icon }: TradeLogo) {

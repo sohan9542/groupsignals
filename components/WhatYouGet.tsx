@@ -8,18 +8,18 @@ type Item = { icon: LucideIcon; title: string; body: string };
 const ITEMS: Item[] = [
   {
     icon: Target,
-    title: "Keyword intelligence",
-    body: "AI matches new posts against what you're tracking — no keyword lists to maintain, just plain English.",
+    title: "Service matching",
+    body: "We match new posts against your trade and service area — no keyword lists to set up, just tell us what you do.",
   },
   {
     icon: Inbox,
-    title: "Real-time discussion alerts",
-    body: "Email or Slack. You open it, read the conversation, and note what's worth tracking.",
+    title: "Real-time job alerts",
+    body: "Get a text or email the second someone posts. Open it, see the request, and reply — before anyone else does.",
   },
   {
     icon: Filter,
-    title: "Track community trends",
-    body: "You tell us which channels matter and what a relevant conversation sounds like. We handle the monitoring.",
+    title: "Monitor every group that matters",
+    body: "Tell us which local groups to watch. We check them around the clock so you don't have to.",
   },
 ];
 
@@ -29,7 +29,7 @@ export function WhatYouGet() {
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeading
           eyebrow="Features"
-          title="Keyword tracking, real-time alerts, trend analytics."
+          title="Service Alerts, Real-Time Notifications, Zero Manual Scrolling."
         />
 
         <div className="mt-14 grid gap-5 md:grid-cols-3">

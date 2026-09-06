@@ -9,23 +9,23 @@ import { SectionHeading } from "./SectionHeading";
 const FAQS = [
   {
     q: "What happens after I sign up?",
-    a: "You add the public Facebook groups you want monitored and describe what a relevant conversation looks like. Matching posts show up in your dashboard and your inbox.",
+    a: "You add the Facebook groups you want monitored and tell us what services you offer and where. Matching posts show up in your dashboard and get sent straight to your inbox or phone.",
   },
   {
     q: "Do I need to be an admin of the groups?",
-    a: "No. You just need the group to be public — we don't ask you to grant us anything.",
+    a: "No. For public groups, we just need the group name. For private groups, we monitor the ones you're already a member of.",
   },
   {
     q: "Do you need my Facebook login?",
-    a: "No, and we never ask for one. We only read public groups anonymously — no login, no account access.",
+    a: "For public groups, no — we monitor those without any login. For private groups you're a member of, we'll walk you through a simple, secure connection step.",
   },
   {
-    q: "Do you collect personal information about the people posting?",
-    a: "No. We track keywords, topics, and conversation trends, not who's posting. We don't collect names, profile links, or contact lists.",
+    q: "Do I see who posted, so I can actually contact them?",
+    a: "Yes. Every alert includes the post, the poster's name, and the group it came from, so you can reply directly and reach out about the job.",
   },
   {
-    q: "Can I use this to build a contact list or run outreach campaigns?",
-    a: "No. GroupSignal is a market research and monitoring tool, not a lead generation or contact list service. Our terms prohibit using it for unsolicited outbound marketing, cold outreach, or building a marketing list.",
+    q: "Can I use this to find and contact potential customers?",
+    a: "Yes — that's exactly what GroupSignal is built for. We surface people in local Facebook groups who are actively asking for your service, so you can respond and win the job.",
   },
   {
     q: "What about Reddit?",
@@ -33,10 +33,9 @@ const FAQS = [
   },
   {
     q: "What does it cost?",
-    a: `${PLANS.map((p) => `${p.price}/mo for ${p.groupLimit} channel${p.groupLimit === 1 ? "" : "s"}`).join(", ")}. Cancel any time.`,
+    a: `${PLANS.map((p) => `${p.price}/mo for ${p.groupLimit} group${p.groupLimit === 1 ? "" : "s"}`).join(", ")}. Cancel any time.`,
   },
 ];
-
 // Collapsed answers are unmounted, so the crawlable copy of every Q&A lives in
 // this structured-data block rather than in the accordion markup.
 const FAQ_JSON_LD = {

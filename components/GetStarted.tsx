@@ -5,8 +5,8 @@ import { SectionHeading } from "./SectionHeading";
 
 const INCLUDED = [
   "15 days free trial",
-  "Keyword alerts delivered to your inbox",
-  "AI matching, in your own words — no keyword lists to maintain",
+  "Instant alerts delivered by email",
+  "AI matching that understands your trade — no keyword lists to maintain",
   "Cancel whenever you want",
 ];
 
@@ -61,7 +61,7 @@ export function GetStarted() {
                     <li className="flex gap-2.5">
                       <Check className="mt-0.5 size-4 shrink-0 text-signal" strokeWidth={2.5} />
                       <span className="text-sm leading-relaxed text-fg/90">
-                        Up to {plan.groupLimit} channel{plan.groupLimit === 1 ? "" : "s"} monitored for you
+                        Up to {plan.groupLimit} group{plan.groupLimit === 1 ? "" : "s"} monitored for you
                       </span>
                     </li>
                     {INCLUDED.map((item) => (
