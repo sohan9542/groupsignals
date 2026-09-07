@@ -9,7 +9,7 @@ import { createClient } from "@/lib/supabase/server";
 export const metadata: Metadata = {
   title: "Blog",
   description:
-    "Social listening and community monitoring for local service businesses — how to track relevant conversations in Facebook groups.",
+    "Facebook group monitoring for plumbers, HVAC techs, and electricians — how to find local service leads before your competitors do.",
   alternates: { canonical: "/blog" },
 };
 
@@ -35,16 +35,18 @@ export default async function BlogIndexPage() {
           {/* Static, not scroll-revealed — this sits at the very top of the
               page with nothing above it, so there's no scroll for a
               whileInView entrance to trigger on. */}
-          <span className="inline-block rounded-full border border-fg/10 bg-fg/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-signal-bright">
+         <div className="flex w-full items-center justify-center flex-col">
+           <span className="inline-block rounded-full border border-fg/10 bg-fg/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-signal-bright">
             Blog
           </span>
-          <h1 className="mt-5 max-w-2xl text-balance text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
-            Social listening for local service businesses, explained.
+          <h1 className="mt-5 max-w-2xl text-balance text-center text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
+            Facebook group monitoring for local service businesses, explained.
           </h1>
-          <p className="mt-4 max-w-2xl text-pretty text-base leading-relaxed text-ash">
+          <p className="mt-4 max-w-2xl text-pretty text-center text-base leading-relaxed text-ash">
             Practical notes on monitoring Facebook groups for the
             conversations that matter to your business.
           </p>
+         </div>
 
           <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {BLOG_POSTS.map((post) => (
