@@ -19,12 +19,15 @@ export function BlogImage({
   return (
     <figure>
       {src ? (
+        // object-contain, not object-cover: these are screenshots with
+        // text/UI baked in, cropping to fill the box was cutting words off
+        // the edges. Letterboxing beats losing content.
         // eslint-disable-next-line @next/next/no-img-element -- a handful
         // of static blog images don't need next/image's optimizer config.
         <img
           src={src}
           alt={alt}
-          className={`aspect-video w-full object-cover ${className}`}
+          className={`aspect-video w-full bg-fg/[0.03] object-contain ${className}`}
         />
       ) : (
         <div
