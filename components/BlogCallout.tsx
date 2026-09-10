@@ -17,7 +17,7 @@ export function BlogCallout({
       </p>
       <Link
         href="/login"
-        className="group inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-signal px-5 py-2.5 text-sm font-semibold text-on-signal transition hover:bg-signal-bright"
+        className="group inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-signal px-5 py-2.5 text-sm font-semibold !text-on-signal !no-underline transition hover:bg-signal-bright"
       >
         {cta}
         <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
