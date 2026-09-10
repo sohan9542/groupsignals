@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight, Calendar, Clock } from "lucide-react";
+import { ArrowRight, Calendar, ChevronRight, Clock } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { BLOG_POSTS } from "@/lib/blog";
@@ -32,10 +32,21 @@ export default async function BlogIndexPage() {
       <Navbar loggedIn={!!user} />
       <main className="pt-32 pb-20 sm:pt-40 sm:pb-28">
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
+          <nav
+            aria-label="Breadcrumb"
+            className="flex items-center gap-1.5 text-sm text-ash-dim"
+          >
+            <Link href="/" className="transition-colors hover:text-fg">
+              Home
+            </Link>
+            <ChevronRight className="size-3.5" />
+            <span className="text-ash">Blog</span>
+          </nav>
+
           {/* Static, not scroll-revealed — this sits at the very top of the
               page with nothing above it, so there's no scroll for a
               whileInView entrance to trigger on. */}
-         <div className="flex w-full items-center justify-center flex-col">
+         <div className="mt-8 flex w-full items-center justify-center flex-col">
            <span className="inline-block rounded-full border border-fg/10 bg-fg/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-signal-bright">
             Blog
           </span>
@@ -48,7 +59,13 @@ export default async function BlogIndexPage() {
           </p>
          </div>
 
-          <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          <div
+            className={
+              BLOG_POSTS.length < 3
+                ? "mx-auto mt-14 grid max-w-xl gap-5"
+                : "mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
+            }
+          >
             {BLOG_POSTS.map((post) => (
               <Link
                 key={post.slug}
