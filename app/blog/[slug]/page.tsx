@@ -112,7 +112,7 @@ export default async function BlogPostPage({
             <span className="truncate text-ash">{post.title}</span>
           </nav>
 
-          <h1 className="mt-6 max-w-3xl text-balance text-4xl font-bold leading-[1.15] tracking-tight sm:text-5xl">
+          <h1 className="mt-6 w-full text-balance text-4xl font-bold leading-[1.15] tracking-tight sm:text-5xl">
             {post.title}
           </h1>
 
