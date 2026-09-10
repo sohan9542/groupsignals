@@ -4,6 +4,8 @@ import Link from "next/link";
 import { ArrowRight, Calendar, ChevronRight, Clock } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
+import { BlogHero } from "@/components/BlogHero";
+import { BlogToc } from "@/components/BlogToc";
 import { BLOG_POSTS, getBlogPost } from "@/lib/blog";
 import { createClient } from "@/lib/supabase/server";
 
@@ -131,6 +133,8 @@ export default async function BlogPostPage({
             )}
           </div>
 
+          <BlogHero />
+
           <div className="mt-10 grid gap-12 lg:grid-cols-[1fr_240px]">
             <article className="max-w-2xl">
               <div className="flex flex-col gap-6 text-[17px] leading-[1.75] text-ash [&_a]:text-signal [&_a]:underline [&_a]:underline-offset-2 [&_h2]:mt-4 [&_h2]:scroll-mt-28 [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:tracking-tight [&_h2]:text-fg [&_h3]:mt-1 [&_h3]:text-base [&_h3]:font-semibold [&_h3]:text-fg [&_strong]:font-semibold [&_strong]:text-fg">
@@ -172,23 +176,7 @@ export default async function BlogPostPage({
             {/* Table of contents — hidden below lg, where there's no room
                 for a second column beside the article. */}
             <aside className="hidden lg:block">
-              <div className="sticky top-28">
-                <p className="text-xs font-semibold uppercase tracking-[0.12em] text-ash-dim">
-                  On this page
-                </p>
-                <ul className="mt-3 space-y-2.5 border-l border-fg/8 pl-4 text-sm">
-                  {post.toc.map((entry) => (
-                    <li key={entry.id}>
-                      <a
-                        href={`#${entry.id}`}
-                        className="text-ash transition-colors hover:text-fg"
-                      >
-                        {entry.title}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <BlogToc toc={post.toc} />
             </aside>
           </div>
         </div>
