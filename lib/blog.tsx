@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
 import { BlogCallout } from "@/components/BlogCallout";
+import { BlogImage } from "@/components/BlogImage";
 
 /**
  * Hand-written posts, not a CMS. There's a handful of these, not hundreds.
@@ -331,6 +332,209 @@ export const BLOG_POSTS: BlogPost[] = [
           the ones we hear most, and there&apos;s a{" "}
           <Link href="/#faq">longer list on the homepage</Link> too.
         </p>
+      </>
+    ),
+  },
+  {
+    slug: "best-lead-generation-tools-for-home-services-2026",
+    title: "5 Best Lead Generation Tools for Home Service Businesses (2026 Guide)",
+    description:
+      "A side-by-side look at the tools plumbers, HVAC companies, and electricians use to find new customers, from Facebook groups to Google Local Services Ads.",
+    author: "GroupSignal Team",
+    publishedAt: "2026-09-10",
+    readMinutes: 9,
+    keywords: [
+      "lead generation tools for home services",
+      "how to get more leads plumbing hvac electrical",
+      "google local services ads vs angi vs thumbtack",
+      "facebook group leads for contractors",
+    ],
+    toc: [
+      { id: "tldr-2", title: "TL;DR" },
+      { id: "what-to-look-for-2", title: "What to look for" },
+      { id: "groupsignal", title: "1. GroupSignal" },
+      { id: "google-lsa", title: "2. Google Local Services Ads" },
+      { id: "angi", title: "3. Angi" },
+      { id: "thumbtack", title: "4. Thumbtack" },
+      { id: "field-service-software", title: "5. Field service booking software" },
+      { id: "how-to-choose-2", title: "How to choose" },
+      { id: "faq-2", title: "FAQ" },
+    ],
+    faqs: [
+      {
+        q: "What's the best lead generation tool for a small home service business?",
+        a: "It depends on budget and how hands-on you want to be. GroupSignal works well as a low-cost starting point since it surfaces free, high-intent requests from Facebook groups; paid platforms like Google Local Services Ads scale further but cost more per lead.",
+      },
+      {
+        q: "How much should a home service business expect to pay for leads?",
+        a: "It varies widely by trade, location, and platform, from $79 a month for a Facebook group monitoring plan to $20 to $100 or more per lead on a pay-per-lead marketplace. A lead is worth paying for as long as its cost is well below the job's value.",
+      },
+      {
+        q: "Do I need more than one lead source?",
+        a: "Most established home service businesses use two or three at once, usually a paid channel for volume and a free or low-cost channel like Facebook groups for margin, rather than relying on a single source entirely.",
+      },
+      {
+        q: "Are Facebook group leads actually worth pursuing?",
+        a: "Yes. Someone asking their neighborhood group for a recommendation has already decided to hire, they just haven't picked who yet. The tradeoff is that those posts need to be caught quickly, which is the exact problem a monitoring tool like GroupSignal solves.",
+      },
+    ],
+    body: (
+      <>
+        <h2 id="tldr-2">TL;DR</h2>
+        <p>Here are five of the more common lead sources home service businesses use, and what each one is best at:</p>
+        <ul className="list-disc space-y-2 pl-5">
+          <li><strong>GroupSignal:</strong> best for catching Facebook group requests while they&apos;re still worth replying to.</li>
+          <li><strong>Google Local Services Ads:</strong> best for homeowners actively searching for your service right now.</li>
+          <li><strong>Angi:</strong> best for tapping an established homeowner marketplace with existing demand.</li>
+          <li><strong>Thumbtack:</strong> best for pros who want control over which job types they get matched with.</li>
+          <li><strong>Field service booking software:</strong> best for converting the leads you already have into booked, paid jobs.</li>
+        </ul>
+
+        <h2 id="what-to-look-for-2">What to look for</h2>
+        <p>
+          In home services, the first business to give a useful reply usually
+          has the best shot at the job. Whatever mix of tools you use, weigh
+          each one on the same handful of things: how fast a lead reaches
+          you, how much genuine buying intent it carries, whether you can
+          filter out the job types you don&apos;t want, and what it actually
+          costs per job booked rather than per lead delivered.
+        </p>
+
+        <h2 id="groupsignal">1. GroupSignal: Best for Facebook Group Requests</h2>
+        <BlogImage caption="GroupSignal dashboard" />
+        <p>
+          Homeowners ask their local Facebook groups for a recommendation
+          constantly: &quot;can anyone recommend a plumber who can come
+          today?&quot; is a normal Tuesday post in most neighborhood groups.{" "}
+          <Link href="/">GroupSignal</Link> watches the groups you choose,
+          public and private, and sends an alert the moment a post matches
+          your trade and service area, so you can reply while the thread is
+          still active.
+        </p>
+        <p>
+          You give it the group links, not your Facebook login. There&apos;s
+          no admin access to arrange and no keyword list to maintain since
+          matching is based on what you actually do, not rigid phrases.
+        </p>
+        <p><strong>Key features:</strong></p>
+        <ul className="list-disc space-y-2 pl-5">
+          <li>Public and private group monitoring, without needing admin access to either.</li>
+          <li>No personal Facebook login required to run.</li>
+          <li>Alerts sent straight to your inbox as soon as a match is found.</li>
+          <li>Runs continuously, so you&apos;re not the one checking groups all day.</li>
+        </ul>
+
+        <h2 id="google-lsa">2. Google Local Services Ads: Best for Active Searchers</h2>
+        <BlogImage caption="Google Local Services Ads" />
+        <p>
+          Google Local Services Ads put your business in front of people
+          searching for exactly what you offer, right when they search for
+          it. A search like &quot;emergency plumber near me&quot; is about as
+          high intent as lead generation gets, since the person already
+          knows they need help and is actively looking for someone to call.
+        </p>
+        <p>
+          Getting approved takes some paperwork. Google verifies your
+          business license, insurance, and background checks before your ads
+          can run, and it&apos;s a pay-per-lead model rather than pay-per-click,
+          so you&apos;re charged for valid contacts rather than every click.
+        </p>
+        <p><strong>Key features:</strong></p>
+        <ul className="list-disc space-y-2 pl-5">
+          <li>Prominent placement at the top of relevant local searches.</li>
+          <li>You choose the service area and job types you want to receive.</li>
+          <li>Pay-per-lead pricing rather than pay-per-click.</li>
+          <li>Google credits some invalid or poor-quality leads back to your budget.</li>
+        </ul>
+
+        <h2 id="angi">3. Angi: Best for an Established Marketplace</h2>
+        <BlogImage caption="Angi" />
+        <p>
+          Angi is one of the older, larger homeowner marketplaces, and that
+          scale is its main advantage: a lot of homeowners already know the
+          brand and go there first when they need a repair, a remodel, or a
+          cleaning done. You fill out a profile, set your service area and
+          budget, and Angi routes matching requests to your account.
+        </p>
+        <p>
+          The tradeoff is that a given request often goes to more than one
+          contractor at once, so speed still matters even on a paid
+          marketplace. Filters help keep the requests roughly in your lane,
+          but they won&apos;t stop the built-in competition for each lead.
+        </p>
+        <p><strong>Key features:</strong></p>
+        <ul className="list-disc space-y-2 pl-5">
+          <li>Large existing base of homeowners already using the platform.</li>
+          <li>Filters for project type, location, and budget.</li>
+          <li>An approved-pro badge that can help with trust on your profile.</li>
+          <li>Leads are often shared with more than one contractor at a time.</li>
+        </ul>
+
+        <h2 id="thumbtack">4. Thumbtack: Best for Choosing Your Jobs</h2>
+        <BlogImage caption="Thumbtack" />
+        <p>
+          Thumbtack works well for businesses that want more control over
+          which jobs they&apos;re matched with. You build a profile with
+          reviews, prices, and work photos, then set the cities, schedule,
+          and job types you actually want, which helps a business avoid
+          getting flooded with small jobs when it wants bigger ones (or the
+          reverse).
+        </p>
+        <p>
+          Pricing works on a per-lead basis with a cap you set yourself, and
+          an opportunities tab lets you browse jobs outside your usual match
+          criteria if you want to bid on something extra.
+        </p>
+        <p><strong>Key features:</strong></p>
+        <ul className="list-disc space-y-2 pl-5">
+          <li>Targeting by service, location, schedule, and job type.</li>
+          <li>A maximum price you&apos;re willing to pay per lead.</li>
+          <li>A public profile with reviews and past work photos.</li>
+          <li>Tracks response time, which affects how often you get matched.</li>
+        </ul>
+
+        <h2 id="field-service-software">5. Field Service Booking Software: Best for Converting Leads You Already Have</h2>
+        <BlogImage caption="Field service booking software" />
+        <p>
+          Tools like Housecall Pro aren&apos;t a lead source on their own,
+          they&apos;re where the leads from everything else actually turn
+          into booked, paid jobs. A booking widget on your website or Google
+          Business Profile lets a homeowner see open times and book directly,
+          and a live calendar means nobody books a slot your team can&apos;t
+          actually cover.
+        </p>
+        <p>
+          The value shows up over time more than on day one: automated
+          follow-ups bring past customers back, and review requests after a
+          job help with the local search visibility that feeds tools like
+          Google Local Services Ads in the first place.
+        </p>
+        <p><strong>Key features:</strong></p>
+        <ul className="list-disc space-y-2 pl-5">
+          <li>Online booking synced to a live technician calendar.</li>
+          <li>Lead intake forms that capture the job details before the visit.</li>
+          <li>Automated follow-ups and review requests after a job closes.</li>
+          <li>Tracks which channel each lead actually came from.</li>
+        </ul>
+
+        <h2 id="how-to-choose-2">How to choose</h2>
+        <p>
+          Most home service businesses end up running more than one of these
+          at once rather than picking a single winner. A practical starting
+          point: {" "}
+          <Link href="/login">add your local Facebook groups to GroupSignal</Link>{" "}
+          since it costs the least to start and the leads are free once
+          you&apos;re watching the right groups, then layer in a paid,
+          higher-volume channel like Google Local Services Ads or Angi once
+          you know your close rate and can justify the per-lead cost. Add
+          booking software once enough leads are coming in that manual
+          scheduling starts costing you jobs.
+        </p>
+
+        <BlogCallout
+          text="Start with the free lead source that's already there."
+          cta="Start watching your groups"
+        />
       </>
     ),
   },

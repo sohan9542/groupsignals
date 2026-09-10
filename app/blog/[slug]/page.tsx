@@ -4,7 +4,7 @@ import Link from "next/link";
 import { ArrowRight, Calendar, ChevronRight, Clock } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
-import { BlogHero } from "@/components/BlogHero";
+import { BlogImage } from "@/components/BlogImage";
 import { BlogToc } from "@/components/BlogToc";
 import { BLOG_POSTS, getBlogPost } from "@/lib/blog";
 import { createClient } from "@/lib/supabase/server";
@@ -112,7 +112,7 @@ export default async function BlogPostPage({
             <span className="truncate text-ash">{post.title}</span>
           </nav>
 
-          <h1 className="mt-6 max-w-3xl text-balance text-3xl font-bold leading-[1.15] tracking-tight sm:text-4xl">
+          <h1 className="mt-6 max-w-3xl text-balance text-4xl font-bold leading-[1.15] tracking-tight sm:text-5xl">
             {post.title}
           </h1>
 
@@ -133,16 +133,16 @@ export default async function BlogPostPage({
             )}
           </div>
 
-          <BlogHero />
+          <BlogImage />
 
           <div className="mt-10 grid gap-12 lg:grid-cols-[1fr_240px]">
             <article className="max-w-2xl">
-              <div className="flex flex-col gap-6 text-[17px] leading-[1.75] text-ash [&_a]:text-signal [&_a]:underline [&_a]:underline-offset-2 [&_h2]:mt-4 [&_h2]:scroll-mt-28 [&_h2]:text-xl [&_h2]:font-semibold [&_h2]:tracking-tight [&_h2]:text-fg [&_h3]:mt-1 [&_h3]:text-base [&_h3]:font-semibold [&_h3]:text-fg [&_strong]:font-semibold [&_strong]:text-fg">
+              <div className="flex flex-col gap-6 text-[18px] leading-[1.8] text-ash [&_a]:text-signal [&_a]:underline [&_a]:underline-offset-2 [&_h2]:mt-4 [&_h2]:scroll-mt-28 [&_h2]:text-2xl [&_h2]:font-bold [&_h2]:tracking-tight [&_h2]:text-fg sm:[&_h2]:text-3xl [&_h3]:mt-1 [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:text-fg [&_strong]:font-semibold [&_strong]:text-fg">
                 {post.body}
               </div>
 
               <div id="faq" className="mt-4 scroll-mt-28">
-                <h2 className="text-xl font-semibold tracking-tight text-fg">
+                <h2 className="text-2xl font-bold tracking-tight text-fg sm:text-3xl">
                   FAQ
                 </h2>
                 <div className="mt-5 divide-y divide-fg/8 overflow-hidden rounded-2xl border border-fg/8">
