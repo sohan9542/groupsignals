@@ -60,7 +60,7 @@ export default async function BlogIndexPage() {
               <span className="inline-block rounded-full border border-fg/10 bg-fg/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-signal-bright">
                 Blog
               </span>
-              <h1 className="mt-5 max-w-4xl text-balance text-center text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl lg:text-[3.4rem]">
+              <h1 className="mt-5 w-full text-balance text-center text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl lg:text-[3.4rem]">
                 Facebook group monitoring for local service businesses,
                 explained.
               </h1>
