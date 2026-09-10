@@ -133,7 +133,7 @@ export default async function BlogPostPage({
             )}
           </div>
 
-          <BlogImage />
+          <BlogImage src={post.coverImage} alt={post.title} />
 
           <div className="mt-10 grid gap-12 lg:grid-cols-[1fr_240px]">
             <article className="max-w-2xl">

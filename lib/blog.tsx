@@ -19,6 +19,8 @@ export type BlogPost = {
   title: string;
   /** Card teaser + <meta name="description">, keep it one sentence. */
   description: string;
+  /** Path under /public. Omit to fall back to the placeholder box. */
+  coverImage?: string;
   author: string;
   publishedAt: string;
   /** Set only when a post has actually been revised after publishing. */
@@ -36,6 +38,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: "What's the Best Facebook Group Monitoring Tool? (2026 Guide)",
     description:
       "A practical guide to choosing a Facebook group monitoring tool: what actually matters, how the approaches compare, what it costs, and who each one fits.",
+    coverImage: "/blog/blogmain.jpg",
     author: "GroupSignal Team",
     publishedAt: "2026-09-10",
     readMinutes: 10,
@@ -340,6 +343,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: "5 Best Lead Generation Tools for Home Service Businesses (2026 Guide)",
     description:
       "A side-by-side look at the tools plumbers, HVAC companies, and electricians use to find new customers, from Facebook groups to Google Local Services Ads.",
+    coverImage: "/blog/blogmain.jpg",
     author: "GroupSignal Team",
     publishedAt: "2026-09-10",
     readMinutes: 9,
@@ -401,7 +405,11 @@ export const BLOG_POSTS: BlogPost[] = [
         </p>
 
         <h2 id="groupsignal">1. GroupSignal: Best for Facebook Group Requests</h2>
-        <BlogImage caption="GroupSignal dashboard" />
+        <BlogImage
+          src="/blog/groupsignal.png"
+          alt="GroupSignal dashboard"
+          caption="GroupSignal dashboard"
+        />
         <p>
           Homeowners ask their local Facebook groups for a recommendation
           constantly: &quot;can anyone recommend a plumber who can come
@@ -425,7 +433,11 @@ export const BLOG_POSTS: BlogPost[] = [
         </ul>
 
         <h2 id="google-lsa">2. Google Local Services Ads: Best for Active Searchers</h2>
-        <BlogImage caption="Google Local Services Ads" />
+        <BlogImage
+          src="/blog/google-local-services-ads.jpg"
+          alt="Google Local Services Ads"
+          caption="Google Local Services Ads"
+        />
         <p>
           Google Local Services Ads put your business in front of people
           searching for exactly what you offer, right when they search for
@@ -448,7 +460,7 @@ export const BLOG_POSTS: BlogPost[] = [
         </ul>
 
         <h2 id="angi">3. Angi: Best for an Established Marketplace</h2>
-        <BlogImage caption="Angi" />
+        <BlogImage src="/blog/angi.png" alt="Angi" caption="Angi" />
         <p>
           Angi is one of the older, larger homeowner marketplaces, and that
           scale is its main advantage: a lot of homeowners already know the
@@ -471,7 +483,7 @@ export const BLOG_POSTS: BlogPost[] = [
         </ul>
 
         <h2 id="thumbtack">4. Thumbtack: Best for Choosing Your Jobs</h2>
-        <BlogImage caption="Thumbtack" />
+        <BlogImage src="/blog/thumbtack.webp" alt="Thumbtack" caption="Thumbtack" />
         <p>
           Thumbtack works well for businesses that want more control over
           which jobs they&apos;re matched with. You build a profile with
@@ -494,7 +506,11 @@ export const BLOG_POSTS: BlogPost[] = [
         </ul>
 
         <h2 id="field-service-software">5. Field Service Booking Software: Best for Converting Leads You Already Have</h2>
-        <BlogImage caption="Field service booking software" />
+        <BlogImage
+          src="/blog/field-service.jpg"
+          alt="Field service booking software"
+          caption="Field service booking software"
+        />
         <p>
           Tools like Housecall Pro aren&apos;t a lead source on their own,
           they&apos;re where the leads from everything else actually turn

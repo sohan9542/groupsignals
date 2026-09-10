@@ -80,7 +80,11 @@ export default async function BlogIndexPage() {
                 href={`/blog/${post.slug}`}
                 className="group flex h-full flex-col overflow-hidden rounded-2xl border border-fg/8 bg-surface/50 transition-colors duration-300 hover:border-signal/30 hover:bg-surface"
               >
-                <BlogImage className="border-0" />
+                <BlogImage
+                  src={post.coverImage}
+                  alt={post.title}
+                  className="rounded-none"
+                />
 
                 <div className="flex flex-1 flex-col p-7">
                   <div className="flex items-center gap-3 text-xs text-ash-dim">
