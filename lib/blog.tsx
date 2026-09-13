@@ -38,6 +38,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: "What's the Best Facebook Group Monitoring Tool? (2026 Guide)",
     description:
       "A practical guide to choosing a Facebook group monitoring tool: what actually matters, how the approaches compare, what it costs, and who each one fits.",
+    coverImage: "/blog/best-facebook-group-monitoring-tool-2026.jpg",
     author: "GroupSignal Team",
     publishedAt: "2026-09-10",
     readMinutes: 10,
