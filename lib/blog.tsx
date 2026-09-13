@@ -559,6 +559,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: "How Plumbers Get Leads from Facebook Groups (Without Getting Banned)",
     description:
       "A practical playbook for plumbers who want Facebook group leads: which groups to join, how to reply without getting banned, and when monitoring beats scrolling yourself.",
+    coverImage: "/blog/facebook-group-leads-for-plumbers.jpg",
     author: "GroupSignal Team",
     publishedAt: "2026-09-14",
     readMinutes: 11,
@@ -799,6 +800,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: "How HVAC Companies Find Jobs in Local Facebook Groups",
     description:
       "How HVAC techs and owners get Facebook group leads: which neighborhood groups to watch, how to reply to AC and furnace posts, and when alerts beat manual scrolling.",
+    coverImage: "/blog/facebook-group-leads-for-hvac.png",
     author: "GroupSignal Team",
     publishedAt: "2026-09-16",
     readMinutes: 10,
@@ -1028,6 +1030,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: "How Electricians Get Facebook Group Leads in Their Service Area",
     description:
       "How electricians get leads from local Facebook groups: finding the right neighborhood groups, replying to breaker and outlet posts, and using monitoring so you don't miss jobs.",
+    coverImage: "/blog/facebook-group-leads-for-electricians.jpg",
     author: "GroupSignal Team",
     publishedAt: "2026-09-18",
     readMinutes: 10,
