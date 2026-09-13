@@ -9,10 +9,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(),
   }));
 
-  const postRoutes = BLOG_POSTS.map((post) => ({
-    url: `${siteUrl}/blog/${post.slug}`,
-    lastModified: new Date(post.publishedAt),
-  }));
+  const postRoutes = BLOG_POSTS.filter((post) => post.index !== false).map(
+    (post) => ({
+      url: `${siteUrl}/blog/${post.slug}`,
+      lastModified: new Date(post.publishedAt),
+    }),
+  );
 
   return [...staticRoutes, ...postRoutes];
 }

@@ -21,6 +21,8 @@ export type BlogPost = {
   description: string;
   /** Path under /public. Omit to fall back to the placeholder box. */
   coverImage?: string;
+  /** false = omit from sitemap and send noindex. Google drops it after recrawl. */
+  index?: boolean;
   author: string;
   publishedAt: string;
   /** Set only when a post has actually been revised after publishing. */
@@ -344,6 +346,7 @@ export const BLOG_POSTS: BlogPost[] = [
     description:
       "A side-by-side look at the tools plumbers, HVAC companies, and electricians use to find new customers, from Facebook groups to Google Local Services Ads.",
     coverImage: "/blog/blogmain.jpg",
+    index: false,
     author: "GroupSignal Team",
     publishedAt: "2026-09-10",
     readMinutes: 9,
