@@ -553,6 +553,691 @@ export const BLOG_POSTS: BlogPost[] = [
       </>
     ),
   },
+  {
+    slug: "facebook-group-leads-for-plumbers",
+    title: "How Plumbers Get Leads from Facebook Groups (Without Getting Banned)",
+    description:
+      "A practical playbook for plumbers who want Facebook group leads: which groups to join, how to reply without getting banned, and when monitoring beats scrolling yourself.",
+    author: "GroupSignal Team",
+    publishedAt: "2026-09-14",
+    readMinutes: 11,
+    keywords: [
+      "facebook group leads for plumbers",
+      "plumbing leads facebook groups",
+      "get plumber recommendations facebook",
+      "neighborhood facebook groups plumber",
+    ],
+    toc: [
+      { id: "tldr", title: "TL;DR" },
+      { id: "why-groups-work", title: "Why Facebook groups work for plumbing leads" },
+      { id: "which-groups", title: "Which Facebook groups actually produce plumbing jobs" },
+      { id: "dont-get-banned", title: "The don't-get-banned rules" },
+      { id: "how-to-reply", title: "How to reply" },
+      { id: "manual-vs-monitoring", title: "Manual scrolling vs monitoring" },
+      { id: "weekly-system", title: "A simple weekly system" },
+      { id: "what-leads-are", title: "What these leads are (and aren't)" },
+      { id: "faq", title: "FAQ" },
+    ],
+    faqs: [
+      {
+        q: "Can I promote my plumbing business in Facebook groups?",
+        a: "Only as each group allows. Soft, helpful replies that answer the homeowner's actual problem are usually fine. Hard promo posts, phone-number spam, and weekly ads get you banned in most neighborhood groups.",
+      },
+      {
+        q: "Do I need to be a group admin to get plumbing leads?",
+        a: "No. Membership plus following the rules is enough. You don't need admin access to reply to recommendation posts or to have those groups monitored.",
+      },
+      {
+        q: "Is this better than Angi for plumbers?",
+        a: "They're different jobs. Facebook groups are free, local, and trust-heavy but you have to catch posts fast. Angi is a paid marketplace with existing demand. Many shops use both rather than picking one.",
+      },
+      {
+        q: "How many Facebook groups should I monitor as a plumber?",
+        a: "Start with the 5–10 most active groups that cover the towns you actually service. Expand once you're consistently catching and converting posts from that set.",
+      },
+      {
+        q: "How does GroupSignal fit into this?",
+        a: "We alert you when someone in your watched groups needs a plumber. You reply yourself. We don't comment, DM, or post on your behalf.",
+      },
+    ],
+    body: (
+      <>
+        <h2 id="tldr">TL;DR</h2>
+        <ul className="list-disc space-y-2 pl-5">
+          <li>
+            Local Facebook groups are where homeowners ask &quot;does anyone
+            know a good plumber?&quot; Those posts convert better than most
+            cold ads because a neighbor already vouched for hiring someone.
+          </li>
+          <li>
+            The catch: spammy self-promotion gets you banned, and good
+            threads move in under an hour. Reply like a helpful local, not a
+            billboard.
+          </li>
+          <li>
+            Join the right neighborhood groups, answer the actual problem,
+            and use monitoring when you can&apos;t scroll ten groups between
+            jobs.
+          </li>
+          <li>
+            <Link href="/">GroupSignal</Link> watches your groups and{" "}
+            <Link href="/login">alerts you when someone needs a plumber</Link>{" "}
+            so you can reply first.
+          </li>
+        </ul>
+
+        <h2 id="why-groups-work">Why Facebook groups work for plumbing leads</h2>
+        <p>
+          A burst pipe, a dead water heater, a toilet that won&apos;t stop
+          running — homeowners often ask their neighborhood Facebook group
+          who people used last time before they open a search tab. The
+          intent is high: they&apos;ve already decided to hire, and they tend
+          to call from the first useful replies.
+        </p>
+        <p>
+          Paid channels still matter. A roundup of{" "}
+          <Link href="/blog/best-lead-generation-tools-for-home-services-2026">
+            lead generation tools for home services
+          </Link>{" "}
+          covers how groups sit next to Local Services Ads, Angi, and the
+          rest. What groups give you that those channels don&apos;t: they&apos;re
+          free to find, trust is half-built by the neighbor who posted, and
+          speed decides who gets the job.
+        </p>
+
+        <h2 id="which-groups">Which Facebook groups actually produce plumbing jobs</h2>
+        <p>
+          Not every group with &quot;plumber&quot; in the name is worth your
+          time. The ones that produce real jobs look like this:
+        </p>
+        <ul className="list-disc space-y-2 pl-5">
+          <li>
+            <strong>Neighborhood / Neighbors groups</strong> — usually
+            ~2k–10k members, tied to a town or subdivision. Highest volume of
+            &quot;need a plumber&quot; posts.
+          </li>
+          <li>
+            <strong>Recommends / local tip groups</strong> — built around
+            asking for and giving service recommendations.
+          </li>
+          <li>
+            <strong>Buy / sell / trade groups</strong> — service asks show up
+            between furniture posts; quieter, but less competition.
+          </li>
+          <li>
+            <strong>Parenting / new-homeowner groups</strong> when they&apos;re
+            local — first-time homeowners ask about water heaters, sump
+            pumps, and &quot;is this leak bad?&quot; constantly.
+          </li>
+        </ul>
+        <p>
+          Skip giant statewide contractor spam groups. Find the good ones via
+          Facebook search: <em>[city] neighbors</em>, <em>[city]
+          recommends</em>, or the subdivision name. Aim for 5–15 groups that
+          cover the area you actually roll trucks to.
+        </p>
+
+        <BlogCallout text="See what homeowners near you are already asking for." />
+
+        <h2 id="dont-get-banned">The don&apos;t-get-banned rules</h2>
+        <h3>Do</h3>
+        <ul className="list-disc space-y-2 pl-5">
+          <li>Read the group rules before you post or reply.</li>
+          <li>Use a personal profile when the group expects people, not Pages.</li>
+          <li>Put your company name and town in your intro so people know who you are.</li>
+          <li>Answer the actual problem in the post, not a generic pitch.</li>
+          <li>Reply fast on recommendation posts — the useful window is short.</li>
+          <li>Help on non-sales threads sometimes so you&apos;re a known local, not a drive-by.</li>
+        </ul>
+        <h3>Don&apos;t</h3>
+        <ul className="list-disc space-y-2 pl-5">
+          <li>Spam your phone number on every thread.</li>
+          <li>Drop weekly promo ads unless the rules explicitly allow them.</li>
+          <li>DM everyone who posts anything remotely plumbing-related.</li>
+          <li>Carpet-bomb groups from a Facebook Page.</li>
+          <li>Argue with other contractors in the comments.</li>
+        </ul>
+
+        <h2 id="how-to-reply">How to reply</h2>
+        <p>
+          Keep it short, specific, and human. Here are four templates you can
+          adapt — swap in your company, town, and availability.
+        </p>
+        <h3>Emergency / same-day</h3>
+        <blockquote className="border-l-2 border-fg/20 pl-4 italic text-ash">
+          Sorry you&apos;re dealing with that — we&apos;re [Company] in
+          [Town] and can usually get out same-day for active leaks. Happy to
+          take a look if you still need someone. Feel free to message me.
+        </blockquote>
+        <h3>Water heater</h3>
+        <blockquote className="border-l-2 border-fg/20 pl-4 italic text-ash">
+          Sounds like the water heater. We&apos;re [Company] — we do installs
+          and repairs in [Town]/[neighborhood]. If you can tell me the age
+          and whether you&apos;re getting any hot water at all, I can tell
+          you what we&apos;d check first.
+        </blockquote>
+        <h3>Recommendation thread (you&apos;ve done work nearby)</h3>
+        <blockquote className="border-l-2 border-fg/20 pl-4 italic text-ash">
+          We&apos;re [Company] and we&apos;ve done a few jobs over in
+          [neighborhood] recently. Happy to help if you&apos;re still looking
+          — message me with what&apos;s going on and we&apos;ll see if we can
+          fit you in.
+        </blockquote>
+        <h3>When you&apos;re slammed</h3>
+        <blockquote className="border-l-2 border-fg/20 pl-4 italic text-ash">
+          We&apos;re booked through [day], but if it can wait I can put you
+          on the list for [Town]. If it&apos;s an active leak, say so and
+          I&apos;ll see if we can squeeze an emergency slot.
+        </blockquote>
+
+        <h2 id="manual-vs-monitoring">Manual scrolling vs monitoring</h2>
+        <p>
+          Manual scrolling is fine for one or two groups you check every
+          morning. It breaks once you&apos;re in eight or ten groups and
+          you&apos;re on a job when the post goes up. That&apos;s the gap a{" "}
+          <Link href="/blog/best-facebook-group-monitoring-tool-2026">
+            Facebook group monitoring tool
+          </Link>{" "}
+          is meant to fill.
+        </p>
+        <p>
+          <Link href="/">GroupSignal</Link> covers public and private groups,
+          matches plumbing posts in your service area, and sends email alerts
+          so you&apos;re not babysitting keyword searches.{" "}
+          <Link href="/#pricing">Plans start at $79/mo</Link>.
+        </p>
+
+        <h2 id="weekly-system">A simple weekly system</h2>
+        <ul className="list-disc space-y-2 pl-5">
+          <li>
+            <strong>Once:</strong> join the right groups and clean up your
+            profile so it looks like a real local plumber.
+          </li>
+          <li>
+            <strong>Daily:</strong> hit every need-a-plumber post you get
+            alerted on (or see while scrolling).
+          </li>
+          <li>
+            <strong>2–3× per week:</strong> leave a helpful non-pitch reply
+            somewhere so you stay visible without selling.
+          </li>
+          <li>
+            <strong>Weekly:</strong> prune dead or spammy groups and add
+            better ones in towns you actually cover.
+          </li>
+        </ul>
+        <p>
+          The same playbook works for other trades — see how{" "}
+          <Link href="/blog/facebook-group-leads-for-hvac">
+            HVAC companies find jobs in Facebook groups
+          </Link>{" "}
+          and how{" "}
+          <Link href="/blog/facebook-group-leads-for-electricians">
+            electricians get Facebook group leads
+          </Link>
+          .
+        </p>
+
+        <h2 id="what-leads-are">What these leads are (and aren&apos;t)</h2>
+        <p>
+          Facebook group leads are fast, local, and high-trust. They are not
+          a full replacement for paid channels or referrals. Miss the window
+          and the lead is gone — someone else already replied and got the
+          call.
+        </p>
+
+        <BlogCallout
+          text="Stop missing plumber posts while you're on a job."
+          cta="Start watching your groups"
+        />
+      </>
+    ),
+  },
+  {
+    slug: "facebook-group-leads-for-hvac",
+    title: "How HVAC Companies Find Jobs in Local Facebook Groups",
+    description:
+      "How HVAC techs and owners get Facebook group leads: which neighborhood groups to watch, how to reply to AC and furnace posts, and when alerts beat manual scrolling.",
+    author: "GroupSignal Team",
+    publishedAt: "2026-09-16",
+    readMinutes: 10,
+    keywords: [
+      "facebook group leads for hvac",
+      "hvac leads from facebook groups",
+      "ac repair leads facebook",
+      "furnace repair facebook group recommendations",
+    ],
+    toc: [
+      { id: "tldr", title: "TL;DR" },
+      { id: "why-hvac-fits", title: "Why HVAC fits Facebook groups" },
+      { id: "what-posts-look-like", title: "What HVAC posts look like" },
+      { id: "which-groups", title: "Which groups to watch" },
+      { id: "how-to-reply", title: "How to reply" },
+      { id: "seasonal-rhythm", title: "Seasonal rhythm" },
+      { id: "manual-vs-tool", title: "Manual vs a monitoring tool" },
+      { id: "practical-routine", title: "A practical routine" },
+      { id: "faq", title: "FAQ" },
+    ],
+    faqs: [
+      {
+        q: "Are Facebook group HVAC leads only emergency repair?",
+        a: "No. You'll see no-cool and no-heat emergencies, but also maintenance asks, who-installed threads, IAQ questions, and thermostat or duct posts. Repair skews highest urgency; replacement and maintenance show up too.",
+      },
+      {
+        q: "Should I reply from a personal profile or a Page?",
+        a: "Follow each group's rules. Most neighborhood groups expect a personal profile. A Page-only approach often looks like spam and gets removed.",
+      },
+      {
+        q: "How fast do I need to reply to an AC or furnace post?",
+        a: "Under an hour is the useful window on most emergency threads. First wave of helpful replies usually wins the call.",
+      },
+      {
+        q: "Do private Facebook groups matter for HVAC leads?",
+        a: "Yes. Many of the best neighborhood and HOA groups are private. Public-only monitoring misses a big share of local recommendation traffic.",
+      },
+      {
+        q: "Is this a replacement for Google Local Services Ads?",
+        a: "No. Groups and LSA do different jobs — free, trust-heavy neighborhood asks versus paid search intent. Most shops that grow use both.",
+      },
+    ],
+    body: (
+      <>
+        <h2 id="tldr">TL;DR</h2>
+        <ul className="list-disc space-y-2 pl-5">
+          <li>
+            AC dies in July or the furnace dies in January — the homeowner
+            posts in a neighborhood Facebook group and hires from the early
+            useful replies.
+          </li>
+          <li>
+            The channel is seasonal, urgent, and brutal on response time.
+            Join the right groups and answer like a tech, not a billboard.
+          </li>
+          <li>
+            Use monitoring when you&apos;re on rooftops and can&apos;t scroll
+            ten groups between calls.
+          </li>
+          <li>
+            <Link href="/">GroupSignal</Link>{" "}
+            <Link href="/login">alerts you for HVAC posts in your area</Link>{" "}
+            so you can reply while the thread is still live.
+          </li>
+        </ul>
+
+        <h2 id="why-hvac-fits">Why HVAC fits Facebook groups</h2>
+        <p>
+          HVAC posts are distress calls with zip codes attached. No cool in
+          a heat wave or no heat in January is not a leisurely research
+          project — the homeowner wants someone who can come out, and the
+          first wave of useful replies usually wins.
+        </p>
+        <p>
+          The mix skews toward repair, no-cool, no-heat, and
+          &quot;who-do-you-trust&quot; recommendation threads more than
+          long-cycle remodel shopping. Paid channels still matter; see the{" "}
+          <Link href="/blog/best-lead-generation-tools-for-home-services-2026">
+            lead generation tools guide for home services
+          </Link>{" "}
+          for how groups sit next to LSA and marketplaces. Groups are where
+          speed and local trust do the heavy lifting.
+        </p>
+
+        <h2 id="what-posts-look-like">What HVAC posts look like</h2>
+        <ul className="list-disc space-y-2 pl-5">
+          <li>
+            <strong>No-cool</strong> — AC not cooling, frozen lines, unit
+            running but no cold air.
+          </li>
+          <li>
+            <strong>No-heat</strong> — furnace won&apos;t fire, heat pump
+            issues, cold house overnight.
+          </li>
+          <li>
+            <strong>Noises / short cycling</strong> — rattles, banging, unit
+            turning on and off every few minutes.
+          </li>
+          <li>
+            <strong>Who installed / maintenance</strong> — looking for a
+            company that did a neighbor&apos;s system, or spring/fall tune-up
+            asks.
+          </li>
+          <li>
+            <strong>IAQ / thermostat / ducts</strong> — air quality,
+            smart thermostats, unbalanced rooms, duct cleaning questions.
+          </li>
+        </ul>
+
+        <h2 id="which-groups">Which groups to watch</h2>
+        <p>
+          Use the same map as{" "}
+          <Link href="/blog/facebook-group-leads-for-plumbers">
+            Facebook group leads for plumbers
+          </Link>
+          : neighborhood / neighbors groups, recommends and local tip groups,
+          subdivision and HOA private groups, and buy/sell when service asks
+          show up. Cover groups per town you actually service — one mega
+          statewide HVAC spam group won&apos;t replace five active local ones.
+        </p>
+
+        <BlogCallout text="Catch no-cool and no-heat posts while the thread is still open." />
+
+        <h2 id="how-to-reply">How to reply</h2>
+        <p>
+          Sound like a tech who diagnosed something, not a brochure. Skip ALL
+          CAPS and &quot;#1 rated&quot; fluff.
+        </p>
+        <h3>No-cool (summer)</h3>
+        <blockquote className="border-l-2 border-fg/20 pl-4 italic text-ash">
+          Sorry — brutal day for that. We&apos;re [Company] in [Town]. If
+          you can tell me whether the outdoor unit is running and if you see
+          ice on the lines, I can tell you what we&apos;d check first. Happy
+          to come out if you still need someone today.
+        </blockquote>
+        <h3>No-heat</h3>
+        <blockquote className="border-l-2 border-fg/20 pl-4 italic text-ash">
+          We&apos;re [Company] — furnace and heat pump service in [Town].
+          Any error codes on the thermostat, or is it completely dead? Message
+          me and we&apos;ll see how fast we can get there.
+        </blockquote>
+        <h3>Recommendation-only thread</h3>
+        <blockquote className="border-l-2 border-fg/20 pl-4 italic text-ash">
+          We&apos;re [Company] and we&apos;ve done installs and service in
+          [neighborhood]. Happy to help if you&apos;re still looking —
+          message me with the system type and what&apos;s going on.
+        </blockquote>
+        <h3>Booked solid</h3>
+        <blockquote className="border-l-2 border-fg/20 pl-4 italic text-ash">
+          We&apos;re slammed through [day], but if it&apos;s a true no-cool /
+          no-heat I can check for an emergency slot. Otherwise I can put you
+          on the list for [Town] as soon as we have an opening.
+        </blockquote>
+
+        <h2 id="seasonal-rhythm">Seasonal rhythm</h2>
+        <ul className="list-disc space-y-2 pl-5">
+          <li>
+            <strong>Late spring–summer:</strong> no-cool volume; speed is
+            critical.
+          </li>
+          <li>
+            <strong>Fall:</strong> maintenance and replace conversations
+            before winter.
+          </li>
+          <li>
+            <strong>Winter:</strong> no-heat emergencies; same urgency as
+            summer AC.
+          </li>
+          <li>
+            <strong>Shoulder seasons:</strong> quieter — good time to join
+            groups and clean up your presence before the next peak.
+          </li>
+        </ul>
+        <p>
+          Monitoring shouldn&apos;t take summers off. The weeks you&apos;re
+          busiest on the truck are exactly when you miss the most posts by
+          hand.
+        </p>
+
+        <h2 id="manual-vs-tool">Manual vs a monitoring tool</h2>
+        <p>
+          Manual works if you only care about one or two groups and someone
+          in the office lives on Facebook. It breaks when techs are on roofs
+          and you cover multiple neighborhoods. A{" "}
+          <Link href="/blog/best-facebook-group-monitoring-tool-2026">
+            Facebook group monitoring tool
+          </Link>{" "}
+          is built for that gap.
+        </p>
+        <p>
+          <Link href="/">GroupSignal</Link> watches public and private groups
+          and emails you matches.{" "}
+          <Link href="/#pricing">Plans run $79–$199/mo</Link> depending on
+          how many groups you need. We don&apos;t post or DM for you — you
+          reply as the local company.
+        </p>
+
+        <h2 id="practical-routine">A practical routine</h2>
+        <ul className="list-disc space-y-2 pl-5">
+          <li>Map your service area to the groups that cover each town.</li>
+          <li>Clean up your personal profile so it reads like a real HVAC tech/owner.</li>
+          <li>In peak season, treat alerts like phone leads — reply or lose them.</li>
+          <li>Track which groups actually produce booked jobs.</li>
+          <li>Prune dead groups and add coverage where you keep winning work.</li>
+        </ul>
+        <p>
+          Same pattern for{" "}
+          <Link href="/blog/facebook-group-leads-for-electricians">
+            electricians
+          </Link>{" "}
+          and{" "}
+          <Link href="/blog/facebook-group-leads-for-plumbers">
+            plumbers
+          </Link>
+          .
+        </p>
+
+        <BlogCallout
+          text="Get HVAC group alerts instead of scrolling between calls."
+          cta="Start watching your groups"
+        />
+      </>
+    ),
+  },
+  {
+    slug: "facebook-group-leads-for-electricians",
+    title: "How Electricians Get Facebook Group Leads in Their Service Area",
+    description:
+      "How electricians get leads from local Facebook groups: finding the right neighborhood groups, replying to breaker and outlet posts, and using monitoring so you don't miss jobs.",
+    author: "GroupSignal Team",
+    publishedAt: "2026-09-18",
+    readMinutes: 10,
+    keywords: [
+      "facebook group leads for electricians",
+      "electrician leads facebook groups",
+      "electrical contractor facebook groups",
+      "recommend an electrician facebook",
+    ],
+    toc: [
+      { id: "tldr", title: "TL;DR" },
+      { id: "why-electricians", title: "Why electricians do well in Facebook groups" },
+      { id: "posts-worth-watching", title: "Posts worth watching" },
+      { id: "finding-groups", title: "Finding the right groups" },
+      { id: "reply-like-a-pro", title: "Reply like a licensed pro" },
+      { id: "why-speed-matters", title: "Why speed matters" },
+      { id: "manual-vs-alerts", title: "Manual scrolling vs alerts" },
+      { id: "playbook", title: "A simple playbook" },
+      { id: "faq", title: "FAQ" },
+    ],
+    faqs: [
+      {
+        q: "Can I advertise my electrical business in Facebook groups?",
+        a: "Only within each group's rules. Helpful replies that answer the problem are usually fine. Hard promo posts and phone-number spam are what get contractors banned.",
+      },
+      {
+        q: "Should I use a personal profile or a Facebook Page?",
+        a: "Most neighborhood groups expect a personal profile. Check the rules; Pages are often restricted or removed as spam.",
+      },
+      {
+        q: "Do private groups matter for electrician leads?",
+        a: "Yes. Private neighborhood and HOA groups are often where the best recommendation posts live, with fewer carpet-bombing competitors.",
+      },
+      {
+        q: "Will GroupSignal message homeowners for me?",
+        a: "No. We send you the alert. You reply, comment, or message yourself. We don't post or DM on your behalf.",
+      },
+      {
+        q: "How do Facebook group leads compare to marketplaces?",
+        a: "Groups are free and trust-heavy but time-sensitive. Marketplaces like Angi or Thumbtack cost per lead and bring volume. Many electricians use both.",
+      },
+    ],
+    body: (
+      <>
+        <h2 id="tldr">TL;DR</h2>
+        <ul className="list-disc space-y-2 pl-5">
+          <li>
+            Breakers that won&apos;t reset, dead outlets, EV charger panel
+            space, &quot;anyone know a licensed electrician?&quot; — these
+            are low-research, ready-to-hire posts if you see them early.
+          </li>
+          <li>
+            Join the right neighborhood groups, reply like a licensed pro,
+            and treat speed like an inbound phone lead.
+          </li>
+          <li>
+            <Link href="/">GroupSignal</Link>{" "}
+            <Link href="/login">alerts you</Link> when electrical asks show
+            up in your service area so you don&apos;t miss them between jobs.
+          </li>
+        </ul>
+
+        <h2 id="why-electricians">Why electricians do well in Facebook groups</h2>
+        <p>
+          Electrical work is a trust product. Homeowners want someone
+          licensed and local, and a neighbor&apos;s group thread is often
+          where they start. You win by being present and useful — not by
+          billboard spam.
+        </p>
+        <p>
+          Groups sit next to paid channels, not instead of them. For the
+          broader mix, see the{" "}
+          <Link href="/blog/best-lead-generation-tools-for-home-services-2026">
+            lead generation tools roundup for home services
+          </Link>
+          .
+        </p>
+
+        <h2 id="posts-worth-watching">Posts worth watching</h2>
+        <ul className="list-disc space-y-2 pl-5">
+          <li>
+            <strong>Breaker / panel</strong> — trips that won&apos;t reset,
+            warm panel, upgrade questions.
+          </li>
+          <li>
+            <strong>Outlets / switches</strong> — dead receptacles, sparking,
+            half a room out.
+          </li>
+          <li>
+            <strong>Lighting / fans</strong> — installs, flickering, ceiling
+            fan swaps.
+          </li>
+          <li>
+            <strong>Safety / inspection</strong> — home sale inspection
+            write-ups, smoke/CO, aluminum wiring concerns.
+          </li>
+          <li>
+            <strong>EV / generator / battery</strong> — charger installs,
+            standby generators, panel capacity.
+          </li>
+          <li>
+            <strong>Pure recommendation</strong> — &quot;recommend an
+            electrician in [Town]&quot; with no other detail.
+          </li>
+        </ul>
+
+        <h2 id="finding-groups">Finding the right groups</h2>
+        <p>
+          Same structure as the{" "}
+          <Link href="/blog/facebook-group-leads-for-plumbers">
+            plumbers playbook
+          </Link>{" "}
+          and the{" "}
+          <Link href="/blog/facebook-group-leads-for-hvac">
+            HVAC guide
+          </Link>
+          : neighbors groups, recommends, subdivision/HOA private groups, and
+          local buy/sell when service asks appear. Prefer active groups over
+          huge dead ones. Private groups are often gold. Cover each town you
+          service. Start with 5–10, then grow to 5–15 as you prove which ones
+          convert.
+        </p>
+
+        <BlogCallout text="Don't miss breaker and outlet posts while you're on another job." />
+
+        <h2 id="reply-like-a-pro">Reply like a licensed pro</h2>
+        <p>
+          Mention licensed and insured naturally. Don&apos;t fear-monger.
+          Answer the problem first.
+        </p>
+        <h3>Tripping breaker</h3>
+        <blockquote className="border-l-2 border-fg/20 pl-4 italic text-ash">
+          If it won&apos;t reset, stop forcing it — that&apos;s usually a
+          real fault, not a nuisance trip. We&apos;re [Company], licensed
+          and insured in [Town]. Message me with which breaker and what was
+          running and we can take a look.
+        </blockquote>
+        <h3>Dead outlets (think GFCI upstream)</h3>
+        <blockquote className="border-l-2 border-fg/20 pl-4 italic text-ash">
+          Often a GFCI upstream (garage, kitchen, bath) has tripped even when
+          the dead outlet looks fine. We&apos;re [Company] in [Town] — happy
+          to track it down if you&apos;ve already checked the obvious resets.
+        </blockquote>
+        <h3>Panel / EV / load calc</h3>
+        <blockquote className="border-l-2 border-fg/20 pl-4 italic text-ash">
+          EV chargers and panel space need a proper load calc, not a guess.
+          We&apos;re [Company] — we do charger installs and panel upgrades in
+          [Town]. Message me with your panel amp rating and we&apos;ll tell
+          you what&apos;s realistic.
+        </blockquote>
+        <h3>Pure recommendation</h3>
+        <blockquote className="border-l-2 border-fg/20 pl-4 italic text-ash">
+          We&apos;re [Company], licensed electricians serving [Town] /
+          [neighborhood]. Happy to help if you&apos;re still looking —
+          message me with what you need done.
+        </blockquote>
+
+        <h2 id="why-speed-matters">Why speed matters</h2>
+        <p>
+          Comment #14 three hours later usually loses. The homeowner already
+          texted someone from the first useful replies. Treat group alerts
+          like inbound calls: same urgency, same &quot;first good answer
+          wins&quot; dynamic.
+        </p>
+
+        <h2 id="manual-vs-alerts">Manual scrolling vs alerts</h2>
+        <p>
+          Manual scrolling is fine for a tiny territory and one or two
+          groups. Multi-suburb coverage needs monitoring. See the{" "}
+          <Link href="/blog/best-facebook-group-monitoring-tool-2026">
+            Facebook group monitoring tool guide
+          </Link>{" "}
+          and{" "}
+          <Link href="/#pricing">GroupSignal pricing</Link> (from $79/mo).
+          GroupSignal doesn&apos;t message homeowners for you — you get the
+          alert and reply as the electrician.
+        </p>
+
+        <h2 id="playbook">A simple playbook</h2>
+        <ul className="list-disc space-y-2 pl-5">
+          <li>
+            <strong>Map</strong> every town you service to the groups that
+            cover it.
+          </li>
+          <li>
+            <strong>Join</strong> 5–15 active groups (quality over giant spam
+            groups).
+          </li>
+          <li>
+            <strong>Profile</strong> — make it obvious you&apos;re a local
+            licensed electrician.
+          </li>
+          <li>
+            <strong>Respond</strong> fast to alerts and recommendation posts.
+          </li>
+          <li>
+            <strong>Measure</strong> which groups produce booked jobs.
+          </li>
+          <li>
+            <strong>Scale</strong> coverage where the work is, prune where it
+            isn&apos;t.
+          </li>
+        </ul>
+
+        <BlogCallout
+          text="Get electrical group alerts for your service area."
+          cta="Start watching your groups"
+        />
+      </>
+    ),
+  },
 ];
 
 export function getBlogPost(slug: string): BlogPost | undefined {
