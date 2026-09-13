@@ -8,6 +8,7 @@ import { GetStarted } from "@/components/GetStarted";
 import { Hero } from "@/components/Hero";
 import { Navbar } from "@/components/Navbar";
 import { RecentRequests } from "@/components/RecentRequests";
+import { Reviews } from "@/components/Reviews";
 import { TradeLogos } from "@/components/TradeLogos";
 import { Trust } from "@/components/Trust";
 import { WhatYouGet } from "@/components/WhatYouGet";
@@ -32,6 +33,7 @@ export default async function Home() {
         <WhyThisWorks />
         <WhatYouGet />
         <GetStarted />
+        <Reviews />
         <Trust />
         <FounderNote />
         <FAQ />
