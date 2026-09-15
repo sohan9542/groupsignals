@@ -4,7 +4,7 @@ import { ArrowRight, Calendar, ChevronRight, Clock } from "lucide-react";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { BlogImage } from "@/components/BlogImage";
-import { BLOG_POSTS } from "@/lib/blog";
+import { getAllPosts } from "@/lib/blog";
 import { createClient } from "@/lib/supabase/server";
 
 export const metadata: Metadata = {
@@ -74,7 +74,7 @@ export default async function BlogIndexPage() {
 
         <div className="mx-auto max-w-7xl px-5 sm:px-8">
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {BLOG_POSTS.map((post) => (
+            {getAllPosts().map((post) => (
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}

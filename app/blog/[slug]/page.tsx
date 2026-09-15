@@ -6,11 +6,11 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { BlogImage } from "@/components/BlogImage";
 import { BlogToc } from "@/components/BlogToc";
-import { BLOG_POSTS, getBlogPost } from "@/lib/blog";
+import { getAllPosts, getBlogPost } from "@/lib/blog";
 import { createClient } from "@/lib/supabase/server";
 
 export function generateStaticParams() {
-  return BLOG_POSTS.map((post) => ({ slug: post.slug }));
+  return getAllPosts().map((post) => ({ slug: post.slug }));
 }
 
 export async function generateMetadata({
