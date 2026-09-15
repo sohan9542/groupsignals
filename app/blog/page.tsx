@@ -60,7 +60,7 @@ export default async function BlogIndexPage() {
               <span className="inline-block rounded-full border border-fg/10 bg-fg/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-signal-bright">
                 Blog
               </span>
-              <h1 className="mt-5 w-full text-balance text-center text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl lg:text-[3.4rem]">
+              <h1 className="mt-5 w-full text-balance text-center text-3xl font-bold leading-[1.1] tracking-tight sm:text-4xl md:text-5xl lg:text-[3.4rem]">
                 Facebook group monitoring for local service businesses,
                 explained.
               </h1>
@@ -78,7 +78,7 @@ export default async function BlogIndexPage() {
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                className="group flex h-full flex-col overflow-hidden rounded-2xl border border-fg/8 bg-surface/50 transition-colors duration-300 hover:border-signal/30 hover:bg-surface"
+                className="group flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-fg/8 bg-surface/50 transition-colors duration-300 hover:border-signal/30 hover:bg-surface"
               >
                 <BlogImage
                   src={post.coverImage}
@@ -86,19 +86,19 @@ export default async function BlogIndexPage() {
                   className="rounded-none"
                 />
 
-                <div className="flex flex-1 flex-col p-7">
-                  <div className="flex items-center gap-3 text-xs text-ash-dim">
+                <div className="flex flex-1 flex-col p-5 sm:p-7">
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-ash-dim">
                     <span className="inline-flex items-center gap-1.5">
-                      <Calendar className="size-3.5" strokeWidth={2} />
+                      <Calendar className="size-3.5 shrink-0" strokeWidth={2} />
                       {formatDate(post.publishedAt)}
                     </span>
                     <span className="inline-flex items-center gap-1.5">
-                      <Clock className="size-3.5" strokeWidth={2} />
+                      <Clock className="size-3.5 shrink-0" strokeWidth={2} />
                       {post.readMinutes} min read
                     </span>
                   </div>
 
-                  <h2 className="mt-4 text-lg font-semibold leading-snug tracking-tight text-fg">
+                  <h2 className="mt-4 text-lg font-semibold leading-snug tracking-tight text-fg text-balance">
                     {post.title}
                   </h2>
                   <p className="mt-2.5 flex-1 text-sm leading-relaxed text-ash">

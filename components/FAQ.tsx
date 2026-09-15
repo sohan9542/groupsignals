@@ -74,7 +74,7 @@ export function FAQ() {
                     onClick={() => setOpenIndex(isOpen ? null : i)}
                     aria-expanded={isOpen}
                     aria-controls={`faq-panel-${i}`}
-                    className="flex w-full items-center justify-between gap-5 px-6 py-5 text-left transition-colors hover:bg-fg/[0.03]"
+                    className="flex w-full items-center justify-between gap-4 px-4 py-5 text-left transition-colors hover:bg-fg/[0.03] sm:gap-5 sm:px-6"
                   >
                     <span className="text-[15px] font-medium text-fg">
                       {faq.q}
@@ -100,7 +100,7 @@ export function FAQ() {
                       transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
                       className="overflow-hidden"
                     >
-                      <p className="px-6 pb-5 pr-14 text-sm leading-relaxed text-ash">
+                      <p className="px-4 pb-5 pr-12 text-sm leading-relaxed text-ash sm:px-6 sm:pr-14">
                         {faq.a}
                       </p>
                     </motion.div>

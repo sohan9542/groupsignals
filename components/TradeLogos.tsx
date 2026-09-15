@@ -34,7 +34,7 @@ function LogoMark({ name, icon: Icon }: TradeLogo) {
 
 export function TradeLogos() {
   return (
-    <section className="relative py-14 sm:py-16">
+    <section className="relative overflow-hidden py-14 sm:py-16">
       <Reveal
         className="mx-auto max-w-7xl overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]"
       >

@@ -14,7 +14,7 @@ export function Logo({
       className={`group flex items-center gap-2.5 ${className}`}
       aria-label="GroupSignal home"
     >
-      <span className="relative flex size-9 items-center justify-center rounded-xl border border-signal/30 bg-signal/10 shadow-[0_0_20px_-4px_var(--color-signal)]">
+      <span className="relative flex size-9 shrink-0 items-center justify-center overflow-hidden rounded-xl border border-signal/30 bg-signal/10 shadow-[0_0_20px_-4px_var(--color-signal)]">
         {/* Expanding ring reads as an active radar sweep behind the icon. */}
         <span
           aria-hidden

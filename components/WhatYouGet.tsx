@@ -32,13 +32,13 @@ export function WhatYouGet() {
           title="Service Alerts, Real-Time Notifications, Zero Manual Scrolling."
         />
 
-        <div className="mt-14 grid gap-5 md:grid-cols-3">
+        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {ITEMS.map((item, i) => (
             <Reveal
               key={item.title}
               delay={i * 0.08}
               as="article"
-              className="group flex h-full flex-col rounded-2xl border border-fg/8 bg-surface/50 p-7 transition-colors duration-300 hover:border-signal/30 hover:bg-surface"
+              className="group flex h-full min-w-0 flex-col rounded-2xl border border-fg/8 bg-surface/50 p-6 transition-colors duration-300 hover:border-signal/30 hover:bg-surface sm:p-7"
             >
               <span className="flex size-11 items-center justify-center rounded-xl border border-signal/20 bg-signal/10 text-signal-bright transition-transform duration-300 group-hover:scale-105">
                 <item.icon className="size-5" strokeWidth={1.8} />
