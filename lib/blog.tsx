@@ -1250,6 +1250,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: "How to Get Leads From Facebook Groups: Best Methods for 2026",
     description:
       "Practical ways local service businesses get leads from Facebook groups in 2026 — which groups to join, how to reply, and when monitoring beats scrolling by hand.",
+    coverImage: "/blog/how-to-get-leads-from-facebook-groups.png",
     author: "GroupSignal Team",
     publishedAt: "2026-09-20",
     readMinutes: 11,
@@ -1475,6 +1476,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: "How to Monitor Facebook Groups for Keywords (2026 Guide)",
     description:
       "How to monitor Facebook groups for keywords in 2026: which intent, service, and location phrases matter, what to exclude, and when a tool beats manual search.",
+    coverImage: "/blog/monitor-facebook-groups-for-keywords.png",
     author: "GroupSignal Team",
     publishedAt: "2026-09-22",
     readMinutes: 10,
@@ -1696,6 +1698,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: "How to Get Roofing Leads: 5 Tactics That Still Work in 2026",
     description:
       "Five practical ways roofers get leads in 2026 — from local Facebook groups and storm follow-up to LSA, marketplaces, and monitoring so you don't miss recommendation posts.",
+    coverImage: "/blog/how-to-get-roofing-leads.png",
     author: "GroupSignal Team",
     publishedAt: "2026-09-24",
     readMinutes: 11,
@@ -1902,6 +1905,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: "Why the First 3 Comments Win the Job in Facebook Groups",
     description:
       "The first useful comments win the job in Facebook groups — why speed beats being the 'best' plumber, HVAC tech, or electrician on the thread.",
+    coverImage: "/blog/first-3-comments-facebook-groups.png",
     author: "GroupSignal Team",
     publishedAt: "2026-09-25",
     readMinutes: 13,

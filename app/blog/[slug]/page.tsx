@@ -99,8 +99,9 @@ export default async function BlogPostPage({
       <main className="overflow-x-clip pt-32 pb-20 sm:pt-40 sm:pb-28">
         <div className="mx-auto max-w-6xl px-5 sm:px-8">
           {/* Header block: no max-w so breadcrumb/title/meta use full content
-              width on mobile. Avoid text-balance below lg — it shortens lines
-              and leaves a large empty strip beside the H1 on ~375px. */}
+              width on mobile. Do not use text-pretty / text-balance on the H1 —
+              those shorten line lengths and leave a large empty strip on ~375px
+              even when the element is w-full. */}
           <div className="w-full max-w-none min-w-0">
             <nav
               aria-label="Breadcrumb"
@@ -117,7 +118,7 @@ export default async function BlogPostPage({
               <span className="min-w-0 truncate text-ash">{post.title}</span>
             </nav>
 
-            <h1 className="mt-6 w-full max-w-none text-pretty text-3xl font-bold leading-[1.15] tracking-tight sm:text-4xl md:text-5xl lg:text-balance">
+            <h1 className="mt-6 w-full max-w-none min-w-0 text-3xl font-bold leading-[1.15] tracking-tight sm:text-4xl md:text-5xl">
               {post.title}
             </h1>
 
