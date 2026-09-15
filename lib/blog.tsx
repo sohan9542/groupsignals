@@ -1245,7 +1245,666 @@ export const BLOG_POSTS: BlogPost[] = [
       </>
     ),
   },
+  {
+    slug: "how-to-get-leads-from-facebook-groups",
+    title: "How to Get Leads From Facebook Groups: Best Methods for 2026",
+    description:
+      "Practical ways local service businesses get leads from Facebook groups in 2026 — which groups to join, how to reply, and when monitoring beats scrolling by hand.",
+    author: "GroupSignal Team",
+    publishedAt: "2026-09-20",
+    readMinutes: 11,
+    keywords: [
+      "get leads from facebook groups",
+      "facebook group lead generation",
+      "facebook groups for leads",
+    ],
+    toc: [
+      { id: "tldr", title: "TL;DR" },
+      { id: "why-groups", title: "Why Facebook groups still produce leads" },
+      { id: "find-groups", title: "Find the right groups" },
+      { id: "methods", title: "Five methods that actually work" },
+      { id: "reply-rules", title: "Reply rules that keep you in the group" },
+      { id: "speed-layer", title: "Add a monitoring layer for speed" },
+      { id: "weekly-system", title: "A simple weekly system" },
+      { id: "faq", title: "FAQ" },
+    ],
+    faqs: [
+      {
+        q: "Can you really get leads from Facebook groups in 2026?",
+        a: "Yes. Homeowners still ask neighbors for plumbers, HVAC techs, electricians, roofers, and other trades. The posts are free to find, but they move fast — speed and helpful replies matter more than hard promo.",
+      },
+      {
+        q: "Do I need to be a group admin to get leads?",
+        a: "No. Membership plus following the rules is enough. You don't need admin access to reply to recommendation posts or to have groups monitored.",
+      },
+      {
+        q: "What's the best method for busy contractors?",
+        a: "Join the right local groups, reply like a helpful neighbor on recommendation posts, and use a monitoring tool so you're alerted when someone asks for your trade instead of scrolling ten feeds between jobs.",
+      },
+      {
+        q: "Does GroupSignal post or message homeowners for me?",
+        a: "No. We send you the alert. You reply, comment, or message yourself. We don't post or DM on your behalf.",
+      },
+      {
+        q: "How much does Facebook group monitoring cost?",
+        a: "GroupSignal plans run from $79 to $199 a month depending on how many groups you need watched. The leads themselves stay free — you're paying for continuous coverage and email alerts.",
+      },
+    ],
+    body: (
+      <>
+        <h2 id="tldr">TL;DR</h2>
+        <ul className="list-disc space-y-2 pl-5">
+          <li>
+            Local Facebook groups are still where homeowners ask &quot;does
+            anyone know a good [trade]?&quot; Those posts convert because a
+            neighbor already framed hiring as normal.
+          </li>
+          <li>
+            The methods that work: join the right neighborhood groups, reply
+            fast and useful, stay visible without spam, track which groups
+            book jobs, and add monitoring when you can&apos;t scroll all day.
+          </li>
+          <li>
+            Hard promo and phone-number carpet bombing get you banned.
+            Soft, specific replies win the call.
+          </li>
+          <li>
+            <Link href="/">GroupSignal</Link> is the speed layer —{" "}
+            <Link href="/login">alerts when someone needs your service</Link>{" "}
+            so you can reply while the thread is still live.
+          </li>
+        </ul>
+
+        <h2 id="why-groups">Why Facebook groups still produce leads</h2>
+        <p>
+          Google and paid marketplaces matter. So do referrals. But a huge
+          share of local hiring still starts with a neighbor post: someone
+          needs a plumber today, an AC that died in July, a roof check after
+          a storm, or &quot;who did your panel upgrade?&quot; The asker
+          already decided to hire; they want a trustworthy local answer.
+        </p>
+        <p>
+          That&apos;s why Facebook group lead generation works for home
+          services when you treat it like inbound phone leads — not like a
+          billboard. For how groups sit next to LSA, Angi, and booking tools,
+          see the{" "}
+          <Link href="/blog/best-lead-generation-tools-for-home-services-2026">
+            lead generation tools guide for home services
+          </Link>
+          .
+        </p>
+
+        <h2 id="find-groups">Find the right groups</h2>
+        <p>
+          Not every group with your city name is worth joining. The ones that
+          produce jobs look like this:
+        </p>
+        <ul className="list-disc space-y-2 pl-5">
+          <li>
+            <strong>Neighborhood / Neighbors groups</strong> — town or
+            subdivision sized, active daily, full of service asks.
+          </li>
+          <li>
+            <strong>Recommends / local tip groups</strong> — built for
+            &quot;who do you use?&quot; threads.
+          </li>
+          <li>
+            <strong>HOA / subdivision private groups</strong> — often quieter
+            competition and higher trust.
+          </li>
+          <li>
+            <strong>Buy / sell / trade</strong> — service asks show up
+            between furniture posts; lower volume, less spam noise.
+          </li>
+        </ul>
+        <p>
+          Search Facebook for <em>[city] neighbors</em>, <em>[city]
+          recommends</em>, or the subdivision name. Start with 5–10 groups
+          that cover towns you actually service. Skip giant statewide
+          contractor spam groups.
+        </p>
+
+        <BlogCallout text="See what homeowners near you are already asking for." />
+
+        <h2 id="methods">Five methods that actually work</h2>
+        <h3>1. Answer recommendation posts first</h3>
+        <p>
+          When someone asks for your trade, reply early with a short,
+          specific answer: who you are, what town you cover, and one useful
+          next step. That single habit beats any clever growth hack.
+        </p>
+        <h3>2. Help on non-sales threads sometimes</h3>
+        <p>
+          Answer a &quot;is this leak bad?&quot; or &quot;should I call
+          someone?&quot; post without pitching. You become a known local,
+          not a drive-by seller — and admins notice the difference.
+        </p>
+        <h3>3. Keep your profile obviously local</h3>
+        <p>
+          Most neighborhood groups expect a personal profile. Put your
+          company name, trade, and towns in your intro so people know who
+          they&apos;re messaging. Pages alone often look like spam.
+        </p>
+        <h3>4. Cover every town you roll trucks to</h3>
+        <p>
+          One mega group rarely replaces five active local ones. Map groups
+          to service area the same way{" "}
+          <Link href="/blog/facebook-group-leads-for-plumbers">
+            plumbers
+          </Link>
+          ,{" "}
+          <Link href="/blog/facebook-group-leads-for-hvac">HVAC shops</Link>
+          , and{" "}
+          <Link href="/blog/facebook-group-leads-for-electricians">
+            electricians
+          </Link>{" "}
+          do.
+        </p>
+        <h3>5. Monitor instead of hoping you&apos;ll scroll in time</h3>
+        <p>
+          Manual checking works for one or two groups. It breaks once
+          you&apos;re in eight or ten and you&apos;re on a job when the post
+          goes up. That&apos;s when continuous monitoring turns Facebook
+          groups for leads into a real channel instead of a hobby.
+        </p>
+
+        <h2 id="reply-rules">Reply rules that keep you in the group</h2>
+        <h3>Do</h3>
+        <ul className="list-disc space-y-2 pl-5">
+          <li>Read the rules before you post or reply.</li>
+          <li>Answer the actual problem in the post.</li>
+          <li>Reply in the first hour on urgent threads.</li>
+          <li>Offer to continue in messages once you&apos;ve been useful in-thread.</li>
+        </ul>
+        <h3>Don&apos;t</h3>
+        <ul className="list-disc space-y-2 pl-5">
+          <li>Spam your phone number on every thread.</li>
+          <li>Drop weekly promo ads unless rules explicitly allow them.</li>
+          <li>DM everyone who posts anything remotely related.</li>
+          <li>Argue with other contractors in the comments.</li>
+        </ul>
+
+        <h2 id="speed-layer">Add a monitoring layer for speed</h2>
+        <p>
+          Getting leads from Facebook groups is mostly a speed problem.
+          Comment #14 three hours later usually loses. A{" "}
+          <Link href="/blog/best-facebook-group-monitoring-tool-2026">
+            Facebook group monitoring tool
+          </Link>{" "}
+          watches your list continuously so you&apos;re not the one checking
+          feeds between jobs.
+        </p>
+        <p>
+          <Link href="/">GroupSignal</Link> covers public and private
+          groups, matches posts to your trade and service area, and emails
+          you as soon as something lands.{" "}
+          <Link href="/#pricing">Plans run $79–$199/mo</Link> by group
+          count. We don&apos;t comment or message homeowners for you — you
+          get the alert and reply as the local business.
+        </p>
+
+        <h2 id="weekly-system">A simple weekly system</h2>
+        <ul className="list-disc space-y-2 pl-5">
+          <li>
+            <strong>Once:</strong> join the right groups and clean up your
+            profile.
+          </li>
+          <li>
+            <strong>Daily:</strong> hit every alert (or every ask you see
+            while scrolling) for your trade.
+          </li>
+          <li>
+            <strong>2–3× per week:</strong> leave a helpful non-pitch reply
+            somewhere.
+          </li>
+          <li>
+            <strong>Weekly:</strong> prune dead groups and add coverage where
+            you keep winning work.
+          </li>
+        </ul>
+
+        <BlogCallout
+          text="Stop missing group leads while you're on a job."
+          cta="Start watching your groups"
+        />
+      </>
+    ),
+  },
+  {
+    slug: "monitor-facebook-groups-for-keywords",
+    title: "How to Monitor Facebook Groups for Keywords (2026 Guide)",
+    description:
+      "How to monitor Facebook groups for keywords in 2026: which intent, service, and location phrases matter, what to exclude, and when a tool beats manual search.",
+    author: "GroupSignal Team",
+    publishedAt: "2026-09-22",
+    readMinutes: 10,
+    keywords: [
+      "monitor facebook groups for keywords",
+      "facebook group keyword alerts",
+      "facebook group keyword monitoring",
+    ],
+    toc: [
+      { id: "tldr", title: "TL;DR" },
+      { id: "why-keywords", title: "Why keyword monitoring matters" },
+      { id: "keyword-types", title: "Intent, service, and location keywords" },
+      { id: "exclusions", title: "Exclusions that cut the noise" },
+      { id: "manual-vs-tool", title: "Manual search vs a monitoring tool" },
+      { id: "setup", title: "A practical setup" },
+      { id: "groupsignal", title: "How GroupSignal fits" },
+      { id: "faq", title: "FAQ" },
+    ],
+    faqs: [
+      {
+        q: "What does it mean to monitor Facebook groups for keywords?",
+        a: "It means watching selected groups for posts that match phrases related to your business — like someone asking for a plumber, AC repair, or a roofer in your town — instead of scrolling every feed yourself.",
+      },
+      {
+        q: "Should I track every possible synonym?",
+        a: "No. Start with high-intent asks (recommend, looking for, need), your core services, and the towns you cover. Add synonyms only when you see real posts using them. Over-broad lists create noise.",
+      },
+      {
+        q: "Do private groups support keyword monitoring?",
+        a: "Yes, if the tool can reach them. Many of the best neighborhood groups are private. Public-only coverage misses a big share of local recommendation traffic.",
+      },
+      {
+        q: "Will GroupSignal auto-comment when a keyword matches?",
+        a: "No. We send you an email alert. You reply yourself. We don't post, comment, or DM homeowners on your behalf.",
+      },
+      {
+        q: "How fast should keyword alerts arrive?",
+        a: "Fast enough that you can reply in the first hour on urgent threads. Continuous checks beat once-a-day digests for home service jobs.",
+      },
+    ],
+    body: (
+      <>
+        <h2 id="tldr">TL;DR</h2>
+        <ul className="list-disc space-y-2 pl-5">
+          <li>
+            Monitoring Facebook groups for keywords means catching posts that
+            signal hiring intent — not every mention of your trade in
+            passing.
+          </li>
+          <li>
+            Build around three layers: intent phrases, service phrases, and
+            location phrases. Add exclusions so you skip hiring threads,
+            memes, and out-of-area posts.
+          </li>
+          <li>
+            Manual Facebook search works for one group; multi-group coverage
+            needs continuous alerts.
+          </li>
+          <li>
+            <Link href="/">GroupSignal</Link> watches public and private
+            groups and{" "}
+            <Link href="/login">emails you matches</Link> so you can reply
+            while the thread is still open.
+          </li>
+        </ul>
+
+        <h2 id="why-keywords">Why keyword monitoring matters</h2>
+        <p>
+          Homeowners rarely type a perfect service name into a group search
+          box for you. They post in plain language: &quot;anyone know a good
+          plumber in [Town]?&quot; or &quot;AC not cooling — who do you
+          use?&quot; If you only check groups when you remember, you miss
+          the useful window.
+        </p>
+        <p>
+          Facebook group keyword monitoring is just a systematic way to catch
+          those posts. The goal isn&apos;t a giant dictionary — it&apos;s a
+          short list of signals that mean someone is ready to hire in your
+          service area. For the broader tool landscape, see the{" "}
+          <Link href="/blog/best-facebook-group-monitoring-tool-2026">
+            Facebook group monitoring tool guide
+          </Link>
+          .
+        </p>
+
+        <h2 id="keyword-types">Intent, service, and location keywords</h2>
+        <h3>Intent keywords</h3>
+        <p>
+          These mark an ask, not a story. Common ones:{" "}
+          <em>recommend</em>, <em>looking for</em>, <em>need</em>,{" "}
+          <em>anyone know</em>, <em>who do you use</em>,{" "}
+          <em>suggestions</em>, <em>can someone</em>. Pair them mentally with
+          your trade — &quot;recommend&quot; alone is noise; &quot;recommend
+          a plumber&quot; is a lead.
+        </p>
+        <h3>Service keywords</h3>
+        <p>
+          Use what homeowners actually say, not only your invoice line items.
+          Plumbers hear water heater, leak, clogged drain. HVAC hears no
+          cool, furnace, AC repair. Electricians hear breaker, outlet, panel.
+          Roofers hear leak, missing shingles, storm damage. Match the
+          language in your local groups.
+        </p>
+        <h3>Location keywords</h3>
+        <p>
+          Town names, subdivisions, and nicknames matter when you cover
+          multiple areas — or when a regional group mixes cities you
+          don&apos;t serve. Location filters keep Facebook group keyword
+          alerts relevant instead of flooding you with jobs two hours away.
+        </p>
+
+        <BlogCallout text="Get alerts for the posts that match your trade and towns." />
+
+        <h2 id="exclusions">Exclusions that cut the noise</h2>
+        <p>
+          What you ignore is as important as what you watch. Common
+          exclusions for contractors:
+        </p>
+        <ul className="list-disc space-y-2 pl-5">
+          <li>
+            <strong>Hiring / &quot;looking for work&quot;</strong> —
+            job-seeker posts, not homeowners.
+          </li>
+          <li>
+            <strong>DIY-only threads</strong> when the poster clearly wants
+            free advice and says they won&apos;t hire.
+          </li>
+          <li>
+            <strong>Out-of-area towns</strong> you never service.
+          </li>
+          <li>
+            <strong>Wholesale / wholesale-supply chatter</strong> in trade
+            groups if you only want homeowner asks.
+          </li>
+          <li>
+            <strong>Competitor brand wars</strong> and meme posts that name
+            your trade but aren&apos;t buying.
+          </li>
+        </ul>
+        <p>
+          Start tight. Widen only when you&apos;re sure you&apos;re missing
+          real jobs, not when you want more notifications for their own sake.
+        </p>
+
+        <h2 id="manual-vs-tool">Manual search vs a monitoring tool</h2>
+        <p>
+          Facebook&apos;s in-group search and notifications are free. For a
+          single quiet group, searching a few phrases each morning can work.
+          It falls apart when you watch many groups, including private ones,
+          and jobs land while you&apos;re on a truck.
+        </p>
+        <p>
+          A dedicated tool checks continuously and pushes Facebook group
+          keyword alerts to email. That&apos;s the difference between
+          &quot;I check when I can&quot; and &quot;I reply in the first
+          wave.&quot; Manual scrolling still has a place for relationship
+          posting — monitoring is for not missing the hire-me threads.
+        </p>
+
+        <h2 id="setup">A practical setup</h2>
+        <ul className="list-disc space-y-2 pl-5">
+          <li>
+            List 5–15 groups that cover towns you actually service.
+          </li>
+          <li>
+            Write a short intent list and a short service list from real
+            posts you&apos;ve already seen.
+          </li>
+          <li>
+            Add location names for multi-town coverage; exclude towns you
+            skip.
+          </li>
+          <li>
+            Decide who owns replies — same urgency as an inbound phone lead.
+          </li>
+          <li>
+            Review matches weekly: drop noisy phrases, keep the ones that
+            book jobs.
+          </li>
+        </ul>
+        <p>
+          Trade-specific playbooks for{" "}
+          <Link href="/blog/facebook-group-leads-for-plumbers">
+            plumbers
+          </Link>
+          ,{" "}
+          <Link href="/blog/facebook-group-leads-for-hvac">HVAC</Link>, and{" "}
+          <Link href="/blog/facebook-group-leads-for-electricians">
+            electricians
+          </Link>{" "}
+          show what those posts look like in the wild.
+        </p>
+
+        <h2 id="groupsignal">How GroupSignal fits</h2>
+        <p>
+          <Link href="/">GroupSignal</Link> monitors public and private
+          Facebook groups on a continuous schedule and emails you when a
+          post matches your trade and service area. You don&apos;t babysit
+          search boxes or maintain a brittle keyword spreadsheet — matching
+          is built around what you actually do and where you work.
+        </p>
+        <p>
+          <Link href="/#pricing">Plans run $79–$199/mo</Link> depending on
+          group count.{" "}
+          <Link href="/login">Start watching your groups</Link> if you want
+          keyword-style coverage without living in Facebook all day. We
+          alert you; you reply as the local company.
+        </p>
+
+        <BlogCallout
+          text="Turn group keyword matches into inbox alerts."
+          cta="Start watching your groups"
+        />
+      </>
+    ),
+  },
+  {
+    slug: "how-to-get-roofing-leads",
+    title: "How to Get Roofing Leads: 5 Tactics That Still Work in 2026",
+    description:
+      "Five practical ways roofers get leads in 2026 — from local Facebook groups and storm follow-up to LSA, marketplaces, and monitoring so you don't miss recommendation posts.",
+    author: "GroupSignal Team",
+    publishedAt: "2026-09-24",
+    readMinutes: 11,
+    keywords: [
+      "how to get roofing leads",
+      "roofing lead generation",
+      "roofing leads facebook groups",
+    ],
+    toc: [
+      { id: "tldr", title: "TL;DR" },
+      { id: "why-mix", title: "Why roofers need more than one channel" },
+      { id: "facebook-groups", title: "1. Local Facebook groups" },
+      { id: "storm-and-referral", title: "2. Storm follow-up and referrals" },
+      { id: "google-lsa", title: "3. Google Local Services Ads" },
+      { id: "marketplaces", title: "4. Marketplaces (used carefully)" },
+      { id: "monitoring", title: "5. Group monitoring for speed" },
+      { id: "reply-templates", title: "How to reply in groups" },
+      { id: "faq", title: "FAQ" },
+    ],
+    faqs: [
+      {
+        q: "What's the best way to get roofing leads in 2026?",
+        a: "There isn't one winner. Most growing roofing companies mix free trust channels (neighborhood Facebook groups, referrals) with paid search or marketplaces, and they reply fast when homeowners ask neighbors for a roofer.",
+      },
+      {
+        q: "Do Facebook groups actually produce roofing jobs?",
+        a: "Yes — especially after storms, for leak checks, missing shingles, and 'who did your roof?' threads. The buying window can be longer than emergency plumbing, but the first useful replies still get the inspection call.",
+      },
+      {
+        q: "Are storm-chaser tactics a good idea?",
+        a: "Aggressive door-knock spam damages trust and gets you banned from groups. Legitimate storm follow-up — inspecting damage, documenting for insurance, answering neighbor asks — is different and usually welcome when you're local and licensed.",
+      },
+      {
+        q: "Does GroupSignal message homeowners for me?",
+        a: "No. We send you the alert when someone in your watched groups needs a roofer. You reply, comment, or message yourself. We don't post or DM on your behalf.",
+      },
+      {
+        q: "How many Facebook groups should a roofer monitor?",
+        a: "Start with 5–10 active neighborhood and recommends groups that cover the towns you actually work. Expand once those convert; skip giant statewide spam groups.",
+      },
+    ],
+    body: (
+      <>
+        <h2 id="tldr">TL;DR</h2>
+        <ul className="list-disc space-y-2 pl-5">
+          <li>
+            Roofing lead generation in 2026 still works best as a mix:
+            neighborhood Facebook groups, referrals and storm follow-up,
+            Google Local Services Ads, selective marketplaces, and monitoring
+            so you don&apos;t miss asks while you&apos;re on a roof.
+          </li>
+          <li>
+            Facebook group posts — leaks, missing shingles, &quot;who roofed
+            your house?&quot; — are high-trust and free to find if you catch
+            them early.
+          </li>
+          <li>
+            Reply like a local licensed roofer, not a storm-chaser billboard.
+          </li>
+          <li>
+            <Link href="/">GroupSignal</Link>{" "}
+            <Link href="/login">alerts you for roofing asks</Link> in your
+            watched groups so you can offer the inspection while the thread
+            is live.
+          </li>
+        </ul>
+
+        <h2 id="why-mix">Why roofers need more than one channel</h2>
+        <p>
+          Roofing jobs are bigger ticket than a clogged drain, and homeowners
+          often shop longer — but they still ask neighbors first after a
+          leak, a wind event, or a bad inspection. Paid channels bring
+          volume; groups and referrals bring trust. The shops that grow use
+          both.
+        </p>
+        <p>
+          For how Facebook groups sit next to LSA, Angi, Thumbtack, and
+          booking tools, see the{" "}
+          <Link href="/blog/best-lead-generation-tools-for-home-services-2026">
+            lead generation tools roundup for home services
+          </Link>
+          . Below are five tactics that still work when you run them like an
+          operations habit, not a one-week experiment.
+        </p>
+
+        <h2 id="facebook-groups">1. Local Facebook groups</h2>
+        <p>
+          Roofing leads from Facebook groups look like: leak under the skylight,
+          missing shingles after a storm, flat-roof ponding, &quot;recommend a
+          roofer who won&apos;t ghost the insurance adjuster,&quot; or who
+          did a neighbor&apos;s tear-off. Same group map as other trades —
+          neighbors, recommends, HOA/subdivision private groups, and local
+          buy/sell when service asks appear.
+        </p>
+        <p>
+          Cover every town you actually crew. The playbooks for{" "}
+          <Link href="/blog/facebook-group-leads-for-plumbers">
+            plumbers
+          </Link>
+          ,{" "}
+          <Link href="/blog/facebook-group-leads-for-hvac">HVAC</Link>, and{" "}
+          <Link href="/blog/facebook-group-leads-for-electricians">
+            electricians
+          </Link>{" "}
+          use the same structure; only the post language changes.
+        </p>
+
+        <BlogCallout text="Catch leak and storm posts while neighbors are still asking." />
+
+        <h2 id="storm-and-referral">2. Storm follow-up and referrals</h2>
+        <p>
+          After hail or wind, demand spikes. The durable approach is local and
+          documented: inspect, photograph, explain what you see, help with
+          insurance paperwork when that&apos;s part of your process, and ask
+          happy customers for neighbor referrals. Hard sell door storms and
+          fear tactics burn reputation and get you kicked out of groups.
+        </p>
+        <p>
+          Past customers are still one of the cheapest roofing lead sources —
+          a short seasonal check-in after major weather often beats cold ads.
+        </p>
+
+        <h2 id="google-lsa">3. Google Local Services Ads</h2>
+        <p>
+          When someone searches &quot;roofer near me&quot; or &quot;roof
+          repair [city],&quot; Local Services Ads put you in front of active
+          demand. Expect verification, pay-per-lead pricing, and competition.
+          LSA pairs well with groups: search catches people who skipped
+          Facebook; groups catch people who never opened Google.
+        </p>
+
+        <h2 id="marketplaces">4. Marketplaces (used carefully)</h2>
+        <p>
+          Angi, Thumbtack, and similar marketplaces can fill the calendar when
+          you filter for job type and service area. Leads are often shared,
+          so speed still matters, and cost-per-job is what counts — not
+          cost-per-lead. Use them as a volume layer, not your only reputation.
+        </p>
+
+        <h2 id="monitoring">5. Group monitoring for speed</h2>
+        <p>
+          Manual scrolling fails once you&apos;re on roofs across multiple
+          neighborhoods. A{" "}
+          <Link href="/blog/best-facebook-group-monitoring-tool-2026">
+            Facebook group monitoring tool
+          </Link>{" "}
+          watches continuously so recommendation posts don&apos;t die while
+          you&apos;re mid-install.
+        </p>
+        <p>
+          <Link href="/">GroupSignal</Link> covers public and private groups
+          and emails matches for your trade and towns.{" "}
+          <Link href="/#pricing">Plans run $79–$199/mo</Link> by group count.
+          We don&apos;t message homeowners for you — you get the alert and
+          reply as the local roofing company. For the broader &quot;how to get
+          leads from groups&quot; method list, see{" "}
+          <Link href="/blog/how-to-get-leads-from-facebook-groups">
+            how to get leads from Facebook groups
+          </Link>
+          .
+        </p>
+
+        <h2 id="reply-templates">How to reply in groups</h2>
+        <p>
+          Sound licensed and local. Skip ALL CAPS and &quot;we beat any
+          storm chaser quote&quot; fluff.
+        </p>
+        <h3>Active leak</h3>
+        <blockquote className="border-l-2 border-fg/20 pl-4 italic text-ash">
+          Sorry you&apos;re dealing with that — we&apos;re [Company], licensed
+          roofers in [Town]. If you can tell me where it&apos;s dripping and
+          whether it started after the last storm, I can tell you what we&apos;d
+          check first. Happy to come look if you still need someone.
+        </blockquote>
+        <h3>Missing shingles / wind</h3>
+        <blockquote className="border-l-2 border-fg/20 pl-4 italic text-ash">
+          We&apos;re [Company] — we do storm damage inspections in [Town] /
+          [neighborhood]. Message me a couple photos if you have them and
+          we&apos;ll see how soon we can get on site.
+        </blockquote>
+        <h3>Recommendation-only thread</h3>
+        <blockquote className="border-l-2 border-fg/20 pl-4 italic text-ash">
+          We&apos;re [Company] and we&apos;ve done several roofs in
+          [neighborhood] recently. Happy to help if you&apos;re still looking
+          — message me with age of the roof and what&apos;s going on.
+        </blockquote>
+        <h3>Insurance / adjuster questions</h3>
+        <blockquote className="border-l-2 border-fg/20 pl-4 italic text-ash">
+          We work with insurance claims regularly in [Town]. We&apos;re
+          [Company] — licensed and insured. If you want a straight inspection
+          and documentation, message me and we&apos;ll walk through what to
+          expect.
+        </blockquote>
+
+        <BlogCallout
+          text="Get roofing group alerts for your service area."
+          cta="Start watching your groups"
+        />
+      </>
+    ),
+  },
 ];
+
+/** Newest `publishedAt` first — use this for listings and sitemaps. */
+export function getAllPosts(): BlogPost[] {
+  return [...BLOG_POSTS].sort((a, b) =>
+    b.publishedAt.localeCompare(a.publishedAt),
+  );
+}
 
 export function getBlogPost(slug: string): BlogPost | undefined {
   return BLOG_POSTS.find((post) => post.slug === slug);
