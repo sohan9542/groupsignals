@@ -2249,6 +2249,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: "Groups Watcher Alternative for Home Service Businesses (2026)",
     description:
       "A fair 2026 comparison of Groups Watcher and GroupSignal for plumbers, HVAC companies, and electricians — who each fit, pricing shape, matching, and alerts.",
+    coverImage: "/blog/groups-watcher-alternative.png",
     author: "GroupSignal Team",
     publishedAt: "2026-09-26",
     readMinutes: 13,
@@ -2620,6 +2621,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: "Private vs Public Facebook Groups for Home Service Leads",
     description:
       "Private neighborhood groups often convert better for plumbers, HVAC companies, and electricians — here's why, how access works, and how monitoring differs from public Facebook groups.",
+    coverImage: "/blog/private-vs-public-facebook-groups-leads.png",
     author: "GroupSignal Team",
     publishedAt: "2026-09-27",
     readMinutes: 11,
