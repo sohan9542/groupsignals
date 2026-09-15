@@ -200,6 +200,14 @@ export const TRADE_MONEY_PAGES: Record<TradeMoneySlug, TradeMoneyPageData> = {
         label: "How plumbers get Facebook group leads (playbook)",
       },
       {
+        href: "/blog/how-to-get-leads-from-facebook-groups",
+        label: "How to get leads from Facebook groups",
+      },
+      {
+        href: "/blog/monitor-facebook-groups-for-keywords",
+        label: "How to monitor Facebook groups for keywords",
+      },
+      {
         href: "/blog/best-facebook-group-monitoring-tool-2026",
         label: "Best Facebook group monitoring tools (2026)",
       },
@@ -355,6 +363,14 @@ export const TRADE_MONEY_PAGES: Record<TradeMoneySlug, TradeMoneyPageData> = {
         label: "How HVAC companies find jobs in Facebook groups",
       },
       {
+        href: "/blog/how-to-get-leads-from-facebook-groups",
+        label: "How to get leads from Facebook groups",
+      },
+      {
+        href: "/blog/monitor-facebook-groups-for-keywords",
+        label: "How to monitor Facebook groups for keywords",
+      },
+      {
         href: "/blog/best-facebook-group-monitoring-tool-2026",
         label: "Best Facebook group monitoring tools (2026)",
       },
@@ -508,6 +524,14 @@ export const TRADE_MONEY_PAGES: Record<TradeMoneySlug, TradeMoneyPageData> = {
       {
         href: "/blog/facebook-group-leads-for-electricians",
         label: "How electricians get Facebook group leads",
+      },
+      {
+        href: "/blog/how-to-get-leads-from-facebook-groups",
+        label: "How to get leads from Facebook groups",
+      },
+      {
+        href: "/blog/monitor-facebook-groups-for-keywords",
+        label: "How to monitor Facebook groups for keywords",
       },
       {
         href: "/blog/best-facebook-group-monitoring-tool-2026",
