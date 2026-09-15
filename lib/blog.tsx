@@ -1901,10 +1901,10 @@ export const BLOG_POSTS: BlogPost[] = [
     slug: "first-3-comments-facebook-groups",
     title: "Why the First 3 Comments Win the Job in Facebook Groups",
     description:
-      "In local Facebook groups, the first two or three useful comments usually win the job — why speed beats being the 'best' plumber, HVAC tech, or electrician on the thread.",
+      "The first useful comments win the job in Facebook groups — why speed beats being the 'best' plumber, HVAC tech, or electrician on the thread.",
     author: "GroupSignal Team",
     publishedAt: "2026-09-25",
-    readMinutes: 12,
+    readMinutes: 13,
     keywords: [
       "win local trade jobs on facebook",
       "first to reply facebook groups",
@@ -2145,6 +2145,15 @@ export const BLOG_POSTS: BlogPost[] = [
           whoever can take it replies in the first wave — you stop losing
           work to whoever in the group opened Facebook first.
         </p>
+        <p>
+          Continuous monitoring plus a clear reply habit beats hoping you
+          open the right feed at the right minute. If you want the setup
+          side of that — what to watch for and what to ignore — see{" "}
+          <Link href="/blog/monitor-facebook-groups-for-keywords">
+            how to monitor Facebook groups for keywords
+          </Link>
+          .
+        </p>
 
         <h2 id="how-to-be-first">How to be in the first three</h2>
         <ul className="list-disc space-y-2 pl-5">
@@ -2177,14 +2186,31 @@ export const BLOG_POSTS: BlogPost[] = [
           </li>
         </ul>
         <p>
-          A simple first-wave reply pattern that works across trades:
-          acknowledge the problem, name your company and town, offer a next
-          step in messages. Example shape: &quot;Sorry you&apos;re dealing
-          with that — we&apos;re [Company], plumbers in [Town]. Message me
-          with your street/area and we can tell you realistic timing.&quot;
           You are not trying to close the job in the comment. You are trying
-          to be one of the first three people worth texting.
+          to be one of the first three people worth texting. Keep the same
+          shape across trades: acknowledge the problem, name your company
+          and town, offer a next step in messages.
         </p>
+        <h3>Plumber (active leak / water heater)</h3>
+        <blockquote className="border-l-2 border-fg/20 pl-4 italic text-ash">
+          Sorry you&apos;re dealing with that — we&apos;re [Company],
+          plumbers in [Town]. If it&apos;s still leaking, shut the valve if
+          you can and message me your area — we can tell you realistic
+          timing.
+        </blockquote>
+        <h3>HVAC (no cool / no heat)</h3>
+        <blockquote className="border-l-2 border-fg/20 pl-4 italic text-ash">
+          That&apos;s rough in this weather — we&apos;re [Company], HVAC in
+          [Town] / [neighborhood]. Message me the system age and what
+          it&apos;s doing (no cool, short-cycling, etc.) and we&apos;ll see
+          how soon we can get out.
+        </blockquote>
+        <h3>Electrician (breaker / outlet / panel)</h3>
+        <blockquote className="border-l-2 border-fg/20 pl-4 italic text-ash">
+          If it won&apos;t reset, stop forcing it — we&apos;re [Company],
+          licensed electricians in [Town]. Message me which breaker and what
+          was running and we can take a look.
+        </blockquote>
 
         <h2 id="soft-cta">Make alerts do the watching</h2>
         <p>
@@ -2221,7 +2247,7 @@ export const BLOG_POSTS: BlogPost[] = [
       "A fair 2026 comparison of Groups Watcher and GroupSignal for plumbers, HVAC companies, and electricians — who each fit, pricing shape, matching, and alerts.",
     author: "GroupSignal Team",
     publishedAt: "2026-09-26",
-    readMinutes: 11,
+    readMinutes: 13,
     keywords: [
       "groups watcher alternative",
       "groups watcher vs groupsignal",
@@ -2235,7 +2261,7 @@ export const BLOG_POSTS: BlogPost[] = [
       { id: "where-they-differ", title: "Where they differ" },
       { id: "pricing", title: "Pricing shape in 2026" },
       { id: "who-fits", title: "Who each one fits" },
-      { id: "switching", title: "If you are evaluating an alternative" },
+      { id: "fair-test", title: "A fair 7-day test" },
       { id: "faq", title: "FAQ" },
     ],
     faqs: [
@@ -2290,12 +2316,12 @@ export const BLOG_POSTS: BlogPost[] = [
 
         <h2 id="who-this-is-for">Who this comparison is for</h2>
         <p>
-          If you run a local trade business and homeowners in your towns ask
-          for recommendations in Facebook groups, you have probably searched
-          for a Groups Watcher alternative — or you are comparing monitoring
-          tools for the first time. This guide is for plumbers, HVAC shops,
-          electricians, and similar home service owners who want clarity on
-          fit, not a teardown.
+          This is a Groups Watcher alternative for plumbers / HVAC /
+          electricians — and similar home service owners — who want clarity
+          on fit, not a teardown. If homeowners in your towns ask for
+          recommendations in Facebook groups, you have probably searched for
+          an alternative or you are comparing monitoring tools for the first
+          time.
         </p>
         <p>
           Both products sit in the same category: Facebook group monitoring
@@ -2519,43 +2545,58 @@ export const BLOG_POSTS: BlogPost[] = [
             beyond a single home-service trade.
           </li>
         </ul>
-
-        <h2 id="switching">If you are evaluating an alternative</h2>
+        <h3>Who should not pick GroupSignal</h3>
         <p>
-          Switching tools (or picking your first one) is less about brand
-          loyalty and more about workflow. A fair test is one service area,
-          a real list of groups, and two weeks of answering alerts like
-          inbound calls — not a weekend of reading feature pages.
+          Skip GroupSignal (for now) if your non-negotiable is Slack or Teams
+          routing for a multi-person sales desk, or if you want a done-for-you
+          team that comments in groups on your behalf. We are email-first and
+          alerts-only — you reply yourself. Those other workflows are real;
+          they just are not what we sell. Pick the tool that matches how your
+          office actually works.
         </p>
-        <ol className="list-decimal space-y-2 pl-5">
-          <li>
-            List the groups that actually cover your service area — quality
-            over giant spam groups.
-          </li>
-          <li>
-            Decide who replies, and how fast (same urgency as an inbound
-            call on emergency posts).
-          </li>
-          <li>
-            Decide whether you want alerts only or a DFY commenting layer.
-            If you want your own voice in every thread, alerts-only is the
-            cleaner path.
-          </li>
-          <li>
-            Match plan shape to group count so you are not overpaying for
-            capacity you will not use in month one.
-          </li>
-          <li>
-            Measure booked jobs, not notification volume. A quieter inbox
-            that produces estimates beats a noisy one you start ignoring.
-          </li>
-        </ol>
+
+        <h2 id="fair-test">A fair 7-day test</h2>
         <p>
-          If GroupSignal is the fit,{" "}
-          <Link href="/login">start a trial on Starter</Link> and add the
-          groups that matter. Continuous checks, email alerts, public and
-          private coverage — and you stay the voice in the thread. For
-          keyword monitoring setup thinking, keep{" "}
+          Switching tools (or picking your first one) should not be a
+          feature-page bake-off. Run the same groups, the same reply habit,
+          and judge noise and booked conversations — not which homepage
+          sounds sharper.
+        </p>
+        <p>
+          <strong>Day 0 — freeze the list.</strong> Pick 5–10 Facebook groups
+          that cover towns you actually service. Use the same list for any
+          tool you try. Do not add random statewide spam groups mid-test or
+          you will compare noise, not fit. Decide who owns replies (owner,
+          CSR, whoever can hit the first wave) and treat alerts like inbound
+          calls.
+        </p>
+        <p>
+          <strong>Days 1–7 — same speed standard.</strong> When a matching
+          post lands, reply in the first useful window: minutes on emergencies,
+          first hour on standard recommendation threads. Keep your voice —
+          short, local, no phone-number spam. If you are testing an alerts-only
+          product like GroupSignal, you are measuring whether the alert arrived
+          early enough for that habit. If you are also evaluating DFY
+          commenting elsewhere, measure whether that outsourced first reply
+          sounds like your company and whether admins tolerate it.
+        </p>
+        <p>
+          <strong>Score three things, not vanity metrics.</strong> (1){" "}
+          <em>Reply speed</em> — how often were you in the first few useful
+          comments when you wanted to be? (2) <em>Noise</em> — how many
+          alerts were irrelevant (wrong town, DIY-only, hiring posts)? (3){" "}
+          <em>Outcomes</em> — messages started, estimates set, jobs booked.
+          A quieter inbox that produces two estimates beats fifty notifications
+          you start ignoring by Thursday.
+        </p>
+        <p>
+          At the end of the week, keep the plan shape that matches group
+          count so you are not overpaying for capacity you will not use. If
+          GroupSignal is the fit,{" "}
+          <Link href="/login">start a trial on Starter</Link> and add those
+          same groups. Continuous checks, email alerts, public and private
+          coverage — and you stay the voice in the thread. For keyword
+          monitoring setup thinking, keep{" "}
           <Link href="/blog/monitor-facebook-groups-for-keywords">
             monitor Facebook groups for keywords
           </Link>{" "}
