@@ -1,13 +1,15 @@
 /**
- * Copy + SEO metadata for the three trade money pages
- * (/facebook-group-leads-plumbers|hvac|electricians). Kept out of the
- * component so the pages stay thin and the marketing text is easy to edit.
+ * Copy + SEO metadata for the trade / monitoring money pages
+ * (/facebook-group-leads-plumbers|hvac|electricians,
+ * /facebook-group-monitoring). Kept out of the component so the pages
+ * stay thin and the marketing text is easy to edit.
  */
 
 export type TradeMoneySlug =
   | "facebook-group-leads-plumbers"
   | "facebook-group-leads-hvac"
-  | "facebook-group-leads-electricians";
+  | "facebook-group-leads-electricians"
+  | "facebook-group-monitoring";
 
 export type TradeMoneyFaq = { q: string; a: string };
 
@@ -15,7 +17,7 @@ export type TradeMoneyLink = { href: string; label: string };
 
 export type TradeMoneyPageData = {
   slug: TradeMoneySlug;
-  trade: "plumbers" | "hvac" | "electricians";
+  trade: "plumbers" | "hvac" | "electricians" | "monitoring";
   tradeLabel: string;
   metaTitle: string;
   metaDescription: string;
@@ -555,6 +557,179 @@ export const TRADE_MONEY_PAGES: Record<TradeMoneySlug, TradeMoneyPageData> = {
     close: {
       title: "Stop missing panel and breaker jobs while you're on a call.",
       body: "Add your groups, start the trial, and get the next “need an electrician” post in your inbox — not buried under three hours of comments.",
+      cta: "Start 15-day free trial",
+    },
+  },
+
+  "facebook-group-monitoring": {
+    slug: "facebook-group-monitoring",
+    trade: "monitoring",
+    tradeLabel: "Monitoring",
+    metaTitle:
+      "Facebook Group Monitoring for Plumbers, HVAC & Electricians | GroupSignal",
+    metaDescription:
+      "Monitor local Facebook groups for real homeowner leads — public and private. AI trade matching and instant email alerts for plumbers, HVAC, and electricians. 15-day free trial.",
+    hero: {
+      h1: "Facebook group monitoring that catches the job before the thread fills up",
+      body: "Homeowners ask neighbors for a plumber, HVAC tech, or electrician in local Facebook groups every day. The posts are free — the problem is seeing them in time. GroupSignal monitors the public and private groups you choose, matches your trade and area with AI, and emails you the moment a real lead appears.",
+      cta: "Start 15-day free trial",
+      ctaNote: "No keyword spreadsheet to babysit",
+    },
+    proof: {
+      group: "Neighborhood group",
+      tag: "SERVICE REQUEST",
+      category: "Plumbing · Urgent",
+      quote:
+        "Does anyone know a reliable plumber? Our water heater died this morning and we need someone today.",
+    },
+    problem: {
+      eyebrow: "Why manual fails",
+      title: "Manual group checking can't keep up with phone-call urgency.",
+      intro:
+        "Neighbor asks move like emergency calls — not like directory leads you can return after dinner. Manual scrolling loses the window.",
+      bullets: [
+        "You're on a job when the post goes up — not refreshing neighborhood groups.",
+        "Facebook Highlights skip most group threads, so the ask never reaches your personal feed.",
+        "Ten groups across a few towns is too much to scroll between stops.",
+        "Private groups get forgotten once you're busy — and that's often where the best asks land.",
+        "By the time you check at night, the homeowner already booked whoever replied first.",
+      ],
+    },
+    howItWorks: {
+      title: "How Facebook group monitoring works with GroupSignal",
+      description:
+        "Four steps. No keyword spreadsheet. Public groups are simple; private groups work with legitimate access; unreachable groups get flagged.",
+      steps: [
+        {
+          title: "Add your groups",
+          body: "Paste the local homeowner, neighbors, and recommends groups you want watched — public or private.",
+        },
+        {
+          title: "Set your trade",
+          body: "Tell us you're plumbing, HVAC, or electrical (and your service area). AI matches real hire intent, not every mention of a pipe or thermostat.",
+        },
+        {
+          title: "Get email alerts",
+          body: "When a matching lead posts, we email you with the group, the quote, and a link back to the thread.",
+        },
+        {
+          title: "Reply yourself",
+          body: "You comment or DM as your company. We don't auto-comment, auto-DM, or post on your behalf.",
+        },
+      ],
+      note: "Public groups are simple to monitor. Private groups work when you have legitimate access. If a group is unreachable, we flag it — so you're never guessing what's covered.",
+    },
+    matches: {
+      title: "What monitoring catches (and what it skips)",
+      strongTitle: "Strong matches",
+      strong: [
+        "“Anyone know a good plumber / HVAC / electrician?” recommendation threads",
+        "Emergency asks — water heater dead, AC out, breaker tripping",
+        "Same-day / ASAP / “need someone today” hire requests",
+        "Neighbor “who do you use?” posts with clear intent to book",
+        "Service asks inside the towns and trade you set",
+      ],
+      noiseTitle: "Noise we filter",
+      noise: [
+        "DIY how-tos with no intent to hire",
+        "Tradespeople chatting with other tradespeople",
+        "Spam, promo dumps, and off-topic posts",
+        "Jobs clearly outside your trade or service area",
+        "Keyword hits that aren't real service requests",
+      ],
+    },
+    why: {
+      eyebrow: "Why monitoring wins",
+      title: "Why monitoring beats babysitting Facebook by hand",
+      description:
+        "These posts have phone-call urgency. The shop that sees them first usually gets the job — not the shop with the nicest truck.",
+      columns: ["Manual checking", "GroupSignal monitoring"],
+      rows: [
+        [
+          "Refresh groups between jobs",
+          "Email the moment a matching lead posts",
+        ],
+        [
+          "Maintain a keyword spreadsheet",
+          "AI matches your trade and area for you",
+        ],
+        [
+          "Miss private groups you forgot to open",
+          "Watch public + private groups you choose; flag unreachable ones",
+        ],
+        [
+          "Rely on Facebook notifications",
+          "Get lead-focused alerts — not every group like and comment",
+        ],
+      ],
+    },
+    pricingNote:
+      "Starter watches 1 group for $79/mo, Growth covers up to 5 for $139/mo, and Scale covers up to 10 for $199/mo. Every plan includes a 15-day free trial.",
+    faqs: [
+      {
+        q: "What is Facebook group monitoring?",
+        a: "It's continuous watching of the local Facebook groups you choose for posts where homeowners ask for your trade. GroupSignal matches plumber, HVAC, and electrician hire intent with AI and emails you when a real lead appears — so you don't have to scroll groups all day.",
+      },
+      {
+        q: "Can you monitor private Facebook groups?",
+        a: "Yes, when you have legitimate access (you're already a member). Public groups are simple to add. Private groups use a guided connection, and anything we can't reach gets flagged so coverage is clear.",
+      },
+      {
+        q: "Do I need to maintain a keyword list?",
+        a: "No. You set your trade and service area once. Matching is AI-based around hire intent — not a brittle keyword spreadsheet you have to babysit as slang and seasons change.",
+      },
+      {
+        q: "Will GroupSignal comment for me?",
+        a: "No. We alert you; you reply yourself. We don't auto-comment, auto-DM, or post on your behalf — which is how you stay inside group rules and sound like a real local shop.",
+      },
+      {
+        q: "How is this different from Facebook notifications?",
+        a: "Facebook notifications fire on almost everything happening in a group. GroupSignal filters for service requests that match your trade and area, then emails you with the quote and a link back to the thread — so you only act on real leads.",
+      },
+      {
+        q: "How much does Facebook group monitoring cost?",
+        a: "Starter is $79/mo (1 group), Growth is $139/mo (up to 5), and Scale is $199/mo (up to 10). Every plan starts with a 15-day free trial — cancel anytime during the trial.",
+      },
+    ],
+    guides: [
+      {
+        href: "/blog/how-to-get-leads-from-facebook-groups",
+        label: "How to get leads from Facebook groups",
+      },
+      {
+        href: "/blog/monitor-facebook-groups-for-keywords",
+        label: "How to monitor Facebook groups for keywords",
+      },
+      {
+        href: "/blog/first-3-comments-facebook-groups",
+        label: "The first-3-comments rule in Facebook groups",
+      },
+      {
+        href: "/blog/private-vs-public-facebook-groups-leads",
+        label: "Private vs public Facebook groups for leads",
+      },
+      {
+        href: "/blog/groups-watcher-alternative",
+        label: "Groups Watcher alternative for home services",
+      },
+    ],
+    relatedTrades: [
+      {
+        href: "/facebook-group-leads-plumbers",
+        label: "Facebook group leads for plumbers",
+      },
+      {
+        href: "/facebook-group-leads-hvac",
+        label: "Facebook group leads for HVAC",
+      },
+      {
+        href: "/facebook-group-leads-electricians",
+        label: "Facebook group leads for electricians",
+      },
+    ],
+    close: {
+      title: "Stop treating Facebook groups like a hobby.",
+      body: "Add the groups that cover your towns, start the trial, and get the next homeowner ask in your inbox — before the thread fills up.",
       cta: "Start 15-day free trial",
     },
   },
