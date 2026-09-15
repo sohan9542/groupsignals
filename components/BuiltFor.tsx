@@ -14,10 +14,10 @@ export function BuiltFor() {
 
         <a
           href="/login"
-          className="group mt-8 inline-flex items-center justify-center gap-2 rounded-xl bg-signal px-6 py-3.5 text-sm font-semibold text-on-signal shadow-[0_0_36px_-6px_var(--color-signal)] transition hover:bg-signal-bright"
+          className="group mt-8 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-signal px-5 py-3.5 text-sm font-semibold text-on-signal shadow-[0_0_36px_-6px_var(--color-signal)] transition hover:bg-signal-bright sm:w-auto sm:px-6"
         >
          Start Monitoring Facebook Groups
-          <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+          <ArrowRight className="size-4 shrink-0 transition-transform group-hover:translate-x-0.5" />
         </a>
       </Reveal>
     </section>

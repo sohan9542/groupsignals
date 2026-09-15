@@ -224,40 +224,40 @@ export const BLOG_POSTS: BlogPost[] = [
           to check yourself.
         </p>
 
-        <div className="overflow-x-auto rounded-2xl border border-fg/8">
-          <table className="w-full min-w-[520px] border-collapse text-sm">
+        <div className="-mx-1 overflow-x-auto rounded-2xl border border-fg/8 sm:mx-0">
+          <table className="w-full min-w-[36rem] border-collapse text-left text-sm">
             <thead>
               <tr className="border-b border-fg/8 bg-fg/[0.03] text-left">
-                <th className="p-4 font-semibold text-fg">Approach</th>
-                <th className="p-4 font-semibold text-fg">Alert speed</th>
-                <th className="p-4 font-semibold text-fg">Private groups</th>
-                <th className="p-4 font-semibold text-fg">Your time</th>
+                <th className="whitespace-nowrap p-3 font-semibold text-fg sm:p-4">Approach</th>
+                <th className="whitespace-nowrap p-3 font-semibold text-fg sm:p-4">Alert speed</th>
+                <th className="whitespace-nowrap p-3 font-semibold text-fg sm:p-4">Private groups</th>
+                <th className="whitespace-nowrap p-3 font-semibold text-fg sm:p-4">Your time</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-fg/8">
               <tr>
-                <td className="p-4 text-fg">Manual scrolling</td>
-                <td className="p-4 text-ash">Whenever you happen to check</td>
-                <td className="p-4 text-ash">Only ones you&apos;re in</td>
-                <td className="p-4 text-ash">High, daily</td>
+                <td className="p-3 text-fg sm:p-4">Manual scrolling</td>
+                <td className="p-3 text-ash sm:p-4">Whenever you happen to check</td>
+                <td className="p-3 text-ash sm:p-4">Only ones you&apos;re in</td>
+                <td className="p-3 text-ash sm:p-4">High, daily</td>
               </tr>
               <tr>
-                <td className="p-4 text-fg">Facebook notifications</td>
-                <td className="p-4 text-ash">Inconsistent</td>
-                <td className="p-4 text-ash">Only ones you&apos;re in</td>
-                <td className="p-4 text-ash">Medium</td>
+                <td className="p-3 text-fg sm:p-4">Facebook notifications</td>
+                <td className="p-3 text-ash sm:p-4">Inconsistent</td>
+                <td className="p-3 text-ash sm:p-4">Only ones you&apos;re in</td>
+                <td className="p-3 text-ash sm:p-4">Medium</td>
               </tr>
               <tr>
-                <td className="p-4 text-fg">Social listening platforms</td>
-                <td className="p-4 text-ash">Hours, not minutes</td>
-                <td className="p-4 text-ash">Limited</td>
-                <td className="p-4 text-ash">Low</td>
+                <td className="p-3 text-fg sm:p-4">Social listening platforms</td>
+                <td className="p-3 text-ash sm:p-4">Hours, not minutes</td>
+                <td className="p-3 text-ash sm:p-4">Limited</td>
+                <td className="p-3 text-ash sm:p-4">Low</td>
               </tr>
               <tr>
-                <td className="p-4 text-fg">Facebook-only service</td>
-                <td className="p-4 text-ash">Continuous</td>
-                <td className="p-4 text-ash">Public and private</td>
-                <td className="p-4 text-ash">Minimal</td>
+                <td className="p-3 text-fg sm:p-4">Facebook-only service</td>
+                <td className="p-3 text-ash sm:p-4">Continuous</td>
+                <td className="p-3 text-ash sm:p-4">Public and private</td>
+                <td className="p-3 text-ash sm:p-4">Minimal</td>
               </tr>
             </tbody>
           </table>

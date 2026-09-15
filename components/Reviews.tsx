@@ -73,7 +73,7 @@ export function Reviews() {
               key={review.name}
               delay={i * 0.06}
               as="article"
-              className="flex h-full flex-col rounded-2xl border border-fg/8 bg-surface/50 p-7"
+              className="flex h-full min-w-0 flex-col rounded-2xl border border-fg/8 bg-surface/50 p-6 sm:p-7"
             >
               <Stars />
               <blockquote className="mt-4 flex-1 text-sm leading-relaxed text-ash">

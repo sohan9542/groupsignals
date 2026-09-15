@@ -32,12 +32,12 @@ export function Trust() {
           title="What we do, and what we won't."
         />
 
-        <div className="mt-14 grid gap-5 md:grid-cols-3">
+        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {POINTS.map((point, i) => (
             <Reveal
               key={point.title}
               delay={i * 0.08}
-              className="flex h-full flex-col rounded-2xl border border-fg/8 bg-surface/50 p-7"
+              className="flex h-full min-w-0 flex-col rounded-2xl border border-fg/8 bg-surface/50 p-6 sm:p-7"
             >
               <span className="flex size-11 items-center justify-center rounded-xl border border-signal/20 bg-signal/10 text-signal-bright">
                 <point.icon className="size-5" strokeWidth={1.8} />
