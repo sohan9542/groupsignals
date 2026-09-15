@@ -1899,6 +1899,13 @@ export const BLOG_POSTS: BlogPost[] = [
   },
 ];
 
+/** Newest `publishedAt` first — use this for listings and sitemaps. */
+export function getAllPosts(): BlogPost[] {
+  return [...BLOG_POSTS].sort((a, b) =>
+    b.publishedAt.localeCompare(a.publishedAt),
+  );
+}
+
 export function getBlogPost(slug: string): BlogPost | undefined {
   return BLOG_POSTS.find((post) => post.slug === slug);
 }
