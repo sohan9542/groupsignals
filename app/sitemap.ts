@@ -1,10 +1,18 @@
 import type { MetadataRoute } from "next";
 import { getAllPosts } from "@/lib/blog";
+import { TRADE_MONEY_SLUGS } from "@/lib/trade-money";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://groupsignals.com";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const staticRoutes = ["", "/blog", "/privacy", "/terms", "/refund"].map((path) => ({
+  const staticRoutes = [
+    "",
+    "/blog",
+    "/privacy",
+    "/terms",
+    "/refund",
+    ...TRADE_MONEY_SLUGS.map((slug) => `/${slug}`),
+  ].map((path) => ({
     url: `${siteUrl}${path}`,
     lastModified: new Date(),
   }));
