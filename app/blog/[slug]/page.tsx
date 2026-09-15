@@ -98,40 +98,45 @@ export default async function BlogPostPage({
       <Navbar loggedIn={!!user} />
       <main className="overflow-x-clip pt-32 pb-20 sm:pt-40 sm:pb-28">
         <div className="mx-auto max-w-6xl px-5 sm:px-8">
-          <nav
-            aria-label="Breadcrumb"
-            className="flex min-w-0 items-center gap-1.5 text-sm text-ash-dim"
-          >
-            <Link href="/" className="shrink-0 transition-colors hover:text-fg">
-              Home
-            </Link>
-            <ChevronRight className="size-3.5 shrink-0" />
-            <Link href="/blog" className="shrink-0 transition-colors hover:text-fg">
-              Blog
-            </Link>
-            <ChevronRight className="size-3.5 shrink-0" />
-            <span className="min-w-0 truncate text-ash">{post.title}</span>
-          </nav>
+          {/* Header block: no max-w so breadcrumb/title/meta use full content
+              width on mobile. Avoid text-balance below lg — it shortens lines
+              and leaves a large empty strip beside the H1 on ~375px. */}
+          <div className="w-full max-w-none min-w-0">
+            <nav
+              aria-label="Breadcrumb"
+              className="flex min-w-0 items-center gap-1.5 text-sm text-ash-dim"
+            >
+              <Link href="/" className="shrink-0 transition-colors hover:text-fg">
+                Home
+              </Link>
+              <ChevronRight className="size-3.5 shrink-0" />
+              <Link href="/blog" className="shrink-0 transition-colors hover:text-fg">
+                Blog
+              </Link>
+              <ChevronRight className="size-3.5 shrink-0" />
+              <span className="min-w-0 truncate text-ash">{post.title}</span>
+            </nav>
 
-          <h1 className="mt-6 w-full text-balance text-3xl font-bold leading-[1.15] tracking-tight sm:text-4xl md:text-5xl">
-            {post.title}
-          </h1>
+            <h1 className="mt-6 w-full max-w-none text-pretty text-3xl font-bold leading-[1.15] tracking-tight sm:text-4xl md:text-5xl lg:text-balance">
+              {post.title}
+            </h1>
 
-          <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 border-b border-fg/8 pb-6 text-sm text-ash-dim">
-            <span>
-              Written by <span className="text-ash">{post.author}</span>
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <Calendar className="size-4 shrink-0" strokeWidth={2} />
-              {formatDate(post.publishedAt)}
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <Clock className="size-4 shrink-0" strokeWidth={2} />
-              {post.readMinutes} min read
-            </span>
-            {post.updatedAt && (
-              <span>Updated {formatDate(post.updatedAt)}</span>
-            )}
+            <div className="mt-5 flex w-full max-w-none flex-wrap items-center gap-x-4 gap-y-2 border-b border-fg/8 pb-6 text-sm text-ash-dim">
+              <span>
+                Written by <span className="text-ash">{post.author}</span>
+              </span>
+              <span className="inline-flex items-center gap-1.5">
+                <Calendar className="size-4 shrink-0" strokeWidth={2} />
+                {formatDate(post.publishedAt)}
+              </span>
+              <span className="inline-flex items-center gap-1.5">
+                <Clock className="size-4 shrink-0" strokeWidth={2} />
+                {post.readMinutes} min read
+              </span>
+              {post.updatedAt && (
+                <span>Updated {formatDate(post.updatedAt)}</span>
+              )}
+            </div>
           </div>
 
           <BlogImage src={post.coverImage} alt={post.title} />

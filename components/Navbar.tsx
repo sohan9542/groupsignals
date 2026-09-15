@@ -8,6 +8,7 @@ const NAV_LINKS = [
   { label: "Features", href: "/#features" },
   { label: "Pricing", href: "/#pricing" },
   { label: "FAQ", href: "/#faq" },
+  { label: "Blog", href: "/blog" },
 ];
 
 export function Navbar({ loggedIn }: { loggedIn: boolean }) {
