@@ -2953,6 +2953,7 @@ export const BLOG_POSTS: BlogPost[] = [
     title: "How Many Facebook Groups Should a Contractor Monitor?",
     description:
       "Quality beats quantity: how many Facebook groups a contractor should monitor for leads — start with 5–10 mixed public/private groups mapped to your service area, then expand when they convert.",
+    coverImage: "/blog/how-many-facebook-groups-to-monitor.png",
     author: "GroupSignal Team",
     publishedAt: "2026-09-28",
     readMinutes: 12,
