@@ -2,7 +2,8 @@ import type { MetadataRoute } from "next";
 import { getAllPosts } from "@/lib/blog";
 import { TRADE_MONEY_SLUGS } from "@/lib/trade-money";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://groupsignals.com";
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.groupsignal.net";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [

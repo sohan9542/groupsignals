@@ -21,10 +21,9 @@ export async function proxy(request: NextRequest) {
     return response;
   }
 
-  const supabase = createServerClient(
-    url,
-    anonKey,
-    {
+  let user = null;
+  try {
+    const supabase = createServerClient(url, anonKey, {
       cookies: {
         getAll() {
           return request.cookies.getAll();
@@ -39,29 +38,34 @@ export async function proxy(request: NextRequest) {
           );
         },
       },
-    }
-  );
+    });
 
-  // Refreshes the session cookie as a side effect. Every page still re-checks
-  // the user itself — this is a redirect convenience, not the authorization.
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+    // Refreshes the session cookie as a side effect. Every page still re-checks
+    // the user itself — this is a redirect convenience, not the authorization.
+    const { data } = await supabase.auth.getUser();
+    user = data.user;
+  } catch (cause) {
+    console.error(
+      "[proxy] session refresh failed — continuing without auth redirect",
+      cause
+    );
+    return response;
+  }
 
   const path = request.nextUrl.pathname;
 
   if (PROTECTED_PATHS.some((p) => path.startsWith(p)) && !user) {
-    const url = request.nextUrl.clone();
-    url.pathname = "/login";
-    url.searchParams.set("next", path);
-    return NextResponse.redirect(url);
+    const redirectUrl = request.nextUrl.clone();
+    redirectUrl.pathname = "/login";
+    redirectUrl.searchParams.set("next", path);
+    return NextResponse.redirect(redirectUrl);
   }
 
   if (AUTH_PATHS.some((p) => path.startsWith(p)) && user) {
-    const url = request.nextUrl.clone();
-    url.pathname = "/dashboard";
-    url.search = "";
-    return NextResponse.redirect(url);
+    const redirectUrl = request.nextUrl.clone();
+    redirectUrl.pathname = "/dashboard";
+    redirectUrl.search = "";
+    return NextResponse.redirect(redirectUrl);
   }
 
   return response;
@@ -69,6 +73,12 @@ export async function proxy(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    /*
+     * Match all paths except static assets and metadata routes.
+     * sitemap.xml / robots.txt must stay out of proxy — a thrown session
+     * refresh here turns those into HTTP 500s even when the files are static.
+     * (Next.js docs use this same exclusion list.)
+     */
+    "/((?!_next/static|_next/image|favicon.ico|sitemap\\.xml|robots\\.txt|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 };
