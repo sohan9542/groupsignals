@@ -47,7 +47,7 @@ export function Hero() {
                 href="/login"
                 className="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-signal px-5 py-3.5 text-sm font-semibold text-on-signal shadow-[0_0_36px_-6px_var(--color-signal)] transition hover:bg-signal-bright hover:shadow-[0_0_48px_-4px_var(--color-signal)] sm:w-auto sm:px-6"
               >
-                Start Monitoring Facebook Groups
+                Start with Starter
                 <ArrowRight className="size-4 shrink-0 transition-transform group-hover:translate-x-0.5" />
               </a>
               <a
