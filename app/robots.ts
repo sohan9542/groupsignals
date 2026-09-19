@@ -1,8 +1,5 @@
 import type { MetadataRoute } from "next";
 
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.groupsignal.net";
-
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
@@ -10,6 +7,7 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: ["/dashboard", "/api", "/auth", "/login"],
     },
-    sitemap: `${siteUrl}/sitemap.xml`,
+    // Apex groupsignal.net 308s to www; GSC often fails sitemap URLs that redirect.
+    sitemap: "https://www.groupsignal.net/sitemap.xml",
   };
 }
