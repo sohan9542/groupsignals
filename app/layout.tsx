@@ -24,7 +24,9 @@ const fraunces = Fraunces({
   weight: ["500"],
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://groupsignals.com";
+import { getSiteUrl } from "@/lib/site";
+
+const siteUrl = getSiteUrl();
 const title = "GroupSignal — Facebook Group Leads for Plumbers, HVAC & Electricians";
 const description = `We monitor local Facebook groups 24/7 and alert you the moment someone needs a plumber, HVAC tech, or electrician — so you can reply first and win the job. Plans start at ${PLANS[0].price}/mo.`;
 

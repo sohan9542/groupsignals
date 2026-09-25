@@ -1,40 +1,13 @@
 import type { Metadata } from "next";
-import { Footer } from "@/components/Footer";
-import { Navbar } from "@/components/Navbar";
-import { TradeMoneyPage } from "@/components/TradeMoneyPage";
-import { createClient } from "@/lib/supabase/server";
-import { getTradeMoneyPage } from "@/lib/trade-money";
+import {
+  SeoRoutePage,
+  buildSeoPageMetadata,
+} from "@/lib/seo-route";
 
-const data = getTradeMoneyPage("facebook-group-leads-electricians");
+const SLUG = "facebook-group-leads-electricians";
 
-export const metadata: Metadata = {
-  title: { absolute: data.metaTitle },
-  description: data.metaDescription,
-  alternates: { canonical: `/${data.slug}` },
-  openGraph: {
-    type: "website",
-    title: data.metaTitle,
-    description: data.metaDescription,
-    url: `/${data.slug}`,
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: data.metaTitle,
-    description: data.metaDescription,
-  },
-};
+export const metadata: Metadata = buildSeoPageMetadata(SLUG);
 
-export default async function ElectriciansMoneyPage() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  return (
-    <>
-      <Navbar loggedIn={!!user} />
-      <TradeMoneyPage data={data} />
-      <Footer />
-    </>
-  );
+export default function FacebookGroupLeadsElectriciansPage() {
+  return <SeoRoutePage slug={SLUG} />;
 }
