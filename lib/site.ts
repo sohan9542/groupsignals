@@ -22,3 +22,11 @@ export function getSiteUrl(): string {
     return SITE_URL;
   }
 }
+
+/** Absolute https://www.groupsignal.net/... URL for a path. */
+export function absoluteUrl(path = "/"): string {
+  const base = getSiteUrl();
+  if (!path || path === "/") return `${base}/`;
+  const normalized = path.startsWith("/") ? path : `/${path}`;
+  return `${base}${normalized}`;
+}
