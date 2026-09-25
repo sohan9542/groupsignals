@@ -4,10 +4,10 @@ import {
   buildSeoPageMetadata,
 } from "@/lib/seo-route";
 
-const SLUG = "facebook-group-leads-hvac";
+const SLUG = "facebook-group-leads-locksmiths";
 
 export const metadata: Metadata = buildSeoPageMetadata(SLUG);
 
-export default function FacebookGroupLeadsHvacPage() {
+export default function FacebookGroupLeadsLocksmithsPage() {
   return <SeoRoutePage slug={SLUG} />;
 }
