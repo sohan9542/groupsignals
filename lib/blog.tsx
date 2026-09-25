@@ -346,7 +346,6 @@ export const BLOG_POSTS: BlogPost[] = [
     description:
       "A side-by-side look at the tools plumbers, HVAC companies, and electricians use to find new customers, from Facebook groups to Google Local Services Ads.",
     coverImage: "/blog/blogmain.jpg",
-    index: false,
     author: "GroupSignal Team",
     publishedAt: "2026-09-10",
     readMinutes: 9,
@@ -2251,7 +2250,7 @@ export const BLOG_POSTS: BlogPost[] = [
       "A fair 2026 comparison of Groups Watcher and GroupSignal for plumbers, HVAC companies, and electricians — who each fit, pricing shape, matching, and alerts.",
     coverImage: "/blog/groups-watcher-alternative.png",
     author: "GroupSignal Team",
-    publishedAt: "2026-09-26",
+    publishedAt: "2026-09-15",
     readMinutes: 13,
     keywords: [
       "groups watcher alternative",
@@ -2623,7 +2622,7 @@ export const BLOG_POSTS: BlogPost[] = [
       "Private neighborhood groups often convert better for plumbers, HVAC companies, and electricians — here's why, how access works, and how monitoring differs from public Facebook groups.",
     coverImage: "/blog/private-vs-public-facebook-groups-leads.png",
     author: "GroupSignal Team",
-    publishedAt: "2026-09-27",
+    publishedAt: "2026-09-15",
     readMinutes: 11,
     keywords: [
       "private vs public facebook groups",
@@ -2955,7 +2954,7 @@ export const BLOG_POSTS: BlogPost[] = [
       "Quality beats quantity: how many Facebook groups a contractor should monitor for leads — start with 5–10 mixed public/private groups mapped to your service area, then expand when they convert.",
     coverImage: "/blog/how-many-facebook-groups-to-monitor.png",
     author: "GroupSignal Team",
-    publishedAt: "2026-09-28",
+    publishedAt: "2026-09-15",
     readMinutes: 12,
     keywords: [
       "how many facebook groups to monitor",

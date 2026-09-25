@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Fraunces } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { PLANS } from "@/lib/offer";
+import { getSiteUrl } from "@/lib/site";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -24,7 +25,7 @@ const fraunces = Fraunces({
   weight: ["500"],
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://groupsignals.com";
+const siteUrl = getSiteUrl();
 const title = "GroupSignal — Facebook Group Leads for Plumbers, HVAC & Electricians";
 const description = `We monitor local Facebook groups 24/7 and alert you the moment someone needs a plumber, HVAC tech, or electrician — so you can reply first and win the job. Plans start at ${PLANS[0].price}/mo.`;
 
