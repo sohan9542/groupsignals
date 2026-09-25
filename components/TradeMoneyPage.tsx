@@ -14,9 +14,13 @@ import Link from "next/link";
 import { GetStarted } from "@/components/GetStarted";
 import { Reveal } from "@/components/Reveal";
 import { SectionHeading } from "@/components/SectionHeading";
-import type { TradeMoneyFaq, TradeMoneyPageData } from "@/lib/trade-money";
+import type {
+  SeoArticleSection,
+  SeoFaq,
+  SeoPageData,
+} from "@/lib/seo-page-types";
 
-export function TradeMoneyPage({ data }: { data: TradeMoneyPageData }) {
+export function TradeMoneyPage({ data }: { data: SeoPageData }) {
   return (
     <main>
       <TradeHero data={data} />
@@ -25,6 +29,7 @@ export function TradeMoneyPage({ data }: { data: TradeMoneyPageData }) {
       <HowItWorks how={data.howItWorks} />
       <MatchesSection matches={data.matches} />
       <WhyTable why={data.why} />
+      <ArticleBody sections={data.article} />
       <section id="pricing-note" className="relative pt-4">
         <p className="mx-auto max-w-2xl px-5 text-center text-sm leading-relaxed text-ash sm:px-8">
           {data.pricingNote}
@@ -38,7 +43,7 @@ export function TradeMoneyPage({ data }: { data: TradeMoneyPageData }) {
   );
 }
 
-function TradeHero({ data }: { data: TradeMoneyPageData }) {
+function TradeHero({ data }: { data: SeoPageData }) {
   const reduceMotion = useReducedMotion();
   const rise = (delay: number) => ({
     initial: reduceMotion ? { opacity: 1 } : { opacity: 0, y: 20 },
@@ -64,7 +69,7 @@ function TradeHero({ data }: { data: TradeMoneyPageData }) {
               {...rise(0)}
               className="text-sm font-semibold uppercase tracking-[0.14em] text-signal-bright"
             >
-              GroupSignal · {data.tradeLabel}
+              GroupSignal · {data.pageLabel}
             </motion.p>
             <motion.h1
               {...rise(0.08)}
@@ -127,7 +132,7 @@ function LeadProofCard({
   proof,
   reduceMotion,
 }: {
-  proof: TradeMoneyPageData["proof"];
+  proof: SeoPageData["proof"];
   reduceMotion: boolean;
 }) {
   return (
@@ -172,7 +177,7 @@ function LeadProofCard({
   );
 }
 
-function ProofStrip({ proof }: { proof: TradeMoneyPageData["proof"] }) {
+function ProofStrip({ proof }: { proof: SeoPageData["proof"] }) {
   return (
     <section className="relative border-y border-fg/8 bg-ink-soft/50 py-10 sm:py-12">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
@@ -212,7 +217,7 @@ function ProofStrip({ proof }: { proof: TradeMoneyPageData["proof"] }) {
 function ProblemSection({
   problem,
 }: {
-  problem: TradeMoneyPageData["problem"];
+  problem: SeoPageData["problem"];
 }) {
   return (
     <section className="relative py-20 sm:py-28">
@@ -243,7 +248,7 @@ function ProblemSection({
   );
 }
 
-function HowItWorks({ how }: { how: TradeMoneyPageData["howItWorks"] }) {
+function HowItWorks({ how }: { how: SeoPageData["howItWorks"] }) {
   return (
     <section
       id="features"
@@ -284,7 +289,7 @@ function HowItWorks({ how }: { how: TradeMoneyPageData["howItWorks"] }) {
 function MatchesSection({
   matches,
 }: {
-  matches: TradeMoneyPageData["matches"];
+  matches: SeoPageData["matches"];
 }) {
   return (
     <section className="relative py-20 sm:py-28">
@@ -330,7 +335,7 @@ function MatchesSection({
   );
 }
 
-function WhyTable({ why }: { why: TradeMoneyPageData["why"] }) {
+function WhyTable({ why }: { why: SeoPageData["why"] }) {
   return (
     <section className="relative border-y border-fg/8 bg-ink-soft/50 py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
@@ -370,7 +375,63 @@ function WhyTable({ why }: { why: TradeMoneyPageData["why"] }) {
   );
 }
 
-function TradeFaq({ faqs }: { faqs: TradeMoneyFaq[] }) {
+function ArticleBody({ sections }: { sections: SeoArticleSection[] }) {
+  if (!sections.length) return null;
+
+  return (
+    <section
+      id="guide"
+      className="relative border-y border-fg/8 bg-ink-soft/30 py-20 sm:py-28"
+    >
+      <div className="mx-auto max-w-7xl px-5 sm:px-8">
+        <SectionHeading
+          eyebrow="Deep dive"
+          title="The practical guide behind this page"
+          description="Same playbook shops use once the alerts start landing — written for this query, not recycled filler."
+        />
+        <div className="mx-auto mt-14 max-w-3xl space-y-12">
+          {sections.map((section, i) => (
+            <Reveal key={section.id} delay={i * 0.04} as="article">
+              <h2
+                id={section.id}
+                className="scroll-mt-28 text-2xl font-bold tracking-tight text-fg sm:text-[1.65rem]"
+              >
+                {section.h2}
+              </h2>
+              <div className="mt-4 space-y-4">
+                {section.paragraphs.map((p) => (
+                  <p
+                    key={p.slice(0, 48)}
+                    className="text-[15px] leading-relaxed text-ash"
+                  >
+                    {p}
+                  </p>
+                ))}
+              </div>
+              {section.bullets && section.bullets.length > 0 && (
+                <ul className="mt-5 space-y-2.5">
+                  {section.bullets.map((item) => (
+                    <li key={item} className="flex gap-3">
+                      <Check
+                        className="mt-0.5 size-4 shrink-0 text-signal"
+                        strokeWidth={2.5}
+                      />
+                      <span className="text-[15px] leading-relaxed text-fg/90">
+                        {item}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </Reveal>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function TradeFaq({ faqs }: { faqs: SeoFaq[] }) {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const jsonLd = {
     "@context": "https://schema.org",
@@ -447,7 +508,7 @@ function TradeFaq({ faqs }: { faqs: TradeMoneyFaq[] }) {
   );
 }
 
-function GuidesAndRelated({ data }: { data: TradeMoneyPageData }) {
+function GuidesAndRelated({ data }: { data: SeoPageData }) {
   return (
     <section className="relative py-20 sm:py-24">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
@@ -472,10 +533,10 @@ function GuidesAndRelated({ data }: { data: TradeMoneyPageData }) {
           </Reveal>
           <Reveal delay={0.08}>
             <h2 className="text-xl font-bold tracking-tight text-fg sm:text-2xl">
-              Other trades
+              {data.relatedTitle}
             </h2>
             <ul className="mt-5 space-y-3">
-              {data.relatedTrades.map((link) => (
+              {data.related.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
@@ -494,7 +555,7 @@ function GuidesAndRelated({ data }: { data: TradeMoneyPageData }) {
   );
 }
 
-function CloseCta({ close }: { close: TradeMoneyPageData["close"] }) {
+function CloseCta({ close }: { close: SeoPageData["close"] }) {
   return (
     <section id="cta" className="relative overflow-hidden py-20 sm:py-24">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
