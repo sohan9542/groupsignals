@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
-import { getAllPosts } from "@/lib/blog";
+import { getAllPostMeta } from "@/lib/blog-meta";
+import { SEO_PAGE_SLUGS } from "@/lib/seo-slugs";
 import { getSiteUrl } from "@/lib/site";
-import { SEO_PAGE_SLUGS } from "@/lib/trade-money";
 
 const siteUrl = getSiteUrl();
 
@@ -14,6 +14,11 @@ function lastmodFrom(iso: string | undefined): Date {
   return parsed > now ? now : parsed;
 }
 
+/**
+ * Sitemap must stay a tiny module graph: slug/date lists only.
+ * Do not import `@/lib/blog` (React post bodies) or `@/lib/trade-money`
+ * (full SeoPageData registry) — those have previously made this route fragile.
+ */
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     "",
@@ -27,7 +32,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified: new Date(),
   }));
 
-  const postRoutes = getAllPosts()
+  const postRoutes = getAllPostMeta()
     .filter((post) => post.index !== false)
     .map((post) => ({
       url: `${siteUrl}/blog/${post.slug}`,

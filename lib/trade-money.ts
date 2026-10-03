@@ -3,6 +3,7 @@ import { COMPARISON_PAGES } from "@/lib/seo-pages/comparisons";
 import { CORE_TRADE_PAGES } from "@/lib/seo-pages/core-trades";
 import { INTENT_PAGES } from "@/lib/seo-pages/intent";
 import { NEW_TRADE_PAGES } from "@/lib/seo-pages/new-trades";
+import { SEO_PAGE_SLUGS as CANONICAL_SEO_PAGE_SLUGS } from "@/lib/seo-slugs";
 
 /**
  * All public SEO money / comparison / intent landers.
@@ -15,7 +16,26 @@ export const SEO_PAGES: Record<string, SeoPageData> = {
   ...INTENT_PAGES,
 };
 
-export const SEO_PAGE_SLUGS = Object.keys(SEO_PAGES);
+/** Re-export the lightweight canonical list (see `lib/seo-slugs.ts`). */
+export const SEO_PAGE_SLUGS = [...CANONICAL_SEO_PAGE_SLUGS];
+
+{
+  const registryKeys = Object.keys(SEO_PAGES).sort();
+  const canonical = [...CANONICAL_SEO_PAGE_SLUGS].sort();
+  if (
+    registryKeys.length !== canonical.length ||
+    registryKeys.some((slug, i) => slug !== canonical[i])
+  ) {
+    throw new Error(
+      "SEO_PAGES registry is out of sync with lib/seo-slugs.ts — update both when adding a lander.",
+    );
+  }
+  for (const slug of CANONICAL_SEO_PAGE_SLUGS) {
+    if (!SEO_PAGES[slug]) {
+      throw new Error(`SEO_PAGES missing slug from seo-slugs.ts: ${slug}`);
+    }
+  }
+}
 
 export function getSeoPage(slug: string): SeoPageData {
   const page = SEO_PAGES[slug];

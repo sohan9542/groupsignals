@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import { BlogCallout } from "@/components/BlogCallout";
 import { BlogImage } from "@/components/BlogImage";
+import { BLOG_POST_META } from "@/lib/blog-meta";
 
 /**
  * Hand-written posts, not a CMS. There's a handful of these, not hundreds.
@@ -3323,4 +3324,29 @@ export function getAllPosts(): BlogPost[] {
 
 export function getBlogPost(slug: string): BlogPost | undefined {
   return BLOG_POSTS.find((post) => post.slug === slug);
+}
+
+{
+  // Keep lib/blog-meta.ts aligned — sitemap imports meta only, not this file.
+  const bySlug = new Map(BLOG_POST_META.map((m) => [m.slug, m]));
+  if (bySlug.size !== BLOG_POSTS.length) {
+    throw new Error(
+      "BLOG_POST_META is out of sync with BLOG_POSTS — update lib/blog-meta.ts when adding a post.",
+    );
+  }
+  for (const post of BLOG_POSTS) {
+    const meta = bySlug.get(post.slug);
+    if (!meta) {
+      throw new Error(`BLOG_POST_META missing slug: ${post.slug}`);
+    }
+    if (
+      meta.publishedAt !== post.publishedAt ||
+      meta.updatedAt !== post.updatedAt ||
+      meta.index !== post.index
+    ) {
+      throw new Error(
+        `BLOG_POST_META fields drift for ${post.slug} — update lib/blog-meta.ts.`,
+      );
+    }
+  }
 }
