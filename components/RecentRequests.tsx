@@ -41,12 +41,12 @@ export function RecentRequests() {
           description="This is the kind of post GroupSignal catches for you — a homeowner needs help right now, and the post is gone from the feed within hours."
         />
 
-        <div className="mt-14 grid gap-5 md:grid-cols-3">
+        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {EXAMPLES.map((example, i) => (
             <Reveal
               key={i}
               delay={i * 0.08}
-              className="flex h-full flex-col rounded-2xl border border-fg/8 bg-surface p-6"
+              className="flex h-full min-w-0 flex-col rounded-2xl border border-fg/8 bg-surface p-5 sm:p-6"
             >
               <div className="flex items-start justify-between gap-3">
                 <div className="flex min-w-0 items-center gap-3">
@@ -54,7 +54,7 @@ export function RecentRequests() {
                     <Users className="size-4" />
                   </span>
                   <div className="min-w-0">
-                    <span className="block h-2.5 w-24 rounded-full bg-fg/10" aria-hidden />
+                    <span className="block h-2.5 w-24 max-w-full rounded-full bg-fg/10" aria-hidden />
                     <p className="mt-1.5 truncate text-xs text-ash-dim">{example.group}</p>
                   </div>
                 </div>
@@ -68,13 +68,15 @@ export function RecentRequests() {
                 &ldquo;{example.text}&rdquo;
               </p>
 
-              <div className="mt-5 flex items-center gap-2 border-t border-fg/8 pt-4 text-xs">
-                <span className="flex items-center gap-1.5 font-semibold text-signal-bright">
-                  <span className="size-1.5 rounded-full bg-signal" />
+              <div className="mt-5 flex flex-wrap items-center gap-x-2 gap-y-1 border-t border-fg/8 pt-4 text-xs">
+                <span className="inline-flex items-center gap-1.5 font-semibold text-signal-bright">
+                  <span className="size-1.5 shrink-0 rounded-full bg-signal" />
                   {example.tag}
                 </span>
-                <span className="text-ash-dim">·</span>
-                <span className="text-ash-dim">{example.category}</span>
+                <span className="text-ash-dim" aria-hidden>
+                  ·
+                </span>
+                <span className="min-w-0 text-ash-dim">{example.category}</span>
               </div>
             </Reveal>
           ))}
@@ -84,13 +86,16 @@ export function RecentRequests() {
           delay={0.15}
           className="mt-8 rounded-2xl border border-fg/8 bg-surface/60 p-4 sm:p-5"
         >
-          <div className="flex flex-col items-stretch gap-3 sm:flex-row sm:items-center">
+          <div className="flex flex-col items-stretch gap-3 lg:flex-row lg:items-center">
             {STEPS.map((step, i) => (
-              <div key={step.title} className="flex flex-col items-stretch gap-2 sm:flex-1 sm:flex-row sm:items-center sm:gap-3">
+              <div
+                key={step.title}
+                className="flex flex-col items-stretch gap-2 lg:min-w-0 lg:flex-1 lg:flex-row lg:items-center lg:gap-3"
+              >
                 {i > 0 && (
-                  <ArrowRight className="mx-auto size-4 shrink-0 rotate-90 text-ash-dim sm:rotate-0" />
+                  <ArrowRight className="mx-auto size-4 shrink-0 rotate-90 text-ash-dim lg:rotate-0" />
                 )}
-                <div className="flex flex-1 items-center gap-3 rounded-xl bg-ink-soft px-4 py-3.5 sm:px-5">
+                <div className="flex min-w-0 flex-1 items-center gap-3 rounded-xl bg-ink-soft px-4 py-3.5 sm:px-5">
                   <span className="flex size-7 shrink-0 items-center justify-center rounded-full bg-signal/15 text-xs font-bold text-signal-bright">
                     {i + 1}
                   </span>

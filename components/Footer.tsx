@@ -1,9 +1,9 @@
 import { Logo } from "./Logo";
 
 const FOOTER_LINKS = [
-  { label: "Features", href: "#features" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "FAQ", href: "#faq" },
+  { label: "Features", href: "/#features" },
+  { label: "Pricing", href: "/#pricing" },
+  { label: "FAQ", href: "/#faq" },
   { label: "Blog", href: "/blog" },
   { label: "Sign in", href: "/login" },
 ];
@@ -20,17 +20,17 @@ export function Footer() {
       <div className="mx-auto max-w-7xl px-5 py-12 sm:px-8">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-start lg:justify-between">
           <div className="max-w-sm">
-            <Logo />
+            <Logo href="/" />
             <p className="mt-4 text-sm leading-relaxed text-ash-dim">
               Facebook group leads for home service pros, sent to your inbox.
             </p>
-            <p className="mt-4 inline-flex rounded-lg border border-fg/8 bg-fg/5 px-3 py-1.5 text-xs text-ash">
+            <p className="mt-4 inline-flex max-w-full text-pretty rounded-lg border border-fg/8 bg-fg/5 px-3 py-1.5 text-xs text-ash">
               Lead Generation for Plumbers, HVAC & Electricians
             </p>
           </div>
 
           <nav
-            className="flex flex-wrap gap-x-8 gap-y-3"
+            className="flex flex-wrap gap-x-6 gap-y-3 sm:gap-x-8"
             aria-label="Footer navigation"
           >
             {FOOTER_LINKS.map((link) => (

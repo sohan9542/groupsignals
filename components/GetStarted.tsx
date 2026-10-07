@@ -24,14 +24,14 @@ export function GetStarted() {
           title="Pick a plan by how many channels you need monitored."
         />
 
-        <div className="mx-auto mt-14 grid max-w-5xl gap-5 md:grid-cols-3">
+        <div className="mx-auto mt-14 grid max-w-5xl gap-5 lg:grid-cols-3">
           {PLANS.map((plan, i) => {
             const featured = i === 1;
             return (
               <Reveal
                 key={plan.id}
                 delay={i * 0.08}
-                className={`relative rounded-3xl border p-1.5 ${
+                className={`relative min-w-0 rounded-3xl border p-1.5 ${
                   featured
                     ? "border-signal/25 bg-surface/70 shadow-[0_0_80px_-40px_var(--color-signal)]"
                     : "border-fg/8 bg-surface/50"

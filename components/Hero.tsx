@@ -41,18 +41,18 @@ export function Hero() {
 
             <motion.div
               {...rise(0.24)}
-              className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center"
+              className="mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center"
             >
               <a
                 href="/login"
-                className="group inline-flex items-center justify-center gap-2 rounded-xl bg-signal px-6 py-3.5 text-sm font-semibold text-on-signal shadow-[0_0_36px_-6px_var(--color-signal)] transition hover:bg-signal-bright hover:shadow-[0_0_48px_-4px_var(--color-signal)]"
+                className="group inline-flex w-full items-center justify-center gap-2 rounded-xl bg-signal px-5 py-3.5 text-sm font-semibold text-on-signal shadow-[0_0_36px_-6px_var(--color-signal)] transition hover:bg-signal-bright hover:shadow-[0_0_48px_-4px_var(--color-signal)] sm:w-auto sm:px-6"
               >
-                Start Monitoring Facebook Groups
-                <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+                Start with Starter
+                <ArrowRight className="size-4 shrink-0 transition-transform group-hover:translate-x-0.5" />
               </a>
               <a
                 href="#features"
-                className="inline-flex items-center justify-center rounded-xl border border-fg/12 bg-fg/5 px-6 py-3.5 text-sm font-semibold text-fg transition hover:border-fg/25 hover:bg-fg/10"
+                className="inline-flex w-full items-center justify-center rounded-xl border border-fg/12 bg-fg/5 px-5 py-3.5 text-sm font-semibold text-fg transition hover:border-fg/25 hover:bg-fg/10 sm:w-auto sm:px-6"
               >
                 See How It Works
               </a>
@@ -114,7 +114,7 @@ function LeadAlertCard({ reduceMotion }: { reduceMotion: boolean }) {
         initial={reduceMotion ? { opacity: 1 } : { opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.6, delay: 1.1 }}
-        className="absolute -bottom-7 -left-7 hidden items-center gap-2.5 rounded-xl border border-fg/10 bg-surface px-3.5 py-2.5 shadow-xl shadow-black/10 sm:flex"
+        className="absolute -bottom-5 left-3 hidden items-center gap-2.5 rounded-xl border border-fg/10 bg-surface px-3.5 py-2.5 shadow-xl shadow-black/10 sm:flex md:-bottom-7 md:-left-3 lg:-left-7"
       >
         <span className="flex size-7 items-center justify-center rounded-lg bg-signal/15">
           <Check className="size-3.5 text-signal-bright" strokeWidth={3} />

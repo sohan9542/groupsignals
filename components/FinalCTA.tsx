@@ -6,7 +6,7 @@ export function FinalCTA() {
   return (
     <section className="relative overflow-hidden py-20 sm:py-24">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
-        <Reveal className="relative overflow-hidden rounded-3xl border border-signal/20 bg-surface/60 px-6 py-14 text-center sm:px-12">
+        <Reveal className="relative overflow-hidden rounded-3xl border border-signal/20 bg-surface/60 px-5 py-12 text-center sm:px-12 sm:py-14">
           <div
             aria-hidden
             className="pointer-events-none absolute inset-0 signal-glow"
@@ -21,10 +21,10 @@ export function FinalCTA() {
             <div className="mt-8 flex justify-center">
               <a
                 href="/login"
-                className="group inline-flex items-center justify-center gap-2 rounded-xl bg-signal px-6 py-3.5 text-sm font-semibold text-on-signal shadow-[0_0_36px_-6px_var(--color-signal)] transition hover:bg-signal-bright"
+                className="group inline-flex w-full max-w-sm items-center justify-center gap-2 rounded-xl bg-signal px-5 py-3.5 text-sm font-semibold text-on-signal shadow-[0_0_36px_-6px_var(--color-signal)] transition hover:bg-signal-bright sm:w-auto sm:px-6"
               >
                 Start Monitoring Facebook Groups
-                <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+                <ArrowRight className="size-4 shrink-0 transition-transform group-hover:translate-x-0.5" />
               </a>
             </div>
           </div>
