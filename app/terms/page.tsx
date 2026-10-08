@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function TermsPage() {
   return (
-    <LegalLayout title="Terms of Service" updated="September 6, 2026">
+    <LegalLayout title="Terms of Service" updated="October 8, 2026">
       <p>
         These terms govern your use of GroupSignal. By creating an account or
         subscribing, you agree to them.
@@ -23,9 +23,9 @@ export default function TermsPage() {
         {PLANS[0].price}/mo, billed monthly through Paddle, our merchant of
         record, after a 15-day free trial. Cancel anytime during the trial
         and you&apos;re not charged; cancel after and you keep access through
-        the current billing period. See our{" "}
-        <a href="/refund">Refund Policy</a> for details — payments are
-        non-refundable once the trial ends.
+        the current billing period. Paid charges are covered by a minimum
+        14-day refund window — see our{" "}
+        <a href="/refund">Refund Policy</a> for details.
       </p>
 
       <h2>Your responsibilities</h2>
