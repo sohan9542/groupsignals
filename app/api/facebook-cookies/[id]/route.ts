@@ -1,33 +1,20 @@
-import { NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
-import { createServiceClient } from "@/lib/supabase/service";
-import { isAdmin } from "@/lib/admin";
+import { requireAdminUser } from "@/lib/api/auth";
+import { apiError, apiOk, parseJsonBody } from "@/lib/api/http";
 import { encryptCookies, parseCookiePaste } from "@/lib/facebook-cookies";
+import { createServiceClient } from "@/lib/supabase/service";
 
 type Params = { params: Promise<{ id: string }> };
 
-async function requireAdmin() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  return isAdmin(user?.email) ? user : null;
-}
-
 /** Admin manually flips status — e.g. back to "active" after swapping in a fresh cookie export for the same slot, or to "disabled" to pull one out of rotation without deleting it. */
 export async function PATCH(request: Request, { params }: Params) {
-  if (!(await requireAdmin())) {
-    return NextResponse.json({ ok: false, error: "Not authorized." }, { status: 403 });
-  }
+  const auth = await requireAdminUser();
+  if (!auth.ok) return auth.response;
 
   const { id } = await params;
 
-  let body: { status?: unknown; cookies?: unknown };
-  try {
-    body = (await request.json()) as typeof body;
-  } catch {
-    return NextResponse.json({ ok: false, error: "Invalid request." }, { status: 400 });
-  }
+  const parsedBody = await parseJsonBody<{ status?: unknown; cookies?: unknown }>(request);
+  if (!parsedBody.ok) return parsedBody.response;
+  const body = parsedBody.data;
 
   const update: Record<string, unknown> = {};
 
@@ -39,7 +26,7 @@ export async function PATCH(request: Request, { params }: Params) {
   if (typeof body.cookies === "string" && body.cookies.trim()) {
     const parsed = parseCookiePaste(body.cookies);
     if ("error" in parsed) {
-      return NextResponse.json({ ok: false, error: parsed.error }, { status: 400 });
+      return apiError(parsed.error, 400);
     }
     try {
       update.cookies_ciphertext = encryptCookies(parsed.cookies);
@@ -47,12 +34,12 @@ export async function PATCH(request: Request, { params }: Params) {
       update.last_error = null;
     } catch (cause) {
       const detail = cause instanceof Error ? cause.message : "Encryption failed.";
-      return NextResponse.json({ ok: false, error: detail }, { status: 503 });
+      return apiError(detail, 503);
     }
   }
 
   if (Object.keys(update).length === 0) {
-    return NextResponse.json({ ok: false, error: "Nothing to update." }, { status: 400 });
+    return apiError("Nothing to update.", 400);
   }
 
   const service = createServiceClient();
@@ -64,24 +51,23 @@ export async function PATCH(request: Request, { params }: Params) {
     .single();
 
   if (error) {
-    return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
+    return apiError(error.message, 500);
   }
 
-  return NextResponse.json({ ok: true, cookie: data });
+  return apiOk({ cookie: data });
 }
 
 export async function DELETE(_request: Request, { params }: Params) {
-  if (!(await requireAdmin())) {
-    return NextResponse.json({ ok: false, error: "Not authorized." }, { status: 403 });
-  }
+  const auth = await requireAdminUser();
+  if (!auth.ok) return auth.response;
 
   const { id } = await params;
   const service = createServiceClient();
   const { error } = await service.from("facebook_cookies").delete().eq("id", id);
 
   if (error) {
-    return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
+    return apiError(error.message, 500);
   }
 
-  return NextResponse.json({ ok: true });
+  return apiOk();
 }

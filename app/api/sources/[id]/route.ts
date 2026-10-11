@@ -1,27 +1,19 @@
-import { NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
+import { apiError, apiOk, parseJsonBody } from "@/lib/api/http";
+import { requireUser } from "@/lib/api/auth";
 import { parseIntent } from "@/lib/sources";
 
 type Params = { params: Promise<{ id: string }> };
 
 export async function PATCH(request: Request, { params }: Params) {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    return NextResponse.json({ ok: false, error: "Not signed in." }, { status: 401 });
-  }
+  const auth = await requireUser();
+  if (!auth.ok) return auth.response;
+  const { supabase, user } = auth;
 
   const { id } = await params;
 
-  let body: { status?: unknown; intent?: unknown };
-  try {
-    body = (await request.json()) as typeof body;
-  } catch {
-    return NextResponse.json({ ok: false, error: "Invalid request." }, { status: 400 });
-  }
+  const parsed = await parseJsonBody<{ status?: unknown; intent?: unknown }>(request);
+  if (!parsed.ok) return parsed.response;
+  const body = parsed.data;
 
   const update: Record<string, unknown> = {};
 
@@ -29,15 +21,15 @@ export async function PATCH(request: Request, { params }: Params) {
     update.status = body.status;
   }
   if (typeof body.intent === "string") {
-    const parsed = parseIntent(body.intent);
-    if ("error" in parsed) {
-      return NextResponse.json({ ok: false, error: parsed.error }, { status: 400 });
+    const intentParsed = parseIntent(body.intent);
+    if ("error" in intentParsed) {
+      return apiError(intentParsed.error, 400);
     }
-    update.intent = parsed.intent;
+    update.intent = intentParsed.intent;
   }
 
   if (Object.keys(update).length === 0) {
-    return NextResponse.json({ ok: false, error: "Nothing to update." }, { status: 400 });
+    return apiError("Nothing to update.", 400);
   }
 
   // A pending private group can only be activated by an admin assigning it
@@ -52,12 +44,9 @@ export async function PATCH(request: Request, { params }: Params) {
       .maybeSingle<{ status: string }>();
 
     if (current?.status === "pending") {
-      return NextResponse.json(
-        {
-          ok: false,
-          error: "Still waiting on admin approval — an account needs to be assigned first.",
-        },
-        { status: 403 }
+      return apiError(
+        "Still waiting on admin approval — an account needs to be assigned first.",
+        403
       );
     }
   }
@@ -73,21 +62,16 @@ export async function PATCH(request: Request, { params }: Params) {
     .single();
 
   if (error) {
-    return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
+    return apiError(error.message, 500);
   }
 
-  return NextResponse.json({ ok: true, source: data });
+  return apiOk({ source: data });
 }
 
 export async function DELETE(_request: Request, { params }: Params) {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    return NextResponse.json({ ok: false, error: "Not signed in." }, { status: 401 });
-  }
+  const auth = await requireUser();
+  if (!auth.ok) return auth.response;
+  const { supabase, user } = auth;
 
   const { id } = await params;
 
@@ -98,8 +82,8 @@ export async function DELETE(_request: Request, { params }: Params) {
     .eq("user_id", user.id);
 
   if (error) {
-    return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
+    return apiError(error.message, 500);
   }
 
-  return NextResponse.json({ ok: true });
+  return apiOk();
 }

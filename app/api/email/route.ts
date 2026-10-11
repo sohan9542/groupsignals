@@ -1,30 +1,22 @@
-import { NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
+import { apiError, apiOk, parseJsonBody } from "@/lib/api/http";
+import { requireUser } from "@/lib/api/auth";
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const MAX_DESTINATIONS = 5;
 
 export async function POST(request: Request) {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const auth = await requireUser();
+  if (!auth.ok) return auth.response;
+  const { supabase, user } = auth;
 
-  if (!user) {
-    return NextResponse.json({ ok: false, error: "Not signed in." }, { status: 401 });
-  }
+  const parsed = await parseJsonBody<{ address?: unknown }>(request);
+  if (!parsed.ok) return parsed.response;
 
-  let body: { address?: unknown };
-  try {
-    body = (await request.json()) as typeof body;
-  } catch {
-    return NextResponse.json({ ok: false, error: "Invalid request." }, { status: 400 });
-  }
-
-  const address = typeof body.address === "string" ? body.address.trim().toLowerCase() : "";
+  const address =
+    typeof parsed.data.address === "string" ? parsed.data.address.trim().toLowerCase() : "";
 
   if (!EMAIL.test(address)) {
-    return NextResponse.json({ ok: false, error: "Enter a valid email address." }, { status: 400 });
+    return apiError("Enter a valid email address.", 400);
   }
 
   const { count } = await supabase
@@ -33,10 +25,7 @@ export async function POST(request: Request) {
     .eq("user_id", user.id);
 
   if ((count ?? 0) >= MAX_DESTINATIONS) {
-    return NextResponse.json(
-      { ok: false, error: `That's the ${MAX_DESTINATIONS}-address limit.` },
-      { status: 400 }
-    );
+    return apiError(`That's the ${MAX_DESTINATIONS}-address limit.`, 400);
   }
 
   const { data, error } = await supabase
@@ -47,16 +36,13 @@ export async function POST(request: Request) {
 
   if (error) {
     if (error.code === "23505") {
-      return NextResponse.json(
-        { ok: false, error: "That address is already on the list." },
-        { status: 409 }
-      );
+      return apiError("That address is already on the list.", 409);
     }
-    return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
+    return apiError(error.message, 500);
   }
 
   // TODO: send the verification email carrying data.verification_token. Until
   // that exists the address sits in 'pending' and never receives leads, which
   // is the correct failure direction — we don't mail unverified addresses.
-  return NextResponse.json({ ok: true, destination: data });
+  return apiOk({ destination: data });
 }

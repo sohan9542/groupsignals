@@ -1,41 +1,37 @@
-import { NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
-import { parseIntent, parseSourceUrl } from "@/lib/sources";
-import { resolveWebhookUrl, startScanForSource } from "@/lib/scan";
-import { groupLimitForSubscription } from "@/lib/offer";
 import { isAdmin } from "@/lib/admin";
+import { requireUser } from "@/lib/api/auth";
+import { apiError, apiOk, parseJsonBody } from "@/lib/api/http";
 import { sendAdminPrivateGroupAlert } from "@/lib/email";
+import { groupLimitForSubscription } from "@/lib/offer";
+import { resolveWebhookUrl, startScanForSource } from "@/lib/scan";
+import { parseIntent, parseSourceUrl } from "@/lib/sources";
 import type { Subscription, WatchSource } from "@/lib/types";
 
 export async function POST(request: Request) {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const auth = await requireUser();
+  if (!auth.ok) return auth.response;
+  const { supabase, user } = auth;
 
-  if (!user) {
-    return NextResponse.json({ ok: false, error: "Not signed in." }, { status: 401 });
-  }
-
-  let body: { url?: unknown; intent?: unknown; requiresLogin?: unknown };
-  try {
-    body = (await request.json()) as typeof body;
-  } catch {
-    return NextResponse.json({ ok: false, error: "Invalid request." }, { status: 400 });
-  }
+  const parsed = await parseJsonBody<{
+    url?: unknown;
+    intent?: unknown;
+    requiresLogin?: unknown;
+  }>(request);
+  if (!parsed.ok) return parsed.response;
+  const body = parsed.data;
 
   if (typeof body.url !== "string") {
-    return NextResponse.json({ ok: false, error: "Paste a link first." }, { status: 400 });
+    return apiError("Paste a link first.", 400);
   }
 
   const parsedUrl = parseSourceUrl(body.url);
   if ("error" in parsedUrl) {
-    return NextResponse.json({ ok: false, error: parsedUrl.error }, { status: 400 });
+    return apiError(parsedUrl.error, 400);
   }
 
   const parsedIntent = parseIntent(typeof body.intent === "string" ? body.intent : "");
   if ("error" in parsedIntent) {
-    return NextResponse.json({ ok: false, error: parsedIntent.error }, { status: 400 });
+    return apiError(parsedIntent.error, 400);
   }
 
   // Reddit has no login-gated mode, and a not-yet-implemented platform
@@ -57,16 +53,13 @@ export async function POST(request: Request) {
       .maybeSingle<Pick<Subscription, "status" | "price_id">>();
 
     if (subError) {
-      return NextResponse.json({ ok: false, error: subError.message }, { status: 500 });
+      return apiError(subError.message, 500);
     }
 
     const groupLimit = groupLimitForSubscription(subscription);
 
     if (groupLimit === 0) {
-      return NextResponse.json(
-        { ok: false, error: "Subscribe to a plan first — see the Billing page." },
-        { status: 402 }
-      );
+      return apiError("Subscribe to a plan first — see the Billing page.", 402);
     }
 
     // Checked here rather than in the DB so the message can name the limit.
@@ -76,16 +69,13 @@ export async function POST(request: Request) {
       .eq("user_id", user.id);
 
     if (countError) {
-      return NextResponse.json({ ok: false, error: countError.message }, { status: 500 });
+      return apiError(countError.message, 500);
     }
 
     if ((count ?? 0) >= groupLimit) {
-      return NextResponse.json(
-        {
-          ok: false,
-          error: `Your plan covers ${groupLimit} group${groupLimit === 1 ? "" : "s"}. Upgrade on the Billing page to add more.`,
-        },
-        { status: 400 }
+      return apiError(
+        `Your plan covers ${groupLimit} group${groupLimit === 1 ? "" : "s"}. Upgrade on the Billing page to add more.`,
+        400
       );
     }
   }
@@ -110,12 +100,9 @@ export async function POST(request: Request) {
   if (error) {
     // 23505 = unique_violation on (user_id, url).
     if (error.code === "23505") {
-      return NextResponse.json(
-        { ok: false, error: "You're already watching that one." },
-        { status: 409 }
-      );
+      return apiError("You're already watching that one.", 409);
     }
-    return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
+    return apiError(error.message, 500);
   }
 
   // Needs a pooled cookie assigned before it can scan at all — tell the admin
@@ -150,5 +137,5 @@ export async function POST(request: Request) {
     }
   }
 
-  return NextResponse.json({ ok: true, source: data });
+  return apiOk({ source: data });
 }

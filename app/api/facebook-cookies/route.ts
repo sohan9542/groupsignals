@@ -1,24 +1,14 @@
-import { NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
-import { createServiceClient } from "@/lib/supabase/service";
-import { isAdmin } from "@/lib/admin";
+import { requireAdminUser } from "@/lib/api/auth";
+import { apiError, apiOk, parseJsonBody } from "@/lib/api/http";
 import { encryptCookies, parseCookiePaste } from "@/lib/facebook-cookies";
+import { createServiceClient } from "@/lib/supabase/service";
 
 const MAX_POOL_SIZE = 100;
 
-async function requireAdmin() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  return isAdmin(user?.email) ? user : null;
-}
-
 /** Never returns cookies_ciphertext — the pool listing is a status board, not a place to read secrets back out. */
 export async function GET() {
-  if (!(await requireAdmin())) {
-    return NextResponse.json({ ok: false, error: "Not authorized." }, { status: 403 });
-  }
+  const auth = await requireAdminUser();
+  if (!auth.ok) return auth.response;
 
   const service = createServiceClient();
   const { data, error } = await service
@@ -27,36 +17,32 @@ export async function GET() {
     .order("created_at", { ascending: false });
 
   if (error) {
-    return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
+    return apiError(error.message, 500);
   }
 
-  return NextResponse.json({ ok: true, cookies: data });
+  return apiOk({ cookies: data });
 }
 
 export async function POST(request: Request) {
-  if (!(await requireAdmin())) {
-    return NextResponse.json({ ok: false, error: "Not authorized." }, { status: 403 });
-  }
+  const auth = await requireAdminUser();
+  if (!auth.ok) return auth.response;
 
-  let body: { name?: unknown; cookies?: unknown };
-  try {
-    body = (await request.json()) as typeof body;
-  } catch {
-    return NextResponse.json({ ok: false, error: "Invalid request." }, { status: 400 });
-  }
+  const parsedBody = await parseJsonBody<{ name?: unknown; cookies?: unknown }>(request);
+  if (!parsedBody.ok) return parsedBody.response;
+  const body = parsedBody.data;
 
   const name = typeof body.name === "string" ? body.name.trim() : "";
   if (!name) {
-    return NextResponse.json({ ok: false, error: "Give this cookie a name." }, { status: 400 });
+    return apiError("Give this cookie a name.", 400);
   }
 
   if (typeof body.cookies !== "string") {
-    return NextResponse.json({ ok: false, error: "Paste the cookies first." }, { status: 400 });
+    return apiError("Paste the cookies first.", 400);
   }
 
   const parsed = parseCookiePaste(body.cookies);
   if ("error" in parsed) {
-    return NextResponse.json({ ok: false, error: parsed.error }, { status: 400 });
+    return apiError(parsed.error, 400);
   }
 
   const service = createServiceClient();
@@ -66,10 +52,7 @@ export async function POST(request: Request) {
     .select("id", { count: "exact", head: true });
 
   if ((count ?? 0) >= MAX_POOL_SIZE) {
-    return NextResponse.json(
-      { ok: false, error: `That's the ${MAX_POOL_SIZE}-cookie pool limit.` },
-      { status: 400 }
-    );
+    return apiError(`That's the ${MAX_POOL_SIZE}-cookie pool limit.`, 400);
   }
 
   let ciphertext: string;
@@ -77,7 +60,7 @@ export async function POST(request: Request) {
     ciphertext = encryptCookies(parsed.cookies);
   } catch (cause) {
     const detail = cause instanceof Error ? cause.message : "Encryption failed.";
-    return NextResponse.json({ ok: false, error: detail }, { status: 503 });
+    return apiError(detail, 503);
   }
 
   const { data, error } = await service
@@ -87,8 +70,8 @@ export async function POST(request: Request) {
     .single();
 
   if (error) {
-    return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
+    return apiError(error.message, 500);
   }
 
-  return NextResponse.json({ ok: true, cookie: data });
+  return apiOk({ cookie: data });
 }

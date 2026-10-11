@@ -1,19 +1,10 @@
-import { NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
-import { createServiceClient } from "@/lib/supabase/service";
-import { isAdmin } from "@/lib/admin";
+import { requireAdminUser } from "@/lib/api/auth";
+import { apiError, apiOk, parseJsonBody } from "@/lib/api/http";
 import { resolveWebhookUrl, startScanForSource } from "@/lib/scan";
+import { createServiceClient } from "@/lib/supabase/service";
 import type { WatchSource } from "@/lib/types";
 
 type Params = { params: Promise<{ sourceId: string }> };
-
-async function requireAdmin() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  return isAdmin(user?.email) ? user : null;
-}
 
 /**
  * Promotes an already-assigned backup to active (and demotes whatever was
@@ -21,25 +12,17 @@ async function requireAdmin() {
  * account stops working, without re-picking the whole assigned set.
  */
 export async function PATCH(request: Request, { params }: Params) {
-  if (!(await requireAdmin())) {
-    return NextResponse.json({ ok: false, error: "Not authorized." }, { status: 403 });
-  }
+  const auth = await requireAdminUser();
+  if (!auth.ok) return auth.response;
 
   const { sourceId } = await params;
 
-  let body: { cookieId?: unknown };
-  try {
-    body = (await request.json()) as typeof body;
-  } catch {
-    return NextResponse.json({ ok: false, error: "Invalid request." }, { status: 400 });
-  }
+  const parsed = await parseJsonBody<{ cookieId?: unknown }>(request);
+  if (!parsed.ok) return parsed.response;
 
-  const cookieId = typeof body.cookieId === "string" ? body.cookieId : "";
+  const cookieId = typeof parsed.data.cookieId === "string" ? parsed.data.cookieId : "";
   if (!cookieId) {
-    return NextResponse.json(
-      { ok: false, error: "Pick an account to make active." },
-      { status: 400 }
-    );
+    return apiError("Pick an account to make active.", 400);
   }
 
   const service = createServiceClient();
@@ -52,10 +35,7 @@ export async function PATCH(request: Request, { params }: Params) {
     .maybeSingle<{ id: string }>();
 
   if (!target) {
-    return NextResponse.json(
-      { ok: false, error: "That account isn't assigned to this group." },
-      { status: 400 }
-    );
+    return apiError("That account isn't assigned to this group.", 400);
   }
 
   // Demote the current active first — the one-active-per-source unique index
@@ -67,7 +47,7 @@ export async function PATCH(request: Request, { params }: Params) {
     .eq("source_id", sourceId)
     .eq("role", "active");
   if (demoteError) {
-    return NextResponse.json({ ok: false, error: demoteError.message }, { status: 500 });
+    return apiError(demoteError.message, 500);
   }
 
   const { error: promoteError } = await service
@@ -75,7 +55,7 @@ export async function PATCH(request: Request, { params }: Params) {
     .update({ role: "active" })
     .eq("id", target.id);
   if (promoteError) {
-    return NextResponse.json({ ok: false, error: promoteError.message }, { status: 500 });
+    return apiError(promoteError.message, 500);
   }
 
   const { data: source } = await service
@@ -96,5 +76,5 @@ export async function PATCH(request: Request, { params }: Params) {
     }
   }
 
-  return NextResponse.json({ ok: true });
+  return apiOk();
 }

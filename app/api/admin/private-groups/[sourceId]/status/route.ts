@@ -1,19 +1,10 @@
-import { NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
-import { createServiceClient } from "@/lib/supabase/service";
-import { isAdmin } from "@/lib/admin";
+import { requireAdminUser } from "@/lib/api/auth";
+import { apiError, apiOk, parseJsonBody } from "@/lib/api/http";
 import { resolveWebhookUrl, startScanForSource } from "@/lib/scan";
+import { createServiceClient } from "@/lib/supabase/service";
 import type { WatchSource } from "@/lib/types";
 
 type Params = { params: Promise<{ sourceId: string }> };
-
-async function requireAdmin() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  return isAdmin(user?.email) ? user : null;
-}
 
 /**
  * The explicit approval action — separate from assigning accounts on
@@ -21,24 +12,17 @@ async function requireAdmin() {
  * actually live is a decision an admin makes on its own, not a side effect.
  */
 export async function PATCH(request: Request, { params }: Params) {
-  if (!(await requireAdmin())) {
-    return NextResponse.json({ ok: false, error: "Not authorized." }, { status: 403 });
-  }
+  const auth = await requireAdminUser();
+  if (!auth.ok) return auth.response;
 
   const { sourceId } = await params;
 
-  let body: { status?: unknown };
-  try {
-    body = (await request.json()) as typeof body;
-  } catch {
-    return NextResponse.json({ ok: false, error: "Invalid request." }, { status: 400 });
-  }
+  const parsed = await parseJsonBody<{ status?: unknown }>(request);
+  if (!parsed.ok) return parsed.response;
+  const body = parsed.data;
 
   if (body.status !== "active" && body.status !== "paused") {
-    return NextResponse.json(
-      { ok: false, error: "Status must be 'active' or 'paused'." },
-      { status: 400 }
-    );
+    return apiError("Status must be 'active' or 'paused'.", 400);
   }
 
   const service = createServiceClient();
@@ -51,10 +35,10 @@ export async function PATCH(request: Request, { params }: Params) {
     .maybeSingle<WatchSource>();
 
   if (sourceError) {
-    return NextResponse.json({ ok: false, error: sourceError.message }, { status: 500 });
+    return apiError(sourceError.message, 500);
   }
   if (!source) {
-    return NextResponse.json({ ok: false, error: "No such private group." }, { status: 404 });
+    return apiError("No such private group.", 404);
   }
 
   if (body.status === "active") {
@@ -65,10 +49,7 @@ export async function PATCH(request: Request, { params }: Params) {
       .eq("role", "active");
 
     if (!count) {
-      return NextResponse.json(
-        { ok: false, error: "Assign an active account before approving this group." },
-        { status: 400 }
-      );
+      return apiError("Assign an active account before approving this group.", 400);
     }
   }
 
@@ -78,7 +59,7 @@ export async function PATCH(request: Request, { params }: Params) {
     .eq("id", sourceId);
 
   if (updateError) {
-    return NextResponse.json({ ok: false, error: updateError.message }, { status: 500 });
+    return apiError(updateError.message, 500);
   }
 
   // Approval is the moment a group is meant to start actually scanning.
@@ -96,5 +77,5 @@ export async function PATCH(request: Request, { params }: Params) {
     }
   }
 
-  return NextResponse.json({ ok: true });
+  return apiOk();
 }

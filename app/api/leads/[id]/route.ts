@@ -1,5 +1,5 @@
-import { NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
+import { apiError, apiOk, parseJsonBody } from "@/lib/api/http";
+import { requireUser } from "@/lib/api/auth";
 import type { LeadStatus } from "@/lib/types";
 
 const ALLOWED: LeadStatus[] = ["new", "saved", "replied", "dismissed"];
@@ -7,26 +7,18 @@ const ALLOWED: LeadStatus[] = ["new", "saved", "replied", "dismissed"];
 type Params = { params: Promise<{ id: string }> };
 
 export async function PATCH(request: Request, { params }: Params) {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    return NextResponse.json({ ok: false, error: "Not signed in." }, { status: 401 });
-  }
+  const auth = await requireUser();
+  if (!auth.ok) return auth.response;
+  const { supabase, user } = auth;
 
   const { id } = await params;
 
-  let body: { status?: unknown };
-  try {
-    body = (await request.json()) as typeof body;
-  } catch {
-    return NextResponse.json({ ok: false, error: "Invalid request." }, { status: 400 });
-  }
+  const parsed = await parseJsonBody<{ status?: unknown }>(request);
+  if (!parsed.ok) return parsed.response;
+  const body = parsed.data;
 
   if (!ALLOWED.includes(body.status as LeadStatus)) {
-    return NextResponse.json({ ok: false, error: "Unknown status." }, { status: 400 });
+    return apiError("Unknown status.", 400);
   }
 
   const { error } = await supabase
@@ -36,8 +28,8 @@ export async function PATCH(request: Request, { params }: Params) {
     .eq("user_id", user.id);
 
   if (error) {
-    return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
+    return apiError(error.message, 500);
   }
 
-  return NextResponse.json({ ok: true });
+  return apiOk();
 }

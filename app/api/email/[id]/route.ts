@@ -1,26 +1,18 @@
-import { NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
+import { apiError, apiOk, parseJsonBody } from "@/lib/api/http";
+import { requireUser } from "@/lib/api/auth";
 
 type Params = { params: Promise<{ id: string }> };
 
 export async function PATCH(request: Request, { params }: Params) {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    return NextResponse.json({ ok: false, error: "Not signed in." }, { status: 401 });
-  }
+  const auth = await requireUser();
+  if (!auth.ok) return auth.response;
+  const { supabase, user } = auth;
 
   const { id } = await params;
 
-  let body: { digest?: unknown; makePrimary?: unknown };
-  try {
-    body = (await request.json()) as typeof body;
-  } catch {
-    return NextResponse.json({ ok: false, error: "Invalid request." }, { status: 400 });
-  }
+  const parsed = await parseJsonBody<{ digest?: unknown; makePrimary?: unknown }>(request);
+  if (!parsed.ok) return parsed.response;
+  const body = parsed.data;
 
   if (body.digest === "instant" || body.digest === "daily") {
     const { error } = await supabase
@@ -30,7 +22,7 @@ export async function PATCH(request: Request, { params }: Params) {
       .eq("user_id", user.id);
 
     if (error) {
-      return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
+      return apiError(error.message, 500);
     }
   }
 
@@ -43,7 +35,7 @@ export async function PATCH(request: Request, { params }: Params) {
       .eq("user_id", user.id);
 
     if (clearError) {
-      return NextResponse.json({ ok: false, error: clearError.message }, { status: 500 });
+      return apiError(clearError.message, 500);
     }
 
     const { error } = await supabase
@@ -54,22 +46,17 @@ export async function PATCH(request: Request, { params }: Params) {
       .eq("status", "verified");
 
     if (error) {
-      return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
+      return apiError(error.message, 500);
     }
   }
 
-  return NextResponse.json({ ok: true });
+  return apiOk();
 }
 
 export async function DELETE(_request: Request, { params }: Params) {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    return NextResponse.json({ ok: false, error: "Not signed in." }, { status: 401 });
-  }
+  const auth = await requireUser();
+  if (!auth.ok) return auth.response;
+  const { supabase, user } = auth;
 
   const { id } = await params;
 
@@ -83,8 +70,8 @@ export async function DELETE(_request: Request, { params }: Params) {
     .eq("is_primary", false);
 
   if (error) {
-    return NextResponse.json({ ok: false, error: error.message }, { status: 500 });
+    return apiError(error.message, 500);
   }
 
-  return NextResponse.json({ ok: true });
+  return apiOk();
 }

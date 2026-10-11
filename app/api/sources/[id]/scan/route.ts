@@ -1,19 +1,14 @@
-import { NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
+import { apiError, apiOk } from "@/lib/api/http";
+import { requireUser } from "@/lib/api/auth";
 import { resolveWebhookUrl, startScanForSource } from "@/lib/scan";
 import type { WatchSource } from "@/lib/types";
 
 type Params = { params: Promise<{ id: string }> };
 
 export async function POST(request: Request, { params }: Params) {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (!user) {
-    return NextResponse.json({ ok: false, error: "Not signed in." }, { status: 401 });
-  }
+  const auth = await requireUser();
+  if (!auth.ok) return auth.response;
+  const { supabase, user } = auth;
 
   const { id } = await params;
 
@@ -25,27 +20,24 @@ export async function POST(request: Request, { params }: Params) {
     .single<WatchSource>();
 
   if (error || !source) {
-    return NextResponse.json({ ok: false, error: "Source not found." }, { status: 404 });
+    return apiError("Source not found.", 404);
   }
 
   const secret = process.env.APIFY_WEBHOOK_SECRET;
   if (!process.env.APIFY_TOKEN || !secret) {
-    return NextResponse.json(
-      { ok: false, error: "Scraping isn't configured on this environment yet." },
-      { status: 503 }
-    );
+    return apiError("Scraping isn't configured on this environment yet.", 503);
   }
 
   const webhook = resolveWebhookUrl(request.url);
   if (!webhook.ok) {
-    return NextResponse.json({ ok: false, error: webhook.error }, { status: 503 });
+    return apiError(webhook.error, 503);
   }
 
   const outcome = await startScanForSource(source, webhook.url, secret);
 
   if (!outcome.ok) {
-    return NextResponse.json({ ok: false, error: outcome.error }, { status: outcome.status });
+    return apiError(outcome.error, outcome.status);
   }
 
-  return NextResponse.json({ ok: true, runId: outcome.runId });
+  return apiOk({ runId: outcome.runId });
 }

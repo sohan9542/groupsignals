@@ -1,21 +1,12 @@
-import { NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase/server";
-import { createServiceClient } from "@/lib/supabase/service";
-import { isAdmin } from "@/lib/admin";
+import { requireAdminUser } from "@/lib/api/auth";
+import { apiError, apiOk, parseJsonBody } from "@/lib/api/http";
 import { resolveWebhookUrl, startScanForSource } from "@/lib/scan";
+import { createServiceClient } from "@/lib/supabase/service";
 import type { WatchSource } from "@/lib/types";
 
 const MAX_ASSIGNED = 4;
 
 type Params = { params: Promise<{ sourceId: string }> };
-
-async function requireAdmin() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  return isAdmin(user?.email) ? user : null;
-}
 
 /**
  * Replaces the full set of accounts assigned to a private group — 1 to 4
@@ -25,18 +16,14 @@ async function requireAdmin() {
  * PATCH instead, so a routine failover doesn't require re-picking the set.
  */
 export async function PUT(request: Request, { params }: Params) {
-  if (!(await requireAdmin())) {
-    return NextResponse.json({ ok: false, error: "Not authorized." }, { status: 403 });
-  }
+  const auth = await requireAdminUser();
+  if (!auth.ok) return auth.response;
 
   const { sourceId } = await params;
 
-  let body: { cookieIds?: unknown; activeCookieId?: unknown };
-  try {
-    body = (await request.json()) as typeof body;
-  } catch {
-    return NextResponse.json({ ok: false, error: "Invalid request." }, { status: 400 });
-  }
+  const parsed = await parseJsonBody<{ cookieIds?: unknown; activeCookieId?: unknown }>(request);
+  if (!parsed.ok) return parsed.response;
+  const body = parsed.data;
 
   const cookieIds = Array.isArray(body.cookieIds)
     ? body.cookieIds.filter((id): id is string => typeof id === "string")
@@ -45,19 +32,13 @@ export async function PUT(request: Request, { params }: Params) {
   const activeCookieId = typeof body.activeCookieId === "string" ? body.activeCookieId : "";
 
   if (uniqueCookieIds.length === 0) {
-    return NextResponse.json({ ok: false, error: "Assign at least one account." }, { status: 400 });
+    return apiError("Assign at least one account.", 400);
   }
   if (uniqueCookieIds.length > MAX_ASSIGNED) {
-    return NextResponse.json(
-      { ok: false, error: `At most ${MAX_ASSIGNED} accounts per group.` },
-      { status: 400 }
-    );
+    return apiError(`At most ${MAX_ASSIGNED} accounts per group.`, 400);
   }
   if (!activeCookieId || !uniqueCookieIds.includes(activeCookieId)) {
-    return NextResponse.json(
-      { ok: false, error: "Pick which assigned account is active." },
-      { status: 400 }
-    );
+    return apiError("Pick which assigned account is active.", 400);
   }
 
   const service = createServiceClient();
@@ -70,10 +51,10 @@ export async function PUT(request: Request, { params }: Params) {
     .maybeSingle<WatchSource>();
 
   if (sourceError) {
-    return NextResponse.json({ ok: false, error: sourceError.message }, { status: 500 });
+    return apiError(sourceError.message, 500);
   }
   if (!source) {
-    return NextResponse.json({ ok: false, error: "No such private group." }, { status: 404 });
+    return apiError("No such private group.", 404);
   }
 
   const { count: cookieCount } = await service
@@ -82,10 +63,7 @@ export async function PUT(request: Request, { params }: Params) {
     .in("id", uniqueCookieIds);
 
   if ((cookieCount ?? 0) !== uniqueCookieIds.length) {
-    return NextResponse.json(
-      { ok: false, error: "One of those accounts no longer exists in the pool." },
-      { status: 400 }
-    );
+    return apiError("One of those accounts no longer exists in the pool.", 400);
   }
 
   // Replace the whole set: this is an infrequent, admin-only, single-row
@@ -98,7 +76,7 @@ export async function PUT(request: Request, { params }: Params) {
     .delete()
     .eq("source_id", sourceId);
   if (deleteError) {
-    return NextResponse.json({ ok: false, error: deleteError.message }, { status: 500 });
+    return apiError(deleteError.message, 500);
   }
 
   const { error: insertError } = await service.from("group_account_assignments").insert(
@@ -109,7 +87,7 @@ export async function PUT(request: Request, { params }: Params) {
     }))
   );
   if (insertError) {
-    return NextResponse.json({ ok: false, error: insertError.message }, { status: 500 });
+    return apiError(insertError.message, 500);
   }
 
   // Assigning an account makes the group scannable — it does not approve it.
@@ -131,5 +109,5 @@ export async function PUT(request: Request, { params }: Params) {
     }
   }
 
-  return NextResponse.json({ ok: true });
+  return apiOk();
 }
