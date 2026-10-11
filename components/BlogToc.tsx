@@ -32,9 +32,7 @@ export function BlogToc({ toc }: { toc: TocEntry[] }) {
 
   return (
     <div className="sticky top-28">
-      <p className="text-xs font-semibold uppercase tracking-[0.12em] text-ash-dim">
-        On this page
-      </p>
+      <p className="text-xs font-semibold uppercase tracking-[0.12em] text-ash-dim">On this page</p>
       <ul className="mt-3 space-y-0.5 text-sm">
         {toc.map((entry) => (
           <li key={entry.id}>

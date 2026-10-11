@@ -91,10 +91,7 @@ export function LeadList({
       ) : (
         <ul className="mt-6 space-y-3">
           {leads.map((lead) => (
-            <li
-              key={lead.id}
-              className="rounded-2xl border border-fg/8 bg-surface/50 p-5"
-            >
+            <li key={lead.id} className="rounded-2xl border border-fg/8 bg-surface/50 p-5">
               <div className="flex items-start justify-between gap-4">
                 <div className="flex min-w-0 items-center gap-2.5">
                   <PlatformIcon platform={lead.platform} />

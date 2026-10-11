@@ -64,7 +64,11 @@ export async function POST(request: Request) {
 
   const supabase = createServiceClient();
 
-  if (looksUnsubstituted(status) || looksUnsubstituted(eventType) || looksUnsubstituted(datasetId)) {
+  if (
+    looksUnsubstituted(status) ||
+    looksUnsubstituted(eventType) ||
+    looksUnsubstituted(datasetId)
+  ) {
     // Apify's payloadTemplate didn't get filled in -- every run would look
     // like a failure forever without ever actually failing. This needs a
     // human, not a retry.

@@ -52,10 +52,7 @@ export function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-    <section
-      id="faq"
-      className="relative border-t border-fg/8 bg-ink-soft/50 py-20 sm:py-28"
-    >
+    <section id="faq" className="relative border-t border-fg/8 bg-ink-soft/50 py-20 sm:py-28">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(FAQ_JSON_LD) }}
@@ -76,9 +73,7 @@ export function FAQ() {
                     aria-controls={`faq-panel-${i}`}
                     className="flex w-full items-center justify-between gap-4 px-4 py-5 text-left transition-colors hover:bg-fg/[0.03] sm:gap-5 sm:px-6"
                   >
-                    <span className="text-[15px] font-medium text-fg">
-                      {faq.q}
-                    </span>
+                    <span className="text-[15px] font-medium text-fg">{faq.q}</span>
                     <span
                       className={`flex size-7 shrink-0 items-center justify-center rounded-lg border border-fg/10 text-signal-bright transition-transform duration-300 ${
                         isOpen ? "rotate-45 bg-signal/15" : "bg-fg/5"

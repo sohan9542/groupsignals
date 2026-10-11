@@ -21,7 +21,8 @@ export function CookieFormModal({
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
 
-  const canSave = (mode === "replace" || name.trim().length > 0) && cookies.trim().length > 0 && !saving;
+  const canSave =
+    (mode === "replace" || name.trim().length > 0) && cookies.trim().length > 0 && !saving;
 
   async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();

@@ -29,10 +29,7 @@ export function Footer() {
             </p>
           </div>
 
-          <nav
-            className="flex flex-wrap gap-x-6 gap-y-3 sm:gap-x-8"
-            aria-label="Footer navigation"
-          >
+          <nav className="flex flex-wrap gap-x-6 gap-y-3 sm:gap-x-8" aria-label="Footer navigation">
             {FOOTER_LINKS.map((link) => (
               <a
                 key={link.href}
@@ -47,8 +44,8 @@ export function Footer() {
 
         <div className="mt-10 flex flex-col gap-4 border-t border-fg/8 pt-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-xs text-ash-dim">
-            © {new Date().getFullYear()} GroupSignal. All rights reserved. Not
-            affiliated with or endorsed by Meta Platforms, Inc.
+            © {new Date().getFullYear()} GroupSignal. All rights reserved. Not affiliated with or
+            endorsed by Meta Platforms, Inc.
           </p>
           <div className="flex gap-6">
             {LEGAL_LINKS.map((link) => (

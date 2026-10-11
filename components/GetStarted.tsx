@@ -43,17 +43,13 @@ export function GetStarted() {
                   </span>
                 )}
                 <div className="rounded-[1.35rem] bg-ink/70 p-6 sm:p-7">
-                  <h3 className="text-lg font-semibold tracking-tight text-fg">
-                    {plan.name}
-                  </h3>
+                  <h3 className="text-lg font-semibold tracking-tight text-fg">{plan.name}</h3>
                   <p className="mt-1 text-sm text-ash-dim">
                     {plan.groupLimit} channel{plan.groupLimit === 1 ? "" : "s"} monitored
                   </p>
 
                   <div className="mt-4 flex items-end gap-1.5">
-                    <span className="text-4xl font-bold tracking-tight text-fg">
-                      {plan.price}
-                    </span>
+                    <span className="text-4xl font-bold tracking-tight text-fg">{plan.price}</span>
                     <span className="pb-1 text-sm text-ash">/ month</span>
                   </div>
 
@@ -61,15 +57,14 @@ export function GetStarted() {
                     <li className="flex gap-2.5">
                       <Check className="mt-0.5 size-4 shrink-0 text-signal" strokeWidth={2.5} />
                       <span className="text-sm leading-relaxed text-fg/90">
-                        Up to {plan.groupLimit} group{plan.groupLimit === 1 ? "" : "s"} monitored for you
+                        Up to {plan.groupLimit} group{plan.groupLimit === 1 ? "" : "s"} monitored
+                        for you
                       </span>
                     </li>
                     {INCLUDED.map((item) => (
                       <li key={item} className="flex gap-2.5">
                         <Check className="mt-0.5 size-4 shrink-0 text-signal" strokeWidth={2.5} />
-                        <span className="text-sm leading-relaxed text-fg/90">
-                          {item}
-                        </span>
+                        <span className="text-sm leading-relaxed text-fg/90">{item}</span>
                       </li>
                     ))}
                   </ul>

@@ -23,7 +23,7 @@ const REVIEWS: Review[] = [
   },
   {
     quote:
-      "Panel upgrades and \"who do you use for electrical\" posts show up a lot in our neighborhood groups. GroupSignal catches the ones that actually need work done, so I'm not wasting time on people just venting about their bill.",
+      'Panel upgrades and "who do you use for electrical" posts show up a lot in our neighborhood groups. GroupSignal catches the ones that actually need work done, so I\'m not wasting time on people just venting about their bill.',
     name: "Luis M.",
     detail: "Brightline Electric — Austin",
   },

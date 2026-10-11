@@ -18,10 +18,7 @@ export function BeforeAfter() {
   return (
     <section className="relative py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
-        <SectionHeading
-          eyebrow="Why now"
-          title="Miss the Post, Miss the Job."
-        />
+        <SectionHeading eyebrow="Why now" title="Miss the Post, Miss the Job." />
 
         <div className="mt-14 grid gap-5 lg:grid-cols-2">
           <Reveal
@@ -32,13 +29,8 @@ export function BeforeAfter() {
             <ul className="mt-6 space-y-4">
               {TODAY.map((item) => (
                 <li key={item} className="flex gap-3">
-                  <X
-                    className="mt-0.5 size-4.5 shrink-0 text-red-400/80"
-                    strokeWidth={2.5}
-                  />
-                  <span className="text-sm leading-relaxed text-ash">
-                    {item}
-                  </span>
+                  <X className="mt-0.5 size-4.5 shrink-0 text-red-400/80" strokeWidth={2.5} />
+                  <span className="text-sm leading-relaxed text-ash">{item}</span>
                 </li>
               ))}
             </ul>
@@ -52,19 +44,12 @@ export function BeforeAfter() {
               aria-hidden
               className="pointer-events-none absolute -right-16 -top-16 size-48 rounded-full bg-signal/10 blur-3xl"
             />
-            <h3 className="relative text-lg font-semibold text-fg">
-              With GroupSignal
-            </h3>
+            <h3 className="relative text-lg font-semibold text-fg">With GroupSignal</h3>
             <ul className="relative mt-6 space-y-4">
               {WITH_US.map((item) => (
                 <li key={item} className="flex gap-3">
-                  <Check
-                    className="mt-0.5 size-4.5 shrink-0 text-signal"
-                    strokeWidth={2.5}
-                  />
-                  <span className="text-sm leading-relaxed text-fg/90">
-                    {item}
-                  </span>
+                  <Check className="mt-0.5 size-4.5 shrink-0 text-signal" strokeWidth={2.5} />
+                  <span className="text-sm leading-relaxed text-fg/90">{item}</span>
                 </li>
               ))}
             </ul>

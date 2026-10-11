@@ -51,11 +51,7 @@ function formatDate(iso: string): string {
   });
 }
 
-export default async function BlogPostPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const post = getBlogPost((await params).slug);
   if (!post) notFound();
 
@@ -134,9 +130,7 @@ export default async function BlogPostPage({
                 <Clock className="size-4 shrink-0" strokeWidth={2} />
                 {post.readMinutes} min read
               </span>
-              {post.updatedAt && (
-                <span>Updated {formatDate(post.updatedAt)}</span>
-              )}
+              {post.updatedAt && <span>Updated {formatDate(post.updatedAt)}</span>}
             </div>
           </div>
 
@@ -171,18 +165,14 @@ export default async function BlogPostPage({
               </div>
 
               <div id="faq" className="mt-4 scroll-mt-28">
-                <h2 className="text-2xl font-bold tracking-tight text-fg sm:text-3xl">
-                  FAQ
-                </h2>
+                <h2 className="text-2xl font-bold tracking-tight text-fg sm:text-3xl">FAQ</h2>
                 <div className="mt-5 divide-y divide-fg/8 overflow-hidden rounded-2xl border border-fg/8">
                   {post.faqs.map((faq) => (
                     <details key={faq.q} className="group p-4 sm:p-5">
                       <summary className="cursor-pointer list-none text-[15px] font-medium text-fg marker:content-none">
                         {faq.q}
                       </summary>
-                      <p className="mt-2.5 text-sm leading-relaxed text-ash">
-                        {faq.a}
-                      </p>
+                      <p className="mt-2.5 text-sm leading-relaxed text-ash">{faq.a}</p>
                     </details>
                   ))}
                 </div>

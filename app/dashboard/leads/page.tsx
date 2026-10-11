@@ -32,10 +32,7 @@ export default async function LeadsPage({
 
   const [{ data: leads }, { data: sources }] = await Promise.all([
     query.returns<Lead[]>(),
-    supabase
-      .from("watch_sources")
-      .select("id, name")
-      .returns<Pick<WatchSource, "id" | "name">[]>(),
+    supabase.from("watch_sources").select("id, name").returns<Pick<WatchSource, "id" | "name">[]>(),
   ]);
 
   return (

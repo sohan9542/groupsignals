@@ -2,8 +2,21 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import { AlertTriangle, Check, CheckCircle2, ExternalLink, Loader2, Pause, Settings2, Star } from "lucide-react";
-import type { CookieStatus, FacebookCookiePoolEntry, PrivateGroupWithAssignments } from "@/lib/types";
+import {
+  AlertTriangle,
+  Check,
+  CheckCircle2,
+  ExternalLink,
+  Loader2,
+  Pause,
+  Settings2,
+  Star,
+} from "lucide-react";
+import type {
+  CookieStatus,
+  FacebookCookiePoolEntry,
+  PrivateGroupWithAssignments,
+} from "@/lib/types";
 import { AssignAccountsModal } from "./AssignAccountsModal";
 import { PlatformIcon } from "./PlatformIcon";
 import { StatusPill } from "./StatusPill";
@@ -67,7 +80,10 @@ export function PrivateGroupAssignments({
     }
   }
 
-  async function saveAssignments(sourceId: string, data: { cookieIds: string[]; activeCookieId: string }) {
+  async function saveAssignments(
+    sourceId: string,
+    data: { cookieIds: string[]; activeCookieId: string }
+  ) {
     const response = await fetch(`/api/admin/private-groups/${sourceId}/assignments`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -128,7 +144,11 @@ export function PrivateGroupAssignments({
                         Accounts
                       </span>
                       {active ? (
-                        <AccountPill label={active.cookie.name} status={active.cookie.status} active />
+                        <AccountPill
+                          label={active.cookie.name}
+                          status={active.cookie.status}
+                          active
+                        />
                       ) : (
                         <span className="rounded-md bg-red-500/12 px-2 py-0.5 text-[11px] font-medium text-red-300">
                           No active account
@@ -144,7 +164,11 @@ export function PrivateGroupAssignments({
                             title="Make active"
                             className="rounded-md p-1 text-ash-dim transition-colors hover:bg-fg/8 hover:text-fg disabled:cursor-not-allowed disabled:opacity-30"
                           >
-                            {busy ? <Loader2 className="size-3 animate-spin" /> : <Star className="size-3" />}
+                            {busy ? (
+                              <Loader2 className="size-3 animate-spin" />
+                            ) : (
+                              <Star className="size-3" />
+                            )}
                           </button>
                         </div>
                       ))}
@@ -172,7 +196,11 @@ export function PrivateGroupAssignments({
                       disabled={busy}
                       className="inline-flex items-center gap-2 rounded-xl border border-fg/10 px-3 py-2 text-xs font-medium text-ash transition-colors hover:border-red-500/30 hover:bg-red-500/10 hover:text-red-300 disabled:cursor-not-allowed disabled:opacity-50"
                     >
-                      {busy ? <Loader2 className="size-3.5 animate-spin" /> : <Pause className="size-3.5" />}
+                      {busy ? (
+                        <Loader2 className="size-3.5 animate-spin" />
+                      ) : (
+                        <Pause className="size-3.5" />
+                      )}
                       Pause
                     </button>
                   ) : (
@@ -180,10 +208,16 @@ export function PrivateGroupAssignments({
                       type="button"
                       onClick={() => setStatus(group.id, "active")}
                       disabled={busy || !active}
-                      title={active ? "Approve — this group goes live" : "Assign an active account first"}
+                      title={
+                        active ? "Approve — this group goes live" : "Assign an active account first"
+                      }
                       className="inline-flex items-center gap-2 rounded-xl bg-signal px-3 py-2 text-xs font-semibold text-on-signal transition hover:bg-signal-bright disabled:cursor-not-allowed disabled:opacity-40"
                     >
-                      {busy ? <Loader2 className="size-3.5 animate-spin" /> : <Check className="size-3.5" />}
+                      {busy ? (
+                        <Loader2 className="size-3.5 animate-spin" />
+                      ) : (
+                        <Check className="size-3.5" />
+                      )}
                       Approve
                     </button>
                   )}
@@ -215,7 +249,15 @@ export function PrivateGroupAssignments({
   );
 }
 
-function AccountPill({ label, status, active }: { label: string; status: CookieStatus; active?: boolean }) {
+function AccountPill({
+  label,
+  status,
+  active,
+}: {
+  label: string;
+  status: CookieStatus;
+  active?: boolean;
+}) {
   const tone =
     status !== "active"
       ? "bg-red-500/12 text-red-300"
@@ -224,7 +266,9 @@ function AccountPill({ label, status, active }: { label: string; status: CookieS
         : "bg-fg/8 text-ash";
 
   return (
-    <span className={`flex items-center gap-1 rounded-md px-2 py-0.5 text-[11px] font-medium ${tone}`}>
+    <span
+      className={`flex items-center gap-1 rounded-md px-2 py-0.5 text-[11px] font-medium ${tone}`}
+    >
       {active && <CheckCircle2 className="size-3" />}
       {label}
     </span>

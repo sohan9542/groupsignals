@@ -154,7 +154,11 @@ export function CookiePool({ cookies }: { cookies: FacebookCookiePoolEntry[] }) 
                 </div>
 
                 <div className="flex shrink-0 items-center gap-1.5">
-                  <IconButton label="Replace cookies" busy={busyId === cookie.id} onClick={() => setReplacing(cookie)}>
+                  <IconButton
+                    label="Replace cookies"
+                    busy={busyId === cookie.id}
+                    onClick={() => setReplacing(cookie)}
+                  >
                     <RefreshCcw className="size-4" />
                   </IconButton>
                   {cookie.status === "disabled" ? (
@@ -191,7 +195,9 @@ export function CookiePool({ cookies }: { cookies: FacebookCookiePoolEntry[] }) 
         </ul>
       )}
 
-      {showAdd && <CookieFormModal mode="add" onClose={() => setShowAdd(false)} onSubmit={addCookie} />}
+      {showAdd && (
+        <CookieFormModal mode="add" onClose={() => setShowAdd(false)} onSubmit={addCookie} />
+      )}
       {replacing && (
         <CookieFormModal
           mode="replace"
@@ -241,7 +247,9 @@ function StatusPill({ status }: { status: CookieStatus }) {
   const Icon = icons[status];
 
   return (
-    <span className={`flex items-center gap-1 rounded-md px-2 py-0.5 text-[11px] font-medium ${styles[status]}`}>
+    <span
+      className={`flex items-center gap-1 rounded-md px-2 py-0.5 text-[11px] font-medium ${styles[status]}`}
+    >
       <Icon className="size-3" />
       {status}
     </span>

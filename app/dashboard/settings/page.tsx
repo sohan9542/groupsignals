@@ -41,9 +41,7 @@ export default async function SettingsPage() {
     <div className="space-y-8">
       <div>
         <h1 className="text-2xl font-semibold tracking-tight">Settings</h1>
-        <p className="mt-1.5 text-sm text-ash">
-          Admin only — nobody else sees this page.
-        </p>
+        <p className="mt-1.5 text-sm text-ash">Admin only — nobody else sees this page.</p>
       </div>
 
       <ScanScheduleToggle enabled={cronEnabled} schedule={schedule} />

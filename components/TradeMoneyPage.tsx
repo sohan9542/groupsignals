@@ -2,23 +2,12 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import {
-  ArrowRight,
-  Check,
-  Facebook,
-  Plus,
-  Users,
-  X,
-} from "lucide-react";
+import { ArrowRight, Check, Facebook, Plus, Users, X } from "lucide-react";
 import Link from "next/link";
 import { GetStarted } from "@/components/GetStarted";
 import { Reveal } from "@/components/Reveal";
 import { SectionHeading } from "@/components/SectionHeading";
-import type {
-  SeoArticleSection,
-  SeoFaq,
-  SeoPageData,
-} from "@/lib/seo-page-types";
+import type { SeoArticleSection, SeoFaq, SeoPageData } from "@/lib/seo-page-types";
 
 export function TradeMoneyPage({ data }: { data: SeoPageData }) {
   return (
@@ -52,10 +41,7 @@ function TradeHero({ data }: { data: SeoPageData }) {
   });
 
   return (
-    <section
-      id="top"
-      className="relative overflow-hidden pt-32 pb-16 sm:pt-40 sm:pb-20"
-    >
+    <section id="top" className="relative overflow-hidden pt-32 pb-16 sm:pt-40 sm:pb-20">
       <div aria-hidden className="pointer-events-none absolute inset-0 signal-glow" />
       <div
         aria-hidden
@@ -101,18 +87,13 @@ function TradeHero({ data }: { data: SeoPageData }) {
                 See pricing
               </a>
             </motion.div>
-            <motion.p
-              {...rise(0.3)}
-              className="mt-4 text-sm text-ash-dim"
-            >
+            <motion.p {...rise(0.3)} className="mt-4 text-sm text-ash-dim">
               {data.hero.ctaNote}
             </motion.p>
           </div>
 
           <motion.div
-            initial={
-              reduceMotion ? { opacity: 1 } : { opacity: 0, y: 32, scale: 0.97 }
-            }
+            initial={reduceMotion ? { opacity: 1 } : { opacity: 0, y: 32, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{
               duration: 0.8,
@@ -137,10 +118,7 @@ function LeadProofCard({
 }) {
   return (
     <div className="relative mx-auto w-full max-w-lg">
-      <div
-        aria-hidden
-        className="absolute -inset-6 rounded-[2rem] bg-signal/12 blur-3xl"
-      />
+      <div aria-hidden className="absolute -inset-6 rounded-[2rem] bg-signal/12 blur-3xl" />
       <div className="relative rounded-2xl border border-fg/10 bg-surface/80 p-1.5 shadow-2xl shadow-black/10 animate-float">
         <div className="rounded-[0.85rem] bg-ink-soft p-5 sm:p-6">
           <div className="flex items-start justify-between gap-4">
@@ -188,13 +166,9 @@ function ProofStrip({ proof }: { proof: SeoPageData["proof"] }) {
                 <Users className="size-4" />
               </span>
               <div className="min-w-0">
-                <p className="truncate text-sm font-semibold text-fg">
-                  {proof.group}
-                </p>
+                <p className="truncate text-sm font-semibold text-fg">{proof.group}</p>
                 <div className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-ash-dim">
-                  <span className="font-semibold text-signal-bright">
-                    {proof.tag}
-                  </span>
+                  <span className="font-semibold text-signal-bright">{proof.tag}</span>
                   <span aria-hidden>·</span>
                   <span>{proof.category}</span>
                 </div>
@@ -214,11 +188,7 @@ function ProofStrip({ proof }: { proof: SeoPageData["proof"] }) {
   );
 }
 
-function ProblemSection({
-  problem,
-}: {
-  problem: SeoPageData["problem"];
-}) {
+function ProblemSection({ problem }: { problem: SeoPageData["problem"] }) {
   return (
     <section className="relative py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
@@ -235,10 +205,7 @@ function ProblemSection({
               as="li"
               className="flex gap-3 rounded-2xl border border-fg/8 bg-surface/50 px-5 py-4"
             >
-              <X
-                className="mt-0.5 size-4 shrink-0 text-red-400/80"
-                strokeWidth={2.5}
-              />
+              <X className="mt-0.5 size-4 shrink-0 text-red-400/80" strokeWidth={2.5} />
               <span className="text-sm leading-relaxed text-ash">{bullet}</span>
             </Reveal>
           ))}
@@ -250,16 +217,9 @@ function ProblemSection({
 
 function HowItWorks({ how }: { how: SeoPageData["howItWorks"] }) {
   return (
-    <section
-      id="features"
-      className="relative border-y border-fg/8 bg-ink-soft/50 py-20 sm:py-28"
-    >
+    <section id="features" className="relative border-y border-fg/8 bg-ink-soft/50 py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
-        <SectionHeading
-          eyebrow="How it works"
-          title={how.title}
-          description={how.description}
-        />
+        <SectionHeading eyebrow="How it works" title={how.title} description={how.description} />
         <div className="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
           {how.steps.map((step, i) => (
             <Reveal
@@ -271,9 +231,7 @@ function HowItWorks({ how }: { how: SeoPageData["howItWorks"] }) {
               <span className="flex size-8 items-center justify-center rounded-full bg-signal/15 text-xs font-bold text-signal-bright">
                 {i + 1}
               </span>
-              <h3 className="mt-4 text-base font-semibold text-fg">
-                {step.title}
-              </h3>
+              <h3 className="mt-4 text-base font-semibold text-fg">{step.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-ash">{step.body}</p>
             </Reveal>
           ))}
@@ -286,11 +244,7 @@ function HowItWorks({ how }: { how: SeoPageData["howItWorks"] }) {
   );
 }
 
-function MatchesSection({
-  matches,
-}: {
-  matches: SeoPageData["matches"];
-}) {
+function MatchesSection({ matches }: { matches: SeoPageData["matches"] }) {
   return (
     <section className="relative py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
@@ -301,29 +255,18 @@ function MatchesSection({
             <ul className="mt-6 space-y-3">
               {matches.strong.map((item) => (
                 <li key={item} className="flex gap-3">
-                  <Check
-                    className="mt-0.5 size-4 shrink-0 text-signal"
-                    strokeWidth={2.5}
-                  />
-                  <span className="text-sm leading-relaxed text-fg/90">
-                    {item}
-                  </span>
+                  <Check className="mt-0.5 size-4 shrink-0 text-signal" strokeWidth={2.5} />
+                  <span className="text-sm leading-relaxed text-fg/90">{item}</span>
                 </li>
               ))}
             </ul>
           </Reveal>
-          <Reveal
-            delay={0.08}
-            className="rounded-2xl border border-fg/8 bg-surface/50 p-7 sm:p-8"
-          >
+          <Reveal delay={0.08} className="rounded-2xl border border-fg/8 bg-surface/50 p-7 sm:p-8">
             <h3 className="text-lg font-semibold text-fg">{matches.noiseTitle}</h3>
             <ul className="mt-6 space-y-3">
               {matches.noise.map((item) => (
                 <li key={item} className="flex gap-3">
-                  <X
-                    className="mt-0.5 size-4 shrink-0 text-ash-dim"
-                    strokeWidth={2.5}
-                  />
+                  <X className="mt-0.5 size-4 shrink-0 text-ash-dim" strokeWidth={2.5} />
                   <span className="text-sm leading-relaxed text-ash">{item}</span>
                 </li>
               ))}
@@ -339,32 +282,20 @@ function WhyTable({ why }: { why: SeoPageData["why"] }) {
   return (
     <section className="relative border-y border-fg/8 bg-ink-soft/50 py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
-        <SectionHeading
-          eyebrow={why.eyebrow}
-          title={why.title}
-          description={why.description}
-        />
+        <SectionHeading eyebrow={why.eyebrow} title={why.title} description={why.description} />
         <Reveal className="mx-auto mt-14 max-w-4xl overflow-x-auto rounded-2xl border border-fg/8 bg-surface">
           <table className="w-full min-w-[28rem] border-collapse text-left text-sm">
             <thead>
               <tr className="border-b border-fg/8 bg-fg/[0.03]">
-                <th className="px-5 py-4 font-semibold text-fg sm:px-6">
-                  {why.columns[0]}
-                </th>
-                <th className="px-5 py-4 font-semibold text-fg sm:px-6">
-                  {why.columns[1]}
-                </th>
+                <th className="px-5 py-4 font-semibold text-fg sm:px-6">{why.columns[0]}</th>
+                <th className="px-5 py-4 font-semibold text-fg sm:px-6">{why.columns[1]}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-fg/8">
               {why.rows.map(([left, right]) => (
                 <tr key={left}>
-                  <td className="px-5 py-4 align-top font-medium text-fg sm:px-6">
-                    {left}
-                  </td>
-                  <td className="px-5 py-4 align-top text-ash sm:px-6">
-                    {right}
-                  </td>
+                  <td className="px-5 py-4 align-top font-medium text-fg sm:px-6">{left}</td>
+                  <td className="px-5 py-4 align-top text-ash sm:px-6">{right}</td>
                 </tr>
               ))}
             </tbody>
@@ -379,10 +310,7 @@ function ArticleBody({ sections }: { sections: SeoArticleSection[] }) {
   if (!sections.length) return null;
 
   return (
-    <section
-      id="guide"
-      className="relative border-y border-fg/8 bg-ink-soft/30 py-20 sm:py-28"
-    >
+    <section id="guide" className="relative border-y border-fg/8 bg-ink-soft/30 py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeading
           eyebrow="Deep dive"
@@ -400,10 +328,7 @@ function ArticleBody({ sections }: { sections: SeoArticleSection[] }) {
               </h2>
               <div className="mt-4 space-y-4">
                 {section.paragraphs.map((p) => (
-                  <p
-                    key={p.slice(0, 48)}
-                    className="text-[15px] leading-relaxed text-ash"
-                  >
+                  <p key={p.slice(0, 48)} className="text-[15px] leading-relaxed text-ash">
                     {p}
                   </p>
                 ))}
@@ -412,13 +337,8 @@ function ArticleBody({ sections }: { sections: SeoArticleSection[] }) {
                 <ul className="mt-5 space-y-2.5">
                   {section.bullets.map((item) => (
                     <li key={item} className="flex gap-3">
-                      <Check
-                        className="mt-0.5 size-4 shrink-0 text-signal"
-                        strokeWidth={2.5}
-                      />
-                      <span className="text-[15px] leading-relaxed text-fg/90">
-                        {item}
-                      </span>
+                      <Check className="mt-0.5 size-4 shrink-0 text-signal" strokeWidth={2.5} />
+                      <span className="text-[15px] leading-relaxed text-fg/90">{item}</span>
                     </li>
                   ))}
                 </ul>
@@ -444,19 +364,13 @@ function TradeFaq({ faqs }: { faqs: SeoFaq[] }) {
   };
 
   return (
-    <section
-      id="faq"
-      className="relative border-t border-fg/8 bg-ink-soft/50 py-20 sm:py-28"
-    >
+    <section id="faq" className="relative border-t border-fg/8 bg-ink-soft/50 py-20 sm:py-28">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
-        <SectionHeading
-          eyebrow="FAQ"
-          title="Questions shops ask before they start."
-        />
+        <SectionHeading eyebrow="FAQ" title="Questions shops ask before they start." />
         <div className="mx-auto mt-14 max-w-3xl divide-y divide-fg/8 overflow-hidden rounded-2xl border border-fg/8 bg-surface/40">
           {faqs.map((faq, i) => {
             const isOpen = openIndex === i;
@@ -470,9 +384,7 @@ function TradeFaq({ faqs }: { faqs: SeoFaq[] }) {
                     aria-controls={`trade-faq-panel-${i}`}
                     className="flex w-full items-center justify-between gap-5 px-6 py-5 text-left transition-colors hover:bg-fg/[0.03]"
                   >
-                    <span className="text-[15px] font-medium text-fg">
-                      {faq.q}
-                    </span>
+                    <span className="text-[15px] font-medium text-fg">{faq.q}</span>
                     <span
                       className={`flex size-7 shrink-0 items-center justify-center rounded-lg border border-fg/10 text-signal-bright transition-transform duration-300 ${
                         isOpen ? "rotate-45 bg-signal/15" : "bg-fg/5"
@@ -493,9 +405,7 @@ function TradeFaq({ faqs }: { faqs: SeoFaq[] }) {
                       transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
                       className="overflow-hidden"
                     >
-                      <p className="px-6 pb-5 pr-14 text-sm leading-relaxed text-ash">
-                        {faq.a}
-                      </p>
+                      <p className="px-6 pb-5 pr-14 text-sm leading-relaxed text-ash">{faq.a}</p>
                     </motion.div>
                   )}
                 </AnimatePresence>
@@ -514,9 +424,7 @@ function GuidesAndRelated({ data }: { data: SeoPageData }) {
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="grid gap-10 lg:grid-cols-2">
           <Reveal>
-            <h2 className="text-xl font-bold tracking-tight text-fg sm:text-2xl">
-              Guides
-            </h2>
+            <h2 className="text-xl font-bold tracking-tight text-fg sm:text-2xl">Guides</h2>
             <ul className="mt-5 space-y-3">
               {data.guides.map((link) => (
                 <li key={link.href}>
@@ -560,10 +468,7 @@ function CloseCta({ close }: { close: SeoPageData["close"] }) {
     <section id="cta" className="relative overflow-hidden py-20 sm:py-24">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <Reveal className="relative overflow-hidden rounded-3xl border border-signal/20 bg-surface/60 px-6 py-14 text-center sm:px-12">
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 signal-glow"
-          />
+          <div aria-hidden className="pointer-events-none absolute inset-0 signal-glow" />
           <div className="relative mx-auto max-w-2xl">
             <h2 className="text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
               {close.title}

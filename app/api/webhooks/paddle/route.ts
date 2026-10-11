@@ -29,9 +29,7 @@ function verify(rawBody: string, header: string | null, secret: string): boolean
   const received = parts.h1;
   if (!ts || !received) return false;
 
-  const expected = createHmac("sha256", secret)
-    .update(`${ts}:${rawBody}`)
-    .digest("hex");
+  const expected = createHmac("sha256", secret).update(`${ts}:${rawBody}`).digest("hex");
 
   const a = Buffer.from(received);
   const b = Buffer.from(expected);

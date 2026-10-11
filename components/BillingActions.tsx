@@ -35,8 +35,7 @@ export function BillingActions({
     try {
       const paddle: Paddle | undefined = await initializePaddle({
         token,
-        environment:
-          process.env.NEXT_PUBLIC_PADDLE_ENV === "sandbox" ? "sandbox" : "production",
+        environment: process.env.NEXT_PUBLIC_PADDLE_ENV === "sandbox" ? "sandbox" : "production",
       });
 
       if (!paddle) {

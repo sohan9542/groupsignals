@@ -28,7 +28,10 @@ const EXAMPLES = [
 
 const STEPS = [
   { title: "Someone posts", body: "A homeowner asks for help in a group you're monitoring." },
-  { title: "We catch it fast", body: "GroupSignal matches it against your trade and service area, and alerts you the moment it's posted." },
+  {
+    title: "We catch it fast",
+    body: "GroupSignal matches it against your trade and service area, and alerts you the moment it's posted.",
+  },
   { title: "You reply first", body: "You respond before anyone else — and win the job." },
 ];
 export function RecentRequests() {
@@ -54,7 +57,10 @@ export function RecentRequests() {
                     <Users className="size-4" />
                   </span>
                   <div className="min-w-0">
-                    <span className="block h-2.5 w-24 max-w-full rounded-full bg-fg/10" aria-hidden />
+                    <span
+                      className="block h-2.5 w-24 max-w-full rounded-full bg-fg/10"
+                      aria-hidden
+                    />
                     <p className="mt-1.5 truncate text-xs text-ash-dim">{example.group}</p>
                   </div>
                 </div>

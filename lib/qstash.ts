@@ -47,7 +47,9 @@ export async function ensureScanSchedule(): Promise<void> {
 
   const origin = resolvePublicOrigin();
   if (!origin) {
-    console.warn("[qstash] skip schedule — no public origin (set NEXT_PUBLIC_SITE_URL or PUBLIC_WEBHOOK_BASE_URL)");
+    console.warn(
+      "[qstash] skip schedule — no public origin (set NEXT_PUBLIC_SITE_URL or PUBLIC_WEBHOOK_BASE_URL)"
+    );
     return;
   }
 

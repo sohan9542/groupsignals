@@ -35,7 +35,10 @@ export async function PATCH(request: Request, { params }: Params) {
   }
 
   if (body.status !== "active" && body.status !== "paused") {
-    return NextResponse.json({ ok: false, error: "Status must be 'active' or 'paused'." }, { status: 400 });
+    return NextResponse.json(
+      { ok: false, error: "Status must be 'active' or 'paused'." },
+      { status: 400 }
+    );
   }
 
   const service = createServiceClient();

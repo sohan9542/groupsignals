@@ -21,14 +21,10 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: "Invalid request." }, { status: 400 });
   }
 
-  const address =
-    typeof body.address === "string" ? body.address.trim().toLowerCase() : "";
+  const address = typeof body.address === "string" ? body.address.trim().toLowerCase() : "";
 
   if (!EMAIL.test(address)) {
-    return NextResponse.json(
-      { ok: false, error: "Enter a valid email address." },
-      { status: 400 }
-    );
+    return NextResponse.json({ ok: false, error: "Enter a valid email address." }, { status: 400 });
   }
 
   const { count } = await supabase

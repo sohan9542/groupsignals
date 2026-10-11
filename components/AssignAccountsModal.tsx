@@ -16,10 +16,15 @@ export function AssignAccountsModal({
   group: PrivateGroupWithAssignments;
   pool: FacebookCookiePoolEntry[];
   onClose: () => void;
-  onSubmit: (data: { cookieIds: string[]; activeCookieId: string }) => Promise<{ ok: boolean; error?: string }>;
+  onSubmit: (data: {
+    cookieIds: string[];
+    activeCookieId: string;
+  }) => Promise<{ ok: boolean; error?: string }>;
 }) {
   const [selected, setSelected] = useState<string[]>(group.assignments.map((a) => a.cookie.id));
-  const [activeId, setActiveId] = useState<string>(group.assignments.find((a) => a.role === "active")?.cookie.id ?? "");
+  const [activeId, setActiveId] = useState<string>(
+    group.assignments.find((a) => a.role === "active")?.cookie.id ?? ""
+  );
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
 
@@ -64,7 +69,9 @@ export function AssignAccountsModal({
     >
       <form onSubmit={handleSubmit} className="space-y-5">
         {pool.length === 0 ? (
-          <p className="text-sm text-ash-dim">The cookie pool is empty — add accounts in Settings first.</p>
+          <p className="text-sm text-ash-dim">
+            The cookie pool is empty — add accounts in Settings first.
+          </p>
         ) : (
           <ul className="max-h-72 space-y-1.5 overflow-y-auto">
             {pool.map((cookie) => {

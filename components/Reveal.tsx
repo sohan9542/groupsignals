@@ -16,12 +16,7 @@ type RevealProps = {
  * `once` keeps the animation from re-firing when the user scrolls back up,
  * and reduced-motion visitors get the final state with no transform at all.
  */
-export function Reveal({
-  children,
-  delay = 0,
-  className,
-  as = "div",
-}: RevealProps) {
+export function Reveal({ children, delay = 0, className, as = "div" }: RevealProps) {
   const reduceMotion = useReducedMotion();
   const MotionTag = motion[as];
 

@@ -43,12 +43,8 @@ export function WhatYouGet() {
               <span className="flex size-11 items-center justify-center rounded-xl border border-signal/20 bg-signal/10 text-signal-bright transition-transform duration-300 group-hover:scale-105">
                 <item.icon className="size-5" strokeWidth={1.8} />
               </span>
-              <h3 className="mt-5 text-base font-semibold leading-snug text-fg">
-                {item.title}
-              </h3>
-              <p className="mt-2.5 text-sm leading-relaxed text-ash">
-                {item.body}
-              </p>
+              <h3 className="mt-5 text-base font-semibold leading-snug text-fg">{item.title}</h3>
+              <p className="mt-2.5 text-sm leading-relaxed text-ash">{item.body}</p>
             </Reveal>
           ))}
         </div>

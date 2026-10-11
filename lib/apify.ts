@@ -6,8 +6,7 @@ const APIFY_BASE = "https://api.apify.com/v2";
  * Actor that scrapes posts from PUBLIC Facebook groups. Overridable because
  * Apify actors get renamed and re-versioned more often than we'd redeploy.
  */
-const FACEBOOK_ACTOR =
-  process.env.APIFY_FACEBOOK_GROUP_ACTOR ?? "apify~facebook-groups-scraper";
+const FACEBOOK_ACTOR = process.env.APIFY_FACEBOOK_GROUP_ACTOR ?? "apify~facebook-groups-scraper";
 
 /**
  * Actor that authenticates with a user's own Facebook cookies to read closed

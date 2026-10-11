@@ -110,11 +110,18 @@ export function SourceManager({
       <div className="grid grid-cols-3 gap-3 sm:gap-4">
         <StatCard
           label="Watching"
-          value={groupLimit == null || noPlan ? `${sources.length}` : `${sources.length}/${groupLimit}`}
+          value={
+            groupLimit == null || noPlan ? `${sources.length}` : `${sources.length}/${groupLimit}`
+          }
           icon={Sparkles}
         />
         <StatCard label="Active" value={active} icon={CheckCircle2} tone="signal" />
-        <StatCard label="Needs attention" value={errored} icon={AlertCircle} tone={errored > 0 ? "warn" : undefined} />
+        <StatCard
+          label="Needs attention"
+          value={errored}
+          icon={AlertCircle}
+          tone={errored > 0 ? "warn" : undefined}
+        />
       </div>
 
       <div className="flex items-center justify-between">
@@ -136,7 +143,11 @@ export function SourceManager({
             type="button"
             onClick={() => setShowAdd(true)}
             disabled={atLimit}
-            title={atLimit ? `Your plan covers ${groupLimit} group${groupLimit === 1 ? "" : "s"} already` : "Watch a group"}
+            title={
+              atLimit
+                ? `Your plan covers ${groupLimit} group${groupLimit === 1 ? "" : "s"} already`
+                : "Watch a group"
+            }
             className="inline-flex items-center gap-2 rounded-xl bg-signal px-4 py-2.5 text-sm font-semibold text-on-signal transition hover:bg-signal-bright disabled:cursor-not-allowed disabled:opacity-40"
           >
             <Plus className="size-4" />
@@ -179,9 +190,7 @@ export function SourceManager({
                   <div className="flex flex-wrap items-center gap-2">
                     <PlatformIcon platform={source.platform} />
                     <h3 className="truncate text-sm font-semibold text-fg">{source.name}</h3>
-                    {source.requires_login && (
-                      <Badge icon={Lock} label="Private" />
-                    )}
+                    {source.requires_login && <Badge icon={Lock} label="Private" />}
                     <StatusPill status={source.status} />
                   </div>
 
@@ -218,7 +227,11 @@ export function SourceManager({
                       busy={busyId === source.id}
                       onClick={() => mutate(source.id, "toggle", source)}
                     >
-                      {source.status === "active" ? <Pause className="size-4" /> : <Play className="size-4" />}
+                      {source.status === "active" ? (
+                        <Pause className="size-4" />
+                      ) : (
+                        <Play className="size-4" />
+                      )}
                     </IconButton>
                   )}
                   <IconButton
@@ -274,7 +287,13 @@ function StatCard({
   );
 }
 
-function Badge({ icon: Icon, label }: { icon: React.ComponentType<{ className?: string }>; label: string }) {
+function Badge({
+  icon: Icon,
+  label,
+}: {
+  icon: React.ComponentType<{ className?: string }>;
+  label: string;
+}) {
   return (
     <span className="flex items-center gap-1 rounded-md bg-fg/8 px-2 py-0.5 text-[11px] font-medium text-ash">
       <Icon className="size-3" />

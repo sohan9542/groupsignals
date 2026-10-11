@@ -27,10 +27,7 @@ export function Trust() {
   return (
     <section id="trust" className="relative py-20 sm:py-28">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
-        <SectionHeading
-          eyebrow="Straight answers"
-          title="What we do, and what we won't."
-        />
+        <SectionHeading eyebrow="Straight answers" title="What we do, and what we won't." />
 
         <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {POINTS.map((point, i) => (
@@ -42,12 +39,8 @@ export function Trust() {
               <span className="flex size-11 items-center justify-center rounded-xl border border-signal/20 bg-signal/10 text-signal-bright">
                 <point.icon className="size-5" strokeWidth={1.8} />
               </span>
-              <h3 className="mt-5 text-base font-semibold text-fg">
-                {point.title}
-              </h3>
-              <p className="mt-2.5 text-sm leading-relaxed text-ash">
-                {point.body}
-              </p>
+              <h3 className="mt-5 text-base font-semibold text-fg">{point.title}</h3>
+              <p className="mt-2.5 text-sm leading-relaxed text-ash">{point.body}</p>
             </Reveal>
           ))}
         </div>

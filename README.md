@@ -21,16 +21,16 @@ npm run dev
 Every value is documented in [`.env.local.example`](.env.local.example). The
 ones without which things silently do nothing:
 
-| Variable | Why it matters |
-| --- | --- |
-| `SUPABASE_SERVICE_ROLE_KEY` | The Apify webhook, Paddle webhook, and the cookie-pool/admin routes all write or read rows for a user who isn't making the request (or that aren't owned by any user). Without it they return 503/403. |
-| `APIFY_TOKEN` | Starting a scrape run. |
-| `APIFY_WEBHOOK_SECRET` | Our own random string, not something Apify issues. We embed it in the run's payload template and compare it back on the way in. |
-| `PUBLIC_WEBHOOK_BASE_URL` | Apify calls us back from its servers, so this must be publicly reachable. Falls back to `NEXT_PUBLIC_SITE_URL` / the Vercel production host — a scan only refuses if every candidate is localhost. |
-| `QSTASH_TOKEN` | Creates and keeps the hourly scan schedule. Without it, only the daily Vercel Cron backup in `vercel.json` fires. |
-| `FACEBOOK_COOKIE_ENCRYPTION_KEY` | Encrypts every cookie in the admin pool at rest. Without it, adding or using a pooled cookie fails outright. |
-| `ANTHROPIC_API_KEY` | Classifying scraped posts against a source's intent. Without it a scan finishes but finds zero leads. |
-| `RESEND_API_KEY` / `EMAIL_FROM` | Sending lead alerts and admin cookie-ban alerts. `EMAIL_FROM` must be on a Resend-verified domain — the sandbox `onboarding@resend.dev` address only delivers to the Resend account's own email. |
+| Variable                         | Why it matters                                                                                                                                                                                         |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `SUPABASE_SERVICE_ROLE_KEY`      | The Apify webhook, Paddle webhook, and the cookie-pool/admin routes all write or read rows for a user who isn't making the request (or that aren't owned by any user). Without it they return 503/403. |
+| `APIFY_TOKEN`                    | Starting a scrape run.                                                                                                                                                                                 |
+| `APIFY_WEBHOOK_SECRET`           | Our own random string, not something Apify issues. We embed it in the run's payload template and compare it back on the way in.                                                                        |
+| `PUBLIC_WEBHOOK_BASE_URL`        | Apify calls us back from its servers, so this must be publicly reachable. Falls back to `NEXT_PUBLIC_SITE_URL` / the Vercel production host — a scan only refuses if every candidate is localhost.     |
+| `QSTASH_TOKEN`                   | Creates and keeps the hourly scan schedule. Without it, only the daily Vercel Cron backup in `vercel.json` fires.                                                                                      |
+| `FACEBOOK_COOKIE_ENCRYPTION_KEY` | Encrypts every cookie in the admin pool at rest. Without it, adding or using a pooled cookie fails outright.                                                                                           |
+| `ANTHROPIC_API_KEY`              | Classifying scraped posts against a source's intent. Without it a scan finishes but finds zero leads.                                                                                                  |
+| `RESEND_API_KEY` / `EMAIL_FROM`  | Sending lead alerts and admin cookie-ban alerts. `EMAIL_FROM` must be on a Resend-verified domain — the sandbox `onboarding@resend.dev` address only delivers to the Resend account's own email.       |
 
 ## Layout
 
@@ -88,7 +88,7 @@ supabase/migrations/     schema, RLS policies, new-user bootstrap
    to the user's verified, instant-digest destination(s).
 5. If a private-source run fails, the cookie it used is marked `banned` and
    the admin gets an email. There's no separate health check — a failed run
-   *is* the ban signal, so a false positive just means a healthy cookie sits
+   _is_ the ban signal, so a false positive just means a healthy cookie sits
    disabled until an admin flips it back in Settings.
 
 The first scan only pulls the latest 5 posts. Repeat scans pass

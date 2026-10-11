@@ -53,7 +53,10 @@ export async function PATCH(request: Request, { params }: Params) {
 
     if (current?.status === "pending") {
       return NextResponse.json(
-        { ok: false, error: "Still waiting on admin approval — an account needs to be assigned first." },
+        {
+          ok: false,
+          error: "Still waiting on admin approval — an account needs to be assigned first.",
+        },
         { status: 403 }
       );
     }

@@ -37,9 +37,7 @@ export type TradeMoneyFaq = SeoPageData["faqs"][number];
 export type TradeMoneyLink = SeoPageData["guides"][number];
 
 export const TRADE_MONEY_PAGES = CORE_TRADE_PAGES;
-export const TRADE_MONEY_SLUGS = Object.keys(
-  CORE_TRADE_PAGES,
-) as TradeMoneySlug[];
+export const TRADE_MONEY_SLUGS = Object.keys(CORE_TRADE_PAGES) as TradeMoneySlug[];
 
 export function getTradeMoneyPage(slug: TradeMoneySlug): SeoPageData {
   return getSeoPage(slug);

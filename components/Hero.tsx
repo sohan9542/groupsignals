@@ -26,18 +26,21 @@ export function Hero() {
               {...rise(0)}
               className="text-balance text-4xl font-bold leading-[1.08] tracking-tight sm:text-5xl lg:text-[3.4rem]"
             >
-              Facebook Group<br />
+              Facebook Group
+              <br />
               <span className="text-gradient font-display italic font-medium">
                 Monitoring That
-              </span> <br /> {" "}
-              Finds You Leads
+              </span>{" "}
+              <br /> Finds You Leads
             </motion.h1>
 
             <motion.p
               {...rise(0.16)}
               className="mt-6 text-pretty text-base leading-relaxed text-ash sm:text-lg"
             >
-              We monitor local Facebook groups 24/7 for people asking for a plumber, HVAC tech, or electrician — and alert you instantly so you can reply first.            </motion.p>
+              We monitor local Facebook groups 24/7 for people asking for a plumber, HVAC tech, or
+              electrician — and alert you instantly so you can reply first.{" "}
+            </motion.p>
 
             <motion.div
               {...rise(0.24)}
@@ -75,10 +78,7 @@ export function Hero() {
 function LeadAlertCard({ reduceMotion }: { reduceMotion: boolean }) {
   return (
     <div className="relative mx-auto w-full max-w-lg">
-      <div
-        aria-hidden
-        className="absolute -inset-6 rounded-[2rem] bg-signal/12 blur-3xl"
-      />
+      <div aria-hidden className="absolute -inset-6 rounded-[2rem] bg-signal/12 blur-3xl" />
 
       {/* No backdrop-filter here on purpose: blurring a backdrop while the
           element moves forces a re-rasterize every frame, which is what made
@@ -93,12 +93,11 @@ function LeadAlertCard({ reduceMotion }: { reduceMotion: boolean }) {
             <span className="shrink-0 text-[11px] text-ash-dim">Just now</span>
           </div>
 
-          <p className="mt-4 text-xs text-ash-dim">
-            Springfield Homeowners Group
-          </p>
+          <p className="mt-4 text-xs text-ash-dim">Springfield Homeowners Group</p>
 
           <blockquote className="mt-3 rounded-xl border border-fg/8 bg-fg/[0.03] p-4 text-sm leading-relaxed text-fg/90">
-            &ldquo;Does anyone know a good plumber? My water heater just died and I need someone today.&rdquo;
+            &ldquo;Does anyone know a good plumber? My water heater just died and I need someone
+            today.&rdquo;
           </blockquote>
 
           <button
@@ -119,9 +118,7 @@ function LeadAlertCard({ reduceMotion }: { reduceMotion: boolean }) {
         <span className="flex size-7 items-center justify-center rounded-lg bg-signal/15">
           <Check className="size-3.5 text-signal-bright" strokeWidth={3} />
         </span>
-        <span className="text-xs font-semibold text-fg">
-          Sent to your email
-        </span>
+        <span className="text-xs font-semibold text-fg">Sent to your email</span>
       </motion.div>
     </div>
   );

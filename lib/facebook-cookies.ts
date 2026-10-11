@@ -20,9 +20,7 @@ export type FacebookCookie = {
  * that the shape is plausible and the two cookies Facebook auth actually
  * needs (c_user, xs) are present.
  */
-export function parseCookiePaste(
-  raw: string
-): { cookies: FacebookCookie[] } | { error: string } {
+export function parseCookiePaste(raw: string): { cookies: FacebookCookie[] } | { error: string } {
   const trimmed = raw.trim();
   if (!trimmed) return { error: "Paste your Facebook cookies first." };
   if (trimmed.length > MAX_RAW_LENGTH) {
@@ -56,7 +54,9 @@ export function parseCookiePaste(
       typeof (entry as Record<string, unknown>).name !== "string" ||
       typeof (entry as Record<string, unknown>).value !== "string"
     ) {
-      return { error: "Every cookie needs at least a name and a value — that export looks malformed." };
+      return {
+        error: "Every cookie needs at least a name and a value — that export looks malformed.",
+      };
     }
     cookies.push(entry as FacebookCookie);
   }

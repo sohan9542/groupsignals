@@ -36,7 +36,10 @@ export async function PATCH(request: Request, { params }: Params) {
 
   const cookieId = typeof body.cookieId === "string" ? body.cookieId : "";
   if (!cookieId) {
-    return NextResponse.json({ ok: false, error: "Pick an account to make active." }, { status: 400 });
+    return NextResponse.json(
+      { ok: false, error: "Pick an account to make active." },
+      { status: 400 }
+    );
   }
 
   const service = createServiceClient();
@@ -49,7 +52,10 @@ export async function PATCH(request: Request, { params }: Params) {
     .maybeSingle<{ id: string }>();
 
   if (!target) {
-    return NextResponse.json({ ok: false, error: "That account isn't assigned to this group." }, { status: 400 });
+    return NextResponse.json(
+      { ok: false, error: "That account isn't assigned to this group." },
+      { status: 400 }
+    );
   }
 
   // Demote the current active first — the one-active-per-source unique index

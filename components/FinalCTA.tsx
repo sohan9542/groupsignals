@@ -6,10 +6,7 @@ export function FinalCTA() {
     <section className="relative overflow-hidden py-20 sm:py-24">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <Reveal className="relative overflow-hidden rounded-3xl border border-signal/20 bg-surface/60 px-5 py-12 text-center sm:px-12 sm:py-14">
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 signal-glow"
-          />
+          <div aria-hidden className="pointer-events-none absolute inset-0 signal-glow" />
           <div className="relative mx-auto max-w-2xl">
             <h2 className="text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
               Someone&apos;s Asking for a Plumber, Electrician, or HVAC Tech Right Now.

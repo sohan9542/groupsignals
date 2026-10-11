@@ -16,11 +16,7 @@ export function SectionHeading({
 }: SectionHeadingProps) {
   return (
     <Reveal
-      className={
-        align === "center"
-          ? "mx-auto max-w-2xl text-center"
-          : "max-w-2xl text-left"
-      }
+      className={align === "center" ? "mx-auto max-w-2xl text-center" : "max-w-2xl text-left"}
     >
       <span className="inline-block rounded-full border border-fg/10 bg-fg/5 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-signal-bright">
         {eyebrow}
@@ -29,9 +25,7 @@ export function SectionHeading({
         {title}
       </h2>
       {description && (
-        <p className="mt-4 text-pretty text-base leading-relaxed text-ash">
-          {description}
-        </p>
+        <p className="mt-4 text-pretty text-base leading-relaxed text-ash">{description}</p>
       )}
     </Reveal>
   );

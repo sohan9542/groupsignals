@@ -37,9 +37,7 @@ export function BlogImage({
         </div>
       )}
       {caption && (
-        <figcaption className="mt-2 text-center text-xs text-ash-dim">
-          {caption}
-        </figcaption>
+        <figcaption className="mt-2 text-center text-xs text-ash-dim">{caption}</figcaption>
       )}
     </figure>
   );

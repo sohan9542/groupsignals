@@ -53,7 +53,10 @@ async function runScan(request: Request) {
   const webhookSecret = process.env.APIFY_WEBHOOK_SECRET;
   if (!expected || !process.env.APIFY_TOKEN || !webhookSecret) {
     return NextResponse.json(
-      { ok: false, error: "Cron isn't configured — missing CRON_SECRET, APIFY_TOKEN, or APIFY_WEBHOOK_SECRET." },
+      {
+        ok: false,
+        error: "Cron isn't configured — missing CRON_SECRET, APIFY_TOKEN, or APIFY_WEBHOOK_SECRET.",
+      },
       { status: 503 }
     );
   }
@@ -98,14 +101,19 @@ async function runScan(request: Request) {
   for (const source of sources ?? []) {
     if (source.platform === "reddit") continue;
 
-    if (source.last_run_at && now - new Date(source.last_run_at).getTime() < MIN_RESCAN_INTERVAL_MS) {
+    if (
+      source.last_run_at &&
+      now - new Date(source.last_run_at).getTime() < MIN_RESCAN_INTERVAL_MS
+    ) {
       results.push({ sourceId: source.id, ok: false, error: "Skipped — scanned too recently." });
       continue;
     }
 
     const outcome = await startScanForSource(source, webhook.url, webhookSecret);
     results.push(
-      outcome.ok ? { sourceId: source.id, ok: true } : { sourceId: source.id, ok: false, error: outcome.error }
+      outcome.ok
+        ? { sourceId: source.id, ok: true }
+        : { sourceId: source.id, ok: false, error: outcome.error }
     );
   }
 

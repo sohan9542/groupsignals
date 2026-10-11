@@ -38,7 +38,9 @@ export async function PUT(request: Request, { params }: Params) {
     return NextResponse.json({ ok: false, error: "Invalid request." }, { status: 400 });
   }
 
-  const cookieIds = Array.isArray(body.cookieIds) ? body.cookieIds.filter((id): id is string => typeof id === "string") : [];
+  const cookieIds = Array.isArray(body.cookieIds)
+    ? body.cookieIds.filter((id): id is string => typeof id === "string")
+    : [];
   const uniqueCookieIds = [...new Set(cookieIds)];
   const activeCookieId = typeof body.activeCookieId === "string" ? body.activeCookieId : "";
 
@@ -46,10 +48,16 @@ export async function PUT(request: Request, { params }: Params) {
     return NextResponse.json({ ok: false, error: "Assign at least one account." }, { status: 400 });
   }
   if (uniqueCookieIds.length > MAX_ASSIGNED) {
-    return NextResponse.json({ ok: false, error: `At most ${MAX_ASSIGNED} accounts per group.` }, { status: 400 });
+    return NextResponse.json(
+      { ok: false, error: `At most ${MAX_ASSIGNED} accounts per group.` },
+      { status: 400 }
+    );
   }
   if (!activeCookieId || !uniqueCookieIds.includes(activeCookieId)) {
-    return NextResponse.json({ ok: false, error: "Pick which assigned account is active." }, { status: 400 });
+    return NextResponse.json(
+      { ok: false, error: "Pick which assigned account is active." },
+      { status: 400 }
+    );
   }
 
   const service = createServiceClient();
@@ -74,7 +82,10 @@ export async function PUT(request: Request, { params }: Params) {
     .in("id", uniqueCookieIds);
 
   if ((cookieCount ?? 0) !== uniqueCookieIds.length) {
-    return NextResponse.json({ ok: false, error: "One of those accounts no longer exists in the pool." }, { status: 400 });
+    return NextResponse.json(
+      { ok: false, error: "One of those accounts no longer exists in the pool." },
+      { status: 400 }
+    );
   }
 
   // Replace the whole set: this is an infrequent, admin-only, single-row
@@ -82,7 +93,10 @@ export async function PUT(request: Request, { params }: Params) {
   // Supabase JS client doesn't expose multi-statement transactions) is
   // simpler than a Postgres function for a gap of a few milliseconds nobody
   // else writes into.
-  const { error: deleteError } = await service.from("group_account_assignments").delete().eq("source_id", sourceId);
+  const { error: deleteError } = await service
+    .from("group_account_assignments")
+    .delete()
+    .eq("source_id", sourceId);
   if (deleteError) {
     return NextResponse.json({ ok: false, error: deleteError.message }, { status: 500 });
   }

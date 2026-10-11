@@ -42,10 +42,7 @@ export default async function BlogIndexPage() {
           />
 
           <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
-            <nav
-              aria-label="Breadcrumb"
-              className="flex items-center gap-1.5 text-sm text-ash-dim"
-            >
+            <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-sm text-ash-dim">
               <Link href="/" className="transition-colors hover:text-fg">
                 Home
               </Link>
@@ -61,12 +58,11 @@ export default async function BlogIndexPage() {
                 Blog
               </span>
               <h1 className="mt-5 w-full text-balance text-center text-3xl font-bold leading-[1.1] tracking-tight sm:text-4xl md:text-5xl lg:text-[3.4rem]">
-                Facebook group monitoring for local service businesses,
-                explained.
+                Facebook group monitoring for local service businesses, explained.
               </h1>
               <p className="mt-5 max-w-2xl text-pretty text-center text-base leading-relaxed text-ash sm:text-lg">
-                Practical notes on monitoring Facebook groups for the
-                conversations that matter to your business.
+                Practical notes on monitoring Facebook groups for the conversations that matter to
+                your business.
               </p>
             </div>
           </div>
@@ -80,11 +76,7 @@ export default async function BlogIndexPage() {
                 href={`/blog/${post.slug}`}
                 className="group flex h-full min-w-0 flex-col overflow-hidden rounded-2xl border border-fg/8 bg-surface/50 transition-colors duration-300 hover:border-signal/30 hover:bg-surface"
               >
-                <BlogImage
-                  src={post.coverImage}
-                  alt={post.title}
-                  className="rounded-none"
-                />
+                <BlogImage src={post.coverImage} alt={post.title} className="rounded-none" />
 
                 <div className="flex flex-1 flex-col p-5 sm:p-7">
                   <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-ash-dim">

@@ -35,9 +35,7 @@ function LogoMark({ name, icon: Icon }: TradeLogo) {
 export function TradeLogos() {
   return (
     <section className="relative overflow-hidden py-14 sm:py-16">
-      <Reveal
-        className="mx-auto max-w-7xl overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]"
-      >
+      <Reveal className="mx-auto max-w-7xl overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
         <div className="flex w-max animate-marquee items-center">
           {/* Logo list rendered twice back-to-back — the marquee animates
               exactly one copy's width (translateX -50%), so the loop point

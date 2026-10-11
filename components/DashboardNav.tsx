@@ -3,16 +3,7 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
-import {
-  CreditCard,
-  Inbox,
-  LogOut,
-  Mail,
-  Menu,
-  Radio,
-  Settings,
-  X,
-} from "lucide-react";
+import { CreditCard, Inbox, LogOut, Mail, Menu, Radio, Settings, X } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { Logo } from "./Logo";
 
@@ -126,11 +117,7 @@ export function DashboardNav({
       {/* Mobile drawer. */}
       {open && (
         <div className="fixed inset-0 z-50 md:hidden">
-          <div
-            className="absolute inset-0 bg-fg/40"
-            onClick={() => setOpen(false)}
-            aria-hidden
-          />
+          <div className="absolute inset-0 bg-fg/40" onClick={() => setOpen(false)} aria-hidden />
           <div className="absolute inset-y-0 left-0 flex w-72 max-w-[80vw] flex-col bg-ink-soft shadow-2xl">
             <div className="flex h-14 shrink-0 items-center justify-between border-b border-fg/8 px-4">
               <Logo href="/dashboard" />

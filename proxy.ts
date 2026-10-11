@@ -29,9 +29,7 @@ export async function proxy(request: NextRequest) {
           return request.cookies.getAll();
         },
         setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value }) =>
-            request.cookies.set(name, value)
-          );
+          cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value));
           response = NextResponse.next({ request });
           cookiesToSet.forEach(({ name, value, options }) =>
             response.cookies.set(name, value, options)
@@ -45,10 +43,7 @@ export async function proxy(request: NextRequest) {
     const { data } = await supabase.auth.getUser();
     user = data.user;
   } catch (cause) {
-    console.error(
-      "[proxy] session refresh failed — continuing without auth redirect",
-      cause
-    );
+    console.error("[proxy] session refresh failed — continuing without auth redirect", cause);
     return response;
   }
 

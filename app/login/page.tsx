@@ -16,12 +16,10 @@ export default function LoginPage() {
       <Navbar loggedIn={false} />
 
       <main className="relative mx-auto flex w-full max-w-md flex-1 flex-col justify-center px-5 py-12 pt-32 sm:px-8">
-        <h1 className="text-2xl font-semibold tracking-tight">
-          Sign in to GroupSignal
-        </h1>
+        <h1 className="text-2xl font-semibold tracking-tight">Sign in to GroupSignal</h1>
         <p className="mt-2 text-sm text-ash">
-          We&apos;ll email you a link. No password to remember — and if you
-          don&apos;t have an account yet, this creates one.
+          We&apos;ll email you a link. No password to remember — and if you don&apos;t have an
+          account yet, this creates one.
         </p>
 
         <div className="mt-8 rounded-2xl border border-fg/10 bg-surface/60 p-6">

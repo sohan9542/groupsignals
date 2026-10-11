@@ -75,7 +75,11 @@ export default async function PrivateGroupsPage() {
     // watch_sources.user_id references auth.users, not profiles, so there's
     // no FK PostgREST can embed a join through — fetched separately instead.
     userIds.length
-      ? service.from("profiles").select("id, email").in("id", userIds).returns<{ id: string; email: string }[]>()
+      ? service
+          .from("profiles")
+          .select("id, email")
+          .in("id", userIds)
+          .returns<{ id: string; email: string }[]>()
       : Promise.resolve({ data: [] as { id: string; email: string }[] }),
   ]);
 
@@ -84,7 +88,13 @@ export default async function PrivateGroupsPage() {
   for (const a of assignments ?? []) {
     if (!a.facebook_cookies) continue; // cookie was deleted out from under the assignment
     const list = assignmentsBySource.get(a.source_id) ?? [];
-    list.push({ id: a.id, source_id: a.source_id, role: a.role, assigned_at: a.assigned_at, cookie: a.facebook_cookies });
+    list.push({
+      id: a.id,
+      source_id: a.source_id,
+      role: a.role,
+      assigned_at: a.assigned_at,
+      cookie: a.facebook_cookies,
+    });
     assignmentsBySource.set(a.source_id, list);
   }
 

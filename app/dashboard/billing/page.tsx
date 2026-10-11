@@ -30,9 +30,7 @@ export default async function BillingPage() {
     <>
       <div className="mb-8">
         <h1 className="text-2xl font-semibold tracking-tight">Billing</h1>
-        <p className="mt-1.5 text-sm text-ash">
-          Pick a plan by how many groups you need watched.
-        </p>
+        <p className="mt-1.5 text-sm text-ash">Pick a plan by how many groups you need watched.</p>
       </div>
 
       <div className="grid gap-5 lg:grid-cols-3">
@@ -95,8 +93,8 @@ export default async function BillingPage() {
 
           {isActive && (
             <p className="mt-4 text-sm text-ash">
-              Need to change your card, download an invoice, or cancel? Use the
-              link in any Paddle receipt email, or{" "}
+              Need to change your card, download an invoice, or cancel? Use the link in any Paddle
+              receipt email, or{" "}
               <a
                 href="mailto:billing@groupsignals.com"
                 className="text-signal-bright underline underline-offset-4"
@@ -115,26 +113,19 @@ export default async function BillingPage() {
             <Row
               label="Renews"
               value={
-                subscription?.current_period_end
-                  ? formatDate(subscription.current_period_end)
-                  : "—"
+                subscription?.current_period_end ? formatDate(subscription.current_period_end) : "—"
               }
             />
             <Row
               label="Cancels"
               value={subscription?.cancel_at ? formatDate(subscription.cancel_at) : "—"}
             />
-            <Row
-              label="Subscription ID"
-              value={subscription?.paddle_subscription_id ?? "—"}
-              mono
-            />
+            <Row label="Subscription ID" value={subscription?.paddle_subscription_id ?? "—"} mono />
           </dl>
 
           <p className="mt-6 border-t border-fg/8 pt-5 text-xs leading-relaxed text-ash-dim">
-            Payments are handled by Paddle, who act as the merchant of record.
-            Receipts and invoices come from them and include a link to manage
-            your card.
+            Payments are handled by Paddle, who act as the merchant of record. Receipts and invoices
+            come from them and include a link to manage your card.
           </p>
         </section>
       </div>
@@ -142,21 +133,11 @@ export default async function BillingPage() {
   );
 }
 
-function Row({
-  label,
-  value,
-  mono,
-}: {
-  label: string;
-  value: string;
-  mono?: boolean;
-}) {
+function Row({ label, value, mono }: { label: string; value: string; mono?: boolean }) {
   return (
     <div className="flex items-baseline justify-between gap-4">
       <dt className="text-ash-dim">{label}</dt>
-      <dd className={`truncate text-right text-fg ${mono ? "font-mono text-xs" : ""}`}>
-        {value}
-      </dd>
+      <dd className={`truncate text-right text-fg ${mono ? "font-mono text-xs" : ""}`}>{value}</dd>
     </div>
   );
 }
