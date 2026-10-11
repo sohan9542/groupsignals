@@ -6,4 +6,4 @@ package-lock.json
 public
 supabase/migrations
 lib/blog.tsx
-lib/seo-pages
+lib/seo/pages
