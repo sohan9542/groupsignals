@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getAllPosts } from "@/lib/blog";
 import { getSiteUrl } from "@/lib/site";
-import { SEO_PAGE_SLUGS } from "@/lib/trade-money";
+import { SEO_PAGE_SLUGS } from "@/lib/seo/trade-money";
 
 const siteUrl = getSiteUrl();
 

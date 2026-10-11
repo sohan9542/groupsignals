@@ -1,8 +1,8 @@
-import type { SeoPageData } from "@/lib/seo-page-types";
-import { COMPARISON_PAGES } from "@/lib/seo-pages/comparisons";
-import { CORE_TRADE_PAGES } from "@/lib/seo-pages/core-trades";
-import { INTENT_PAGES } from "@/lib/seo-pages/intent";
-import { NEW_TRADE_PAGES } from "@/lib/seo-pages/new-trades";
+import type { SeoPageData } from "@/lib/seo/page-types";
+import { COMPARISON_PAGES } from "@/lib/seo/pages/comparisons";
+import { CORE_TRADE_PAGES } from "@/lib/seo/pages/core-trades";
+import { INTENT_PAGES } from "@/lib/seo/pages/intent";
+import { NEW_TRADE_PAGES } from "@/lib/seo/pages/new-trades";
 
 /**
  * All public SEO money / comparison / intent landers.

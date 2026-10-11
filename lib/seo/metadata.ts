@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { absoluteUrl } from "@/lib/site";
-import type { SeoPageData } from "@/lib/seo-page-types";
+import type { SeoPageData } from "@/lib/seo/page-types";
 
 /** Shared metadata for every public SEO money / comparison / intent page. */
 export function seoPageMetadata(data: SeoPageData): Metadata {

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { SeoRoutePage, buildSeoPageMetadata } from "@/lib/seo-route";
+import { SeoRoutePage, buildSeoPageMetadata } from "@/lib/seo/route";
 
 const SLUG = "facebook-group-leads-roofers";
 

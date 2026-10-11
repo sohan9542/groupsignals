@@ -1,4 +1,4 @@
-import type { SeoLink, SeoPageData } from "@/lib/seo-page-types";
+import type { SeoLink, SeoPageData } from "@/lib/seo/page-types";
 
 /**
  * Comparison / alternative SEO landers.

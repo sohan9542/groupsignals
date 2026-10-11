@@ -1,4 +1,4 @@
-import type { SeoPageData } from "@/lib/seo-page-types";
+import type { SeoPageData } from "@/lib/seo/page-types";
 
 /**
  * Expanding-trade landers (roofers, locksmiths, landscapers, appliance repair,

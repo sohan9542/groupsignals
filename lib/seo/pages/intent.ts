@@ -1,4 +1,4 @@
-import type { SeoPageData } from "@/lib/seo-page-types";
+import type { SeoPageData } from "@/lib/seo/page-types";
 
 /**
  * Intent / how-to SEO landers (alerts, keywords, Nextdoor education,

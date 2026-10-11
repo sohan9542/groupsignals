@@ -3,8 +3,8 @@ import { Footer } from "@/components/marketing/Footer";
 import { Navbar } from "@/components/marketing/Navbar";
 import { TradeMoneyPage } from "@/components/marketing/TradeMoneyPage";
 import { createClient } from "@/lib/supabase/server";
-import { seoPageMetadata } from "@/lib/seo-metadata";
-import { getSeoPage } from "@/lib/trade-money";
+import { seoPageMetadata } from "@/lib/seo/metadata";
+import { getSeoPage } from "@/lib/seo/trade-money";
 
 type Props = { slug: string };
 
