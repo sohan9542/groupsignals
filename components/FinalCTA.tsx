@@ -1,5 +1,4 @@
 import { ArrowRight } from "lucide-react";
-import { PLANS } from "@/lib/offer";
 import { Reveal } from "./Reveal";
 
 export function FinalCTA() {
@@ -13,7 +12,7 @@ export function FinalCTA() {
           />
           <div className="relative mx-auto max-w-2xl">
             <h2 className="text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
-              Someone's Asking for a Plumber, Electrician, or HVAC Tech Right Now.
+              Someone&apos;s Asking for a Plumber, Electrician, or HVAC Tech Right Now.
             </h2>
             <p className="mt-4 text-pretty text-base text-ash">
               Add your first group and start catching those posts today.

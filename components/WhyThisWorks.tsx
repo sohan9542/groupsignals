@@ -38,7 +38,7 @@ export function WhyThisWorks() {
             works
           </h2>
           <p className="mt-4 text-pretty text-base leading-relaxed text-ash">
-           People post in local Facebook groups when they need a plumber, an electrician, or an HVAC tech fast — a broken water heater, an AC that won't cool, a breaker that keeps tripping. These posts move fast: by the time someone checks back, three other contractors have already replied.
+           People post in local Facebook groups when they need a plumber, an electrician, or an HVAC tech fast — a broken water heater, an AC that won&apos;t cool, a breaker that keeps tripping. These posts move fast: by the time someone checks back, three other contractors have already replied.
           </p>
         </Reveal>
 
@@ -62,7 +62,7 @@ export function WhyThisWorks() {
 
           <div className="m-3 rounded-xl bg-signal/8 p-4">
             <p className="text-sm font-semibold leading-relaxed text-fg">
-              We monitor these groups for you and alert you the moment someone needs your service — so you're never the one who replies too late.
+              We monitor these groups for you and alert you the moment someone needs your service — so you&apos;re never the one who replies too late.
             </p>
           </div>
         </Reveal>

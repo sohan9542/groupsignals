@@ -22,8 +22,7 @@ export function BlogImage({
         // object-contain, not object-cover: these are screenshots with
         // text/UI baked in, cropping to fill the box was cutting words off
         // the edges. Letterboxing beats losing content.
-        // eslint-disable-next-line @next/next/no-img-element -- a handful
-        // of static blog images don't need next/image's optimizer config.
+        // eslint-disable-next-line @next/next/no-img-element -- static blog assets
         <img
           src={src}
           alt={alt}

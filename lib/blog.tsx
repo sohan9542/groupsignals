@@ -156,7 +156,7 @@ export const BLOG_POSTS: BlogPost[] = [
         </p>
         <h3>Public and private group coverage</h3>
         <p>
-          A lot of the best local groups are private and invite-only. That's
+          A lot of the best local groups are private and invite-only. That&apos;s
           often by design: admins keep them private specifically to keep out
           spam and solicitation, which also means fewer competitors are
           watching them. A tool that only handles public groups is going to
