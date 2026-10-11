@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Loader2, Plus } from "lucide-react";
 import { parseSourceUrl } from "@/lib/sources";
-import { Modal } from "./Modal";
+import { Modal } from "../ui/Modal";
 
 const INTENT_PLACEHOLDER =
   "e.g. I want to get notified when someone posts about needing a plumbing service";

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { EmailManager } from "@/components/EmailManager";
+import { EmailManager } from "@/components/dashboard/EmailManager";
 import { createClient } from "@/lib/supabase/server";
 import type { EmailDestination } from "@/lib/types";
 

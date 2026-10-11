@@ -18,8 +18,8 @@ import type {
   PrivateGroupWithAssignments,
 } from "@/lib/types";
 import { AssignAccountsModal } from "./AssignAccountsModal";
-import { PlatformIcon } from "./PlatformIcon";
-import { StatusPill } from "./StatusPill";
+import { PlatformIcon } from "../ui/PlatformIcon";
+import { StatusPill } from "../ui/StatusPill";
 
 export function PrivateGroupAssignments({
   groups,

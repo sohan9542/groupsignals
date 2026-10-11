@@ -1,6 +1,6 @@
 import { Star } from "lucide-react";
-import { Reveal } from "./Reveal";
-import { SectionHeading } from "./SectionHeading";
+import { Reveal } from "../ui/Reveal";
+import { SectionHeading } from "../ui/SectionHeading";
 
 type Review = {
   quote: string;

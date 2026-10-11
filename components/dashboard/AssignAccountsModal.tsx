@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Loader2, Save } from "lucide-react";
-import { Modal } from "./Modal";
+import { Modal } from "../ui/Modal";
 import type { FacebookCookiePoolEntry, PrivateGroupWithAssignments } from "@/lib/types";
 
 const MAX_ASSIGNED = 4;

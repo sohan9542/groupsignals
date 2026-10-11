@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { LeadList } from "@/components/LeadList";
+import { LeadList } from "@/components/dashboard/LeadList";
 import { createClient } from "@/lib/supabase/server";
 import type { Lead, LeadStatus, WatchSource } from "@/lib/types";
 

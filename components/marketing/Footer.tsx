@@ -1,4 +1,4 @@
-import { Logo } from "./Logo";
+import { Logo } from "../ui/Logo";
 
 const FOOTER_LINKS = [
   { label: "Features", href: "/#features" },

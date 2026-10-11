@@ -1,5 +1,5 @@
 import { Quote } from "lucide-react";
-import { Reveal } from "./Reveal";
+import { Reveal } from "../ui/Reveal";
 
 /* This sits in the spot a testimonials section would normally occupy. We
  * don't have paying customers yet, so there's nothing to quote them saying —

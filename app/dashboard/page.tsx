@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { SourceManager } from "@/components/SourceManager";
+import { SourceManager } from "@/components/dashboard/SourceManager";
 import { createClient } from "@/lib/supabase/server";
 import { groupLimitForSubscription } from "@/lib/offer";
 import { isAdmin } from "@/lib/admin";

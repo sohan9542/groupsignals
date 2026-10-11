@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { PLANS } from "@/lib/offer";
-import { LegalLayout } from "@/components/LegalLayout";
+import { LegalLayout } from "@/components/legal/LegalLayout";
 
 export const metadata: Metadata = {
   title: "Terms of Service",

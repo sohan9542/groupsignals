@@ -1,6 +1,6 @@
 import { ArrowRight, Facebook, Users } from "lucide-react";
-import { Reveal } from "./Reveal";
-import { SectionHeading } from "./SectionHeading";
+import { Reveal } from "../ui/Reveal";
+import { SectionHeading } from "../ui/SectionHeading";
 
 /* Illustrative example posts — not real people or real groups, just the kind
  * of conversation GroupSignal catches. We don't surface poster identity, so

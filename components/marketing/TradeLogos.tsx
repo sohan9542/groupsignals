@@ -1,6 +1,6 @@
 import { Droplet, Wind, Zap, Home, Thermometer, Wrench } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { Reveal } from "./Reveal";
+import { Reveal } from "../ui/Reveal";
 
 /* Illustrative logo marks, not real businesses — deliberately generic/
  * fictional so this reads as "the kind of team this is built for" and never

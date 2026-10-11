@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import type { Metadata } from "next";
-import { Navbar } from "@/components/Navbar";
-import { LoginForm } from "@/components/LoginForm";
+import { Navbar } from "@/components/marketing/Navbar";
+import { LoginForm } from "@/components/auth/LoginForm";
 
 export const metadata: Metadata = {
   title: "Sign in",

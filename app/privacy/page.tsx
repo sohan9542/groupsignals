@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { LegalLayout } from "@/components/LegalLayout";
+import { LegalLayout } from "@/components/legal/LegalLayout";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",

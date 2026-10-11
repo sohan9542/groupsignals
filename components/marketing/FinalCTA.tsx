@@ -1,5 +1,5 @@
 import { ArrowRight } from "lucide-react";
-import { Reveal } from "./Reveal";
+import { Reveal } from "../ui/Reveal";
 
 export function FinalCTA() {
   return (

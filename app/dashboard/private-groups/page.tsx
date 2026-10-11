@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { createServiceClient } from "@/lib/supabase/service";
 import { isAdmin } from "@/lib/admin";
-import { PrivateGroupAssignments } from "@/components/PrivateGroupAssignments";
+import { PrivateGroupAssignments } from "@/components/dashboard/PrivateGroupAssignments";
 import type {
   CookieStatus,
   FacebookCookiePoolEntry,

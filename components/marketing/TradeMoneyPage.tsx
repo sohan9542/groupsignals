@@ -4,9 +4,9 @@ import { useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, Check, Facebook, Plus, Users, X } from "lucide-react";
 import Link from "next/link";
-import { GetStarted } from "@/components/GetStarted";
-import { Reveal } from "@/components/Reveal";
-import { SectionHeading } from "@/components/SectionHeading";
+import { GetStarted } from "@/components/marketing/GetStarted";
+import { Reveal } from "@/components/ui/Reveal";
+import { SectionHeading } from "@/components/ui/SectionHeading";
 import type { SeoArticleSection, SeoFaq, SeoPageData } from "@/lib/seo-page-types";
 
 export function TradeMoneyPage({ data }: { data: SeoPageData }) {

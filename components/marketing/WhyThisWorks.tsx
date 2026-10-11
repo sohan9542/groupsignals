@@ -1,6 +1,6 @@
 import { Eye, MessagesSquare, Timer } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { Reveal } from "./Reveal";
+import { Reveal } from "../ui/Reveal";
 
 type Reason = { icon: LucideIcon; title: string; body: string };
 

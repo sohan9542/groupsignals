@@ -19,8 +19,8 @@ import Link from "next/link";
 import { PLATFORM_LABEL, type WatchSource } from "@/lib/types";
 import { AddSourceModal } from "./AddSourceModal";
 import { EditIntentModal } from "./EditIntentModal";
-import { PlatformIcon } from "./PlatformIcon";
-import { StatusPill } from "./StatusPill";
+import { PlatformIcon } from "../ui/PlatformIcon";
+import { StatusPill } from "../ui/StatusPill";
 
 export function SourceManager({
   sources,

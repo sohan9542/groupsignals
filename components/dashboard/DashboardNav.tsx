@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { CreditCard, Inbox, LogOut, Mail, Menu, Radio, Settings, X } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { Logo } from "./Logo";
+import { Logo } from "../ui/Logo";
 
 type NavItem = { label: string; href: string; icon: LucideIcon };
 

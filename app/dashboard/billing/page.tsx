@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { Check } from "lucide-react";
-import { BillingActions } from "@/components/BillingActions";
+import { BillingActions } from "@/components/dashboard/BillingActions";
 import { ACTIVE_SUBSCRIPTION_STATUSES, PLANS, planForPriceId } from "@/lib/offer";
 import { createClient } from "@/lib/supabase/server";
 import type { Subscription } from "@/lib/types";

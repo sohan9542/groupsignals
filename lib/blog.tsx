@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import Link from "next/link";
-import { BlogCallout } from "@/components/BlogCallout";
-import { BlogImage } from "@/components/BlogImage";
+import { BlogCallout } from "@/components/blog/BlogCallout";
+import { BlogImage } from "@/components/blog/BlogImage";
 
 /**
  * Hand-written posts, not a CMS. There's a handful of these, not hundreds.

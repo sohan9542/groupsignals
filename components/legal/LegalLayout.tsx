@@ -1,5 +1,5 @@
-import { Navbar } from "./Navbar";
-import { Footer } from "./Footer";
+import { Navbar } from "../marketing/Navbar";
+import { Footer } from "../marketing/Footer";
 import { createClient } from "@/lib/supabase/server";
 
 /** Shared chrome for the /privacy, /terms, /refund pages — plain prose, no

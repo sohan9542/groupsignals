@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
-import { Logo } from "./Logo";
+import { Logo } from "../ui/Logo";
 
 const NAV_LINKS = [
   { label: "Features", href: "/#features" },

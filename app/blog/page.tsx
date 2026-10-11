@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Calendar, ChevronRight, Clock } from "lucide-react";
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
-import { BlogImage } from "@/components/BlogImage";
+import { Navbar } from "@/components/marketing/Navbar";
+import { Footer } from "@/components/marketing/Footer";
+import { BlogImage } from "@/components/blog/BlogImage";
 import { getAllPosts } from "@/lib/blog";
 import { createClient } from "@/lib/supabase/server";
 

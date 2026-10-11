@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Loader2, Save } from "lucide-react";
-import { Modal } from "./Modal";
+import { Modal } from "../ui/Modal";
 
 /** Shared by "add a new pooled cookie" and "replace a dead one" — same shape, different endpoint. */
 export function CookieFormModal({

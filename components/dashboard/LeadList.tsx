@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Bookmark, Check, ExternalLink, Loader2, X } from "lucide-react";
 import type { Lead, LeadStatus, WatchSource } from "@/lib/types";
-import { PlatformIcon } from "./PlatformIcon";
+import { PlatformIcon } from "../ui/PlatformIcon";
 
 const FILTERS: { label: string; value: LeadStatus | "all" }[] = [
   { label: "New", value: "new" },

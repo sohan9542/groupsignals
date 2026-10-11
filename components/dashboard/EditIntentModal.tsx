@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Loader2, Save } from "lucide-react";
 import type { WatchSource } from "@/lib/types";
-import { Modal } from "./Modal";
+import { Modal } from "../ui/Modal";
 
 export function EditIntentModal({
   source,

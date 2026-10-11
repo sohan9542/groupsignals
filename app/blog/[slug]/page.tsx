@@ -2,10 +2,10 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowRight, Calendar, ChevronRight, Clock } from "lucide-react";
-import { Navbar } from "@/components/Navbar";
-import { Footer } from "@/components/Footer";
-import { BlogImage } from "@/components/BlogImage";
-import { BlogToc } from "@/components/BlogToc";
+import { Navbar } from "@/components/marketing/Navbar";
+import { Footer } from "@/components/marketing/Footer";
+import { BlogImage } from "@/components/blog/BlogImage";
+import { BlogToc } from "@/components/blog/BlogToc";
 import { getAllPosts, getBlogPost } from "@/lib/blog";
 import { createClient } from "@/lib/supabase/server";
 

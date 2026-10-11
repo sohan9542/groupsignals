@@ -6,8 +6,8 @@ import { createServiceClient } from "@/lib/supabase/service";
 import { isAdmin } from "@/lib/admin";
 import { isCronEnabled } from "@/lib/settings";
 import { getScheduleStatus } from "@/lib/qstash";
-import { CookiePool } from "@/components/CookiePool";
-import { ScanScheduleToggle } from "@/components/ScanScheduleToggle";
+import { CookiePool } from "@/components/dashboard/CookiePool";
+import { ScanScheduleToggle } from "@/components/dashboard/ScanScheduleToggle";
 import type { FacebookCookiePoolEntry } from "@/lib/types";
 
 export const metadata: Metadata = { title: "Settings" };

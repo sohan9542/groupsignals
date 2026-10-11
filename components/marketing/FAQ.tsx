@@ -4,7 +4,7 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Plus } from "lucide-react";
 import { PLANS } from "@/lib/offer";
-import { SectionHeading } from "./SectionHeading";
+import { SectionHeading } from "../ui/SectionHeading";
 
 const FAQS = [
   {

@@ -1,7 +1,7 @@
 import { ArrowRight, Check } from "lucide-react";
 import { PLANS } from "@/lib/offer";
-import { Reveal } from "./Reveal";
-import { SectionHeading } from "./SectionHeading";
+import { Reveal } from "../ui/Reveal";
+import { SectionHeading } from "../ui/SectionHeading";
 
 const INCLUDED = [
   "15 days free trial",

@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { DashboardNav } from "@/components/DashboardNav";
+import { DashboardNav } from "@/components/dashboard/DashboardNav";
 import { createClient } from "@/lib/supabase/server";
 import { isAdmin } from "@/lib/admin";
 

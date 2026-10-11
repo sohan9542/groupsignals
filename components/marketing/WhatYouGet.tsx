@@ -1,7 +1,7 @@
 import { Filter, Inbox, Target } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import { Reveal } from "./Reveal";
-import { SectionHeading } from "./SectionHeading";
+import { Reveal } from "../ui/Reveal";
+import { SectionHeading } from "../ui/SectionHeading";
 
 type Item = { icon: LucideIcon; title: string; body: string };
 
