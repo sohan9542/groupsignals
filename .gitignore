@@ -1,8 +1,18 @@
-.env
+# dependencies
 node_modules
+
+# env / secrets — never commit these
+.env
+.env.*
+!.env.example
+!.env.local.example
+
+# next.js
 .next
 out
 build
+
+# misc
 .DS_Store
 *.pem
 npm-debug.log*
