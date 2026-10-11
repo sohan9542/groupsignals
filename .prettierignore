@@ -1,0 +1,9 @@
+node_modules
+.next
+out
+build
+package-lock.json
+public
+supabase/migrations
+lib/blog.tsx
+lib/seo-pages
