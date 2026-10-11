@@ -1,149 +1,158 @@
 # GroupSignal
 
-Facebook group leads, sent to your inbox. Users watch groups — public need no
-login, private are handled through an admin-managed pool of Facebook cookies —
-say in plain English what a good lead looks like, and an AI classifier
-matches every new post against that before it ever hits an inbox. Reddit is
-paused for now.
+**[groupsignal.net](https://www.groupsignal.net)** — Facebook group lead alerts for contractors and local service businesses.
 
-Next.js 16 (App Router) · React 19 · Tailwind v4 · Supabase · Apify · Anthropic · Resend · Paddle.
+Watch public or private Facebook groups, describe in plain English what a good lead looks like, and get matched posts delivered to email. Matching is AI-classified against each source’s intent (not a keyword list). Payments run through Paddle.
 
-## Running it
+Reddit monitoring is paused.
+
+## Features
+
+- Watch Facebook groups (public without login; private via an admin-managed cookie pool)
+- Plain-English intent matching (Anthropic) before a lead hits the inbox
+- Instant email alerts to verified destinations (Resend)
+- Subscription plans with group limits (Paddle checkout + webhooks)
+- Manual “Scan now” plus hourly scheduled scans (Upstash QStash, with a daily Vercel Cron backup)
+- Admin tools for the cookie pool, private-group account assignment, and scan schedule toggle
+
+## Tech stack
+
+| Layer       | Choice                                               |
+| ----------- | ---------------------------------------------------- |
+| App         | Next.js 16 (App Router), React 19, TypeScript        |
+| UI          | Tailwind CSS v4, Framer Motion, Lucide               |
+| Auth & data | Supabase (Auth, Postgres, RLS)                       |
+| Scraping    | Apify (public + cookie-authenticated private actors) |
+| Matching    | Anthropic Messages API                               |
+| Email       | Resend                                               |
+| Billing     | Paddle                                               |
+| Scheduling  | Upstash QStash + Vercel Cron                         |
+| Hosting     | Vercel                                               |
+
+## Architecture overview
+
+```
+Browser / Paddle / Apify / QStash
+        │
+        ▼
+   Next.js (app/) ── proxy session refresh
+        │
+        ├── Marketing & SEO landers (static)
+        ├── Dashboard (watchlist, leads, email, billing)
+        └── API routes
+              ├── Authenticated CRUD (sources, leads, email)
+              ├── Admin (cookie pool, private groups, cron toggle)
+              ├── /api/apify/webhook   ← scrape results
+              ├── /api/webhooks/paddle ← subscription state
+              └── /api/cron/scan       ← scheduled sweep
+        │
+        ▼
+   lib/  (scan, match-intent, apify, email, offer, …)
+        │
+        ▼
+   Supabase (RLS on user tables; service role for webhooks/admin)
+```
+
+**Lead path (happy path):**
+
+1. User adds a Facebook group URL + intent (private groups start as `pending` until an admin assigns a pooled account).
+2. A scan starts an Apify actor run and returns immediately.
+3. Apify POSTs results to `/api/apify/webhook` (shared-secret verified).
+4. Posts are batch-classified against the source intent; matches are upserted into `leads` and emailed to verified instant-digest destinations.
+5. Failed private-group runs mark the used cookie `banned` and notify the admin.
+
+Schema and RLS live in `supabase/migrations/`.
+
+## Local setup
+
+Requirements: Node.js 20+ and npm.
 
 ```bash
 npm install
-cp .env.local.example .env.local   # then fill it in — see below
+cp .env.example .env.local   # or cp .env.local.example .env.local for commented guidance
+# fill in values — see Environment below
 npm run dev
 ```
 
-## Environment
+Open [http://localhost:3000](http://localhost:3000) (or the port Next prints).
 
-Every value is documented in [`.env.local.example`](.env.local.example). The
-ones without which things silently do nothing:
+Apply Supabase migrations from `supabase/migrations/` to your project before exercising auth or the dashboard.
 
-| Variable                         | Why it matters                                                                                                                                                                                         |
-| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `SUPABASE_SERVICE_ROLE_KEY`      | The Apify webhook, Paddle webhook, and the cookie-pool/admin routes all write or read rows for a user who isn't making the request (or that aren't owned by any user). Without it they return 503/403. |
-| `APIFY_TOKEN`                    | Starting a scrape run.                                                                                                                                                                                 |
-| `APIFY_WEBHOOK_SECRET`           | Our own random string, not something Apify issues. We embed it in the run's payload template and compare it back on the way in.                                                                        |
-| `PUBLIC_WEBHOOK_BASE_URL`        | Apify calls us back from its servers, so this must be publicly reachable. Falls back to `NEXT_PUBLIC_SITE_URL` / the Vercel production host — a scan only refuses if every candidate is localhost.     |
-| `QSTASH_TOKEN`                   | Creates and keeps the hourly scan schedule. Without it, only the daily Vercel Cron backup in `vercel.json` fires.                                                                                      |
-| `FACEBOOK_COOKIE_ENCRYPTION_KEY` | Encrypts every cookie in the admin pool at rest. Without it, adding or using a pooled cookie fails outright.                                                                                           |
-| `ANTHROPIC_API_KEY`              | Classifying scraped posts against a source's intent. Without it a scan finishes but finds zero leads.                                                                                                  |
-| `RESEND_API_KEY` / `EMAIL_FROM`  | Sending lead alerts and admin cookie-ban alerts. `EMAIL_FROM` must be on a Resend-verified domain — the sandbox `onboarding@resend.dev` address only delivers to the Resend account's own email.       |
+For Apify webhooks and cron against a local machine, set `PUBLIC_WEBHOOK_BASE_URL` to a publicly reachable tunnel; localhost alone is not enough for those callbacks.
 
-## Layout
+## Environment variables
+
+Names only — never commit real values. Full commentary is in [`.env.local.example`](.env.local.example); a blank template is [`.env.example`](.env.example).
+
+| Variable                                                            | Role                                           |
+| ------------------------------------------------------------------- | ---------------------------------------------- |
+| `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY`        | Browser + server Supabase clients              |
+| `SUPABASE_SERVICE_ROLE_KEY`                                         | Webhooks and admin routes (bypasses RLS)       |
+| `APIFY_TOKEN` / `APIFY_WEBHOOK_SECRET`                              | Start scrapes; verify Apify callbacks          |
+| `APIFY_FACEBOOK_GROUP_ACTOR` / `APIFY_PRIVATE_FACEBOOK_GROUP_ACTOR` | Optional actor overrides                       |
+| `FACEBOOK_COOKIE_ENCRYPTION_KEY`                                    | AES key for pooled cookies at rest             |
+| `ADMIN_EMAIL`                                                       | Optional override for the single admin account |
+| `ANTHROPIC_API_KEY`                                                 | Intent classification                          |
+| `RESEND_API_KEY` / `EMAIL_FROM`                                     | Lead and admin alert email                     |
+| `CRON_SECRET` / `QSTASH_TOKEN`                                      | Authorize and schedule `/api/cron/scan`        |
+| `NEXT_PUBLIC_PADDLE_*` / `PADDLE_WEBHOOK_SECRET`                    | Checkout UI + webhook verification             |
+| `NEXT_PUBLIC_SITE_URL` / `PUBLIC_WEBHOOK_BASE_URL`                  | Canonical site URL and public webhook origin   |
+
+Without service-role / Apify / Anthropic / Resend keys, marketing and auth can still run; scans and lead email will not.
+
+## Scripts
+
+| Command                           | Purpose                        |
+| --------------------------------- | ------------------------------ |
+| `npm run dev`                     | Local Next.js dev server       |
+| `npm run build`                   | Production build               |
+| `npm start`                       | Serve the production build     |
+| `npm run lint`                    | ESLint                         |
+| `npm run lint:fix`                | ESLint with autofix            |
+| `npm run format` / `format:check` | Prettier                       |
+| `npm run typecheck`               | `tsc --noEmit`                 |
+| `npm test`                        | Unit tests (`node:test` + tsx) |
+
+CI runs lint, format check, typecheck, test, and build on pushes and pull requests (see [`.github/workflows/ci.yml`](.github/workflows/ci.yml)).
+
+## Project structure
 
 ```
-app/
-  page.tsx              marketing landing page
-  login/                magic-link sign in (also signs you up)
-  dashboard/
-    page.tsx             watchlist
-    leads/                leads
-    email/                alert destinations
-    billing/              subscription
-    settings/             admin-only: cookie pool + the scan on/off switch
-  api/
-    sources/              add, edit, delete, scan a watched group
-    leads/[id]/           mark a lead saved / replied / dismissed
-    email/                alert destinations
-    facebook-cookies/     admin: manage the pooled cookies
-    settings/cron/        admin: read/flip app_settings.cron_enabled
-    cron/scan/             hit by QStash/Vercel Cron — sweeps every active source
-    apify/webhook/        scrape results land here
-    webhooks/paddle/      subscription state lands here
+app/                    App Router pages and API routes (URLs are the routes)
+  api/                  Authenticated, admin, cron, and webhook endpoints
+  dashboard/            Signed-in product UI
+  blog/                 Blog index and posts
+  */page.tsx            Marketing + SEO landers (do not rename lightly — URLs)
+components/
+  marketing/            Landing and SEO page sections
+  dashboard/            Watchlist, leads, billing, admin UI
+  blog/                 Blog presentational pieces
+  auth/                 Login form
+  legal/                Shared legal page chrome
+  ui/                   Shared primitives (Modal, Reveal, Logo, …)
 lib/
-  apify.ts               run the scraper (public actor or cookie-authenticated
-                          private one), normalise its output
-  scan.ts                  shared "start a scan for this source" logic, used
-                          by both the manual button and the cron sweep
-  qstash.ts                self-registers the hourly QStash schedule
-  public-url.ts            resolves a public origin, filtering out localhost
-  match-intent.ts        AI classifier — post content vs. a source's plain-
-                          English intent
-  email.ts                lead alerts + admin cookie-ban alerts, via Resend
-  facebook-cookies.ts     validate/encrypt/decrypt pooled cookies
-  settings.ts              read/write the cron_enabled toggle
-  admin.ts                the one hardcoded admin account
-  sources.ts              URL parsing (Facebook only — Reddit paused) + intent validation
-  supabase/                browser, server and service-role clients
-supabase/migrations/     schema, RLS policies, new-user bootstrap
+  api/                  Shared route helpers (auth, JSON responses)
+  seo/                  SEO metadata, lander data, route factory
+  supabase/             Browser, server, and service-role clients
+  *.ts                  Scan, Apify, matching, email, plans, cookies, …
+supabase/migrations/    Schema and RLS
+public/                 Static assets
 ```
-
-## How a lead arrives
-
-1. A user adds a Facebook group, marks it public or private, and writes in
-   plain English what should trigger a notification (e.g. "someone needs a
-   plumber").
-2. Scanning starts an Apify actor run and returns immediately — scraping takes
-   minutes, far longer than a request should stay open. A private source
-   scans with the least-recently-used **active** cookie from the admin pool
-   (`facebook_cookies`); a public one scans with no login at all.
-3. Apify calls `/api/apify/webhook` when the run finishes.
-4. Every scraped post is classified in one batched call against the source's
-   intent (`lib/match-intent.ts`). Matches are written to `leads` — a
-   `(user_id, platform, external_id)` unique index means rescanning a group
-   never re-alerts on posts already seen — and an email goes out immediately
-   to the user's verified, instant-digest destination(s).
-5. If a private-source run fails, the cookie it used is marked `banned` and
-   the admin gets an email. There's no separate health check — a failed run
-   _is_ the ban signal, so a false positive just means a healthy cookie sits
-   disabled until an admin flips it back in Settings.
-
-The first scan only pulls the latest 5 posts. Repeat scans pass
-`onlyPostsNewerThan` from the source's `last_run_at`, so a rescan fetches
-new posts only (still capped at 5) rather than re-walking the group's history.
-
-## Scheduled scans (Upstash QStash + Vercel Cron)
-
-`/api/cron/scan` sweeps every `active` source in one tick — however many
-exist — skipping anything scanned in the last 55 minutes, and starts a scan
-for each the same way the "Scan now" button does. Frequency is independent
-of watchlist size: whether there are 5 sources or 5,000, the schedule still
-fires once an hour, not once per source.
-
-Two things can hit that route:
-
-1. **QStash, once an hour (24 times a day)** — set `QSTASH_TOKEN` (Upstash
-   console → QStash) on Vercel. The first authorized cron request creates
-   schedule `groupsignals-watchlist-scan` pointed at the public site URL,
-   with `X-Cron-Secret` already attached. Redeploys update the destination
-   if the domain changes. No manual curl.
-2. **Vercel Cron, once a day** (`vercel.json`, 08:00 UTC) — Hobby-safe backup
-   so groups still get scanned if QStash isn't configured yet. Vercel sends
-   `Authorization: Bearer $CRON_SECRET`; the route accepts that as well as
-   `X-Cron-Secret`.
-
-Either way, the route checks `app_settings.cron_enabled` before scanning
-anything. Toggle it from Settings → Scheduled scanning (admin only) to pause
-every automatic scan across every user instantly — the schedule keeps firing
-on its hourly cadence regardless, each tick just becomes a no-op while it's
-off. Manual "Scan now" from the Watchlist still works either way.
-
-`PUBLIC_WEBHOOK_BASE_URL` / `NEXT_PUBLIC_SITE_URL` must be a public origin
-(your Vercel domain, not localhost). Apify's webhook is built from that,
-because QStash and Vercel invocations often look like `localhost` internally.
 
 ## Security notes
 
-- Every user-owned table is RLS'd to `auth.uid()`. The browser talks to
-  Postgres directly and can only ever see its own rows.
-- `facebook_cookies` has RLS enabled with **no policies at all** — it isn't
-  owned by any single user, so there's no `auth.uid()` to check. It's reached
-  only through the service-role client, gated by `lib/admin.ts` in every route
-  that touches it.
-- `leads` has no insert policy and `subscriptions` has no write policy at all —
-  those are written exclusively by webhooks/service role. A browser session
-  that could write them could grant itself a plan or fabricate leads.
-- Both webhooks verify a signature with `timingSafeEqual` before touching the
-  service-role client. The admin routes check `isAdmin(user.email)` instead.
-- Pooled cookies are AES-256-GCM encrypted before they ever reach Postgres —
-  see `lib/facebook-cookies.ts`.
+- User tables are RLS-scoped to `auth.uid()`.
+- `facebook_cookies` has RLS enabled with no user policies — access is service-role only, gated by `lib/admin.ts`.
+- `leads` has no insert policy and `subscriptions` has no client write policy; webhooks/service role own those writes.
+- Apify and Paddle webhooks verify secrets with `timingSafeEqual` before using the service role.
+- Pooled cookies are encrypted (AES-256-GCM) before storage.
 
-## Not built yet
+## Known limitations
 
-- **No daily digest.** `email_destinations.digest = 'daily'` is stored but
-  nothing reads it — only `'instant'` destinations get mailed today.
-- **Reddit is paused.** `parseSourceUrl` rejects reddit.com links outright
-  until it's switched back on.
+- Daily digest destinations are stored (`digest = 'daily'`) but only `instant` destinations are mailed today.
+- Reddit source URLs are rejected until that platform is re-enabled.
+- Email destination verification tokens exist in the schema; verification email sending is not wired yet, so new addresses stay `pending` until verified by other means.
+
+## License
+
+Private repository. All rights reserved.
